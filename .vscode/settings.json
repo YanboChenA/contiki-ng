@@ -1,0 +1,11 @@
+{
+    "files.associations": {
+        "tsch.h": "c",
+        "contiki.h": "c",
+        "nullnet.h": "c",
+        "tsch-cs.h": "c",
+        "netstack.h": "c",
+        "routing.h": "c",
+        "uip-ds6-route.h": "c"
+    }
+}

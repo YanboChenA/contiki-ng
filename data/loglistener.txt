@@ -1,0 +1,1203 @@
+00:00.073	ID:8	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.073	ID:8	[INFO: Main      ] - Routing: RPL Lite
+00:00.073	ID:8	[INFO: Main      ] - Net: sicslowpan
+00:00.073	ID:8	[INFO: Main      ] - MAC: TSCH
+00:00.073	ID:8	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.073	ID:8	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.073	ID:8	[INFO: Main      ] Node ID: 8
+00:00.073	ID:8	[INFO: Main      ] Link-layer address: 0008.0008.0008.0008
+00:00.073	ID:8	[INFO: Main      ] Tentative link-local IPv6 address: fe80::208:8:8:8
+00:00.073	ID:8	[INFO: TSCH      ] scanning on channel 20
+00:00.073	ID:8	[INFO: TSCH      ] starting as node
+00:00.236	ID:2	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.236	ID:2	[INFO: Main      ] - Routing: RPL Lite
+00:00.236	ID:2	[INFO: Main      ] - Net: sicslowpan
+00:00.236	ID:2	[INFO: Main      ] - MAC: TSCH
+00:00.236	ID:2	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.236	ID:2	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.236	ID:2	[INFO: Main      ] Node ID: 2
+00:00.236	ID:2	[INFO: Main      ] Link-layer address: 0002.0002.0002.0002
+00:00.236	ID:2	[INFO: Main      ] Tentative link-local IPv6 address: fe80::202:2:2:2
+00:00.236	ID:2	[INFO: TSCH      ] scanning on channel 20
+00:00.236	ID:2	[INFO: TSCH      ] starting as node
+00:00.250	ID:6	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.250	ID:6	[INFO: Main      ] - Routing: RPL Lite
+00:00.250	ID:6	[INFO: Main      ] - Net: sicslowpan
+00:00.250	ID:6	[INFO: Main      ] - MAC: TSCH
+00:00.250	ID:6	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.250	ID:6	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.250	ID:6	[INFO: Main      ] Node ID: 6
+00:00.250	ID:6	[INFO: Main      ] Link-layer address: 0006.0006.0006.0006
+00:00.250	ID:6	[INFO: Main      ] Tentative link-local IPv6 address: fe80::206:6:6:6
+00:00.250	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:00.250	ID:6	[INFO: TSCH      ] starting as node
+00:00.348	ID:4	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.348	ID:4	[INFO: Main      ] - Routing: RPL Lite
+00:00.348	ID:4	[INFO: Main      ] - Net: sicslowpan
+00:00.348	ID:4	[INFO: Main      ] - MAC: TSCH
+00:00.348	ID:4	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.348	ID:4	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.348	ID:4	[INFO: Main      ] Node ID: 4
+00:00.348	ID:4	[INFO: Main      ] Link-layer address: 0004.0004.0004.0004
+00:00.348	ID:4	[INFO: Main      ] Tentative link-local IPv6 address: fe80::204:4:4:4
+00:00.348	ID:4	[INFO: TSCH      ] scanning on channel 15
+00:00.348	ID:4	[INFO: TSCH      ] starting as node
+00:00.382	ID:1	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.382	ID:1	[INFO: Main      ] - Routing: RPL Lite
+00:00.382	ID:1	[INFO: Main      ] - Net: sicslowpan
+00:00.382	ID:1	[INFO: Main      ] - MAC: TSCH
+00:00.382	ID:1	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.382	ID:1	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.382	ID:1	[INFO: Main      ] Node ID: 1
+00:00.382	ID:1	[INFO: Main      ] Link-layer address: 0001.0001.0001.0001
+00:00.382	ID:1	[INFO: Main      ] Tentative link-local IPv6 address: fe80::201:1:1:1
+00:00.382	ID:1	[INFO: TSCH Sched] Adding slotframe 0, size 3
+00:00.382	ID:1	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+00:00.382	ID:1	[INFO: TSCH      ] starting as coordinator, PAN ID 81a5, asn-0.0
+00:00.382	ID:1	[INFO: TSCH      ] starting as coordinator
+00:00.402	ID:7	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.402	ID:7	[INFO: Main      ] - Routing: RPL Lite
+00:00.402	ID:7	[INFO: Main      ] - Net: sicslowpan
+00:00.402	ID:7	[INFO: Main      ] - MAC: TSCH
+00:00.402	ID:7	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.402	ID:7	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.402	ID:7	[INFO: Main      ] Node ID: 7
+00:00.402	ID:7	[INFO: Main      ] Link-layer address: 0007.0007.0007.0007
+00:00.402	ID:7	[INFO: Main      ] Tentative link-local IPv6 address: fe80::207:7:7:7
+00:00.402	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:00.402	ID:7	[INFO: TSCH      ] starting as node
+00:00.482	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:00.505	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:00.505	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000000c link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:00.508	ID:4	[INFO: TSCH      ] scan: received packet (35 bytes) on channel 15
+00:00.508	ID:4	[INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+00:00.508	ID:4	[INFO: TSCH Sched] Adding slotframe 0, size 3
+00:00.508	ID:4	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+00:00.508	ID:4	[INFO: TSCH Queue] update time source: (NULL LL addr) -> 0001.0001.0001.0001
+00:00.508	ID:4	[INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.c, jp 1, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0001.0001.0001.0001
+00:00.708	ID:9	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.708	ID:9	[INFO: Main      ] - Routing: RPL Lite
+00:00.708	ID:9	[INFO: Main      ] - Net: sicslowpan
+00:00.708	ID:9	[INFO: Main      ] - MAC: TSCH
+00:00.708	ID:9	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.708	ID:9	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.708	ID:9	[INFO: Main      ] Node ID: 9
+00:00.708	ID:9	[INFO: Main      ] Link-layer address: 0009.0009.0009.0009
+00:00.708	ID:9	[INFO: Main      ] Tentative link-local IPv6 address: fe80::209:9:9:9
+00:00.708	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:00.708	ID:9	[INFO: TSCH      ] starting as node
+00:00.715	ID:5	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.715	ID:5	[INFO: Main      ] - Routing: RPL Lite
+00:00.715	ID:5	[INFO: Main      ] - Net: sicslowpan
+00:00.715	ID:5	[INFO: Main      ] - MAC: TSCH
+00:00.715	ID:5	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.715	ID:5	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.715	ID:5	[INFO: Main      ] Node ID: 5
+00:00.715	ID:5	[INFO: Main      ] Link-layer address: 0005.0005.0005.0005
+00:00.715	ID:5	[INFO: Main      ] Tentative link-local IPv6 address: fe80::205:5:5:5
+00:00.715	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:00.715	ID:5	[INFO: TSCH      ] starting as node
+00:00.899	ID:3	[INFO: Main      ] Starting Contiki-NG-bd360a310
+00:00.899	ID:3	[INFO: Main      ] - Routing: RPL Lite
+00:00.899	ID:3	[INFO: Main      ] - Net: sicslowpan
+00:00.899	ID:3	[INFO: Main      ] - MAC: TSCH
+00:00.899	ID:3	[INFO: Main      ] - 802.15.4 PANID: 0x81a5
+00:00.899	ID:3	[INFO: Main      ] - 802.15.4 TSCH default hopping sequence length: 4
+00:00.899	ID:3	[INFO: Main      ] Node ID: 3
+00:00.899	ID:3	[INFO: Main      ] Link-layer address: 0003.0003.0003.0003
+00:00.899	ID:3	[INFO: Main      ] Tentative link-local IPv6 address: fe80::203:3:3:3
+00:00.899	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:00.899	ID:3	[INFO: TSCH      ] starting as node
+00:01.083	ID:8	[INFO: TSCH      ] scanning on channel 20
+00:01.246	ID:2	[INFO: TSCH      ] scanning on channel 20
+00:01.260	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:01.412	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:01.718	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:01.725	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:01.909	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:02.093	ID:8	[INFO: TSCH      ] scanning on channel 26
+00:02.256	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:02.270	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:02.422	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:02.504	ID:1	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:02.517	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:02.517	ID:1	[INFO: TSCH-LOG  ] {asn 00.000000d5 link  0   3   0  0  0 ch 25} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
+00:02.517	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:02.517	ID:4	[WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+00:02.517	ID:4	[INFO: TSCH-LOG  ] {asn 00.000000d5 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq   0, edr   0, dr   0
+00:02.728	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:02.735	ID:5	[INFO: TSCH      ] scanning on channel 26
+00:02.919	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:03.103	ID:8	[INFO: TSCH      ] scanning on channel 15
+00:03.266	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:03.280	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:03.432	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:03.472	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 65, queue 1/64 1/64, len 21 100
+00:03.508	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65
+00:03.508	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000138 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len 100, seq  65, edr   0
+00:03.508	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 65, status 0, tx 1
+00:03.508	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000138 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len 100, seq  65, st 0  1, dr   0
+00:03.513	ID:8	[INFO: TSCH      ] scan: received packet (17 bytes) on channel 15
+00:03.513	ID:8	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 2, FCF 02 2e
+00:03.513	ID:8	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x0/0000.0000.0000.0000 to 0x81a5/0004.0004.0004.0004
+00:03.738	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:03.745	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:03.808	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:03.835	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:03.835	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000159 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:03.835	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000159 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq   0, edr   0, dr   0
+00:03.929	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:04.001	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 66, queue 1/64 1/64, len 21 100
+00:04.017	ID:5	[INFO: TSCH      ] scan: received packet (100 bytes) on channel 20
+00:04.017	ID:5	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 21 ec
+00:04.017	ID:5	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0004.0004.0004.0004 to 0x81a5/0001.0001.0001.0001
+00:04.018	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 66
+00:04.018	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000016b link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0004->LL-0001, len 100, seq  66, edr   0
+00:04.018	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 66, status 0, tx 1
+00:04.018	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000016b link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0004->LL-0001, len 100, seq  66, st 0  1, dr   0
+00:04.113	ID:8	[INFO: TSCH      ] scanning on channel 26
+00:04.276	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:04.290	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:04.442	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:04.747	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:04.748	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:04.939	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:05.123	ID:8	[INFO: TSCH      ] scanning on channel 25
+00:05.286	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:05.300	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:05.452	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:05.757	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:05.758	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:05.843	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 67, queue 1/64 1/64, len 21 100
+00:05.878	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 67
+00:05.878	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000225 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0004->LL-0001, len 100, seq  67, edr   0
+00:05.878	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 67, status 0, tx 1
+00:05.878	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000225 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0004->LL-0001, len 100, seq  67, st 0  1, dr   0
+00:05.883	ID:8	[INFO: TSCH      ] scan: received packet (17 bytes) on channel 25
+00:05.883	ID:8	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 2, FCF 02 2e
+00:05.883	ID:8	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x0/0000.0000.0000.0000 to 0x81a5/0004.0004.0004.0004
+00:05.949	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:06.133	ID:8	[INFO: TSCH      ] scanning on channel 26
+00:06.296	ID:2	[INFO: TSCH      ] scanning on channel 20
+00:06.310	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:06.462	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:06.767	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:06.768	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:06.959	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:07.143	ID:8	[INFO: TSCH      ] scanning on channel 20
+00:07.306	ID:2	[INFO: TSCH      ] scanning on channel 15
+00:07.320	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:07.354	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:07.375	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:07.375	ID:1	[INFO: TSCH-LOG  ] {asn 00.000002bb link  0   3   0  0  0 ch 20} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:07.375	ID:4	[INFO: TSCH-LOG  ] {asn 00.000002bb link  0   3   0  0  0 ch 20} drift 0 ppm (min/max delta seen: 0/0)
+00:07.375	ID:4	[INFO: TSCH-LOG  ] {asn 00.000002bb link  0   3   0  0  0 ch 20} bc-0-0 rx LL-0001->LL-NULL, len  35, seq   0, edr   0, dr   0
+00:07.383	ID:8	[INFO: TSCH      ] scan: received packet (35 bytes) on channel 20
+00:07.383	ID:8	[INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+00:07.383	ID:8	[INFO: TSCH Sched] Adding slotframe 0, size 3
+00:07.383	ID:8	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+00:07.383	ID:8	[INFO: TSCH Queue] update time source: (NULL LL addr) -> 0001.0001.0001.0001
+00:07.383	ID:8	[INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.2bb, jp 1, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0001.0001.0001.0001
+00:07.472	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:07.695	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 68, queue 1/64 1/64, len 21 100
+00:07.707	ID:5	[INFO: TSCH      ] scan: received packet (100 bytes) on channel 15
+00:07.707	ID:5	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 21 ec
+00:07.707	ID:5	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0004.0004.0004.0004 to 0x81a5/0001.0001.0001.0001
+00:07.708	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 68
+00:07.708	ID:1	[INFO: TSCH-LOG  ] {asn 00.000002dc link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len 100, seq  68, edr   0
+00:07.708	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 68, status 0, tx 1
+00:07.708	ID:4	[INFO: TSCH-LOG  ] {asn 00.000002dc link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len 100, seq  68, st 0  1, dr   0
+00:07.708	ID:4	[WARN: RPL       ] found parent: fe80::201:1:1:1, staying in DAG
+00:07.716	ID:2	[INFO: TSCH      ] scan: received packet (17 bytes) on channel 15
+00:07.716	ID:2	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 2, FCF 02 2e
+00:07.716	ID:2	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x0/0000.0000.0000.0000 to 0x81a5/0004.0004.0004.0004
+00:07.777	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:07.778	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:07.969	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:08.316	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:08.330	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:08.482	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:08.763	ID:1	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:08.787	ID:5	[INFO: TSCH      ] scanning on channel 26
+00:08.787	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:08.787	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000348 link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
+00:08.787	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:08.787	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000348 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0001->LL-NULL, len  94, seq   0, edr   0, dr   0
+00:08.787	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:08.787	ID:8	[WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+00:08.787	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000348 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0001->LL-NULL, len  94, seq   0, edr   0, dr   0
+00:08.788	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:08.979	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:09.326	ID:2	[INFO: TSCH      ] scanning on channel 25
+00:09.340	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:09.492	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:09.642	ID:1	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 1
+00:09.642	ID:1	[INFO: App       ] Received from fd00::201:1:1:1, seqnum 1
+00:09.797	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:09.798	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:09.989	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:10.336	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 69, queue 1/64 1/64, len 21 83
+00:10.336	ID:2	[INFO: TSCH      ] scanning on channel 20
+00:10.348	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 69
+00:10.348	ID:1	[INFO: TSCH-LOG  ] {asn 00.000003e4 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len  83, seq  69, edr   0
+00:10.348	ID:1	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 9, queue 1/64 1/64, len 21 41
+00:10.348	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 69, status 0, tx 1
+00:10.348	ID:4	[INFO: TSCH-LOG  ] {asn 00.000003e4 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len  83, seq  69, st 0  1, dr   0
+00:10.350	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:10.376	ID:2	[INFO: TSCH      ] scan: received packet (41 bytes) on channel 20
+00:10.376	ID:2	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 21 ec
+00:10.376	ID:2	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0001.0001.0001.0001 to 0x81a5/0004.0004.0004.0004
+00:10.377	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 9
+00:10.377	ID:4	[INFO: TSCH-LOG  ] {asn 00.000003e7 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0001->LL-0004, len  41, seq   9, edr   0, dr   0
+00:10.377	ID:1	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 9, status 0, tx 1
+00:10.377	ID:1	[INFO: TSCH-LOG  ] {asn 00.000003e7 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0001->LL-0004, len  41, seq   9, st 0  1
+00:10.377	ID:5	[INFO: TSCH      ] scan: received packet (17 bytes) on channel 20
+00:10.377	ID:5	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 2, FCF 02 2e
+00:10.377	ID:5	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x0/0000.0000.0000.0000 to 0x81a5/0001.0001.0001.0001
+00:10.502	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:10.807	ID:5	[INFO: TSCH      ] scanning on channel 25
+00:10.808	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:10.999	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:11.164	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 228, queue 1/64 1/64, len 21 100
+00:11.188	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 228
+00:11.188	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000438 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0008->LL-0001, len 100, seq 228, edr   0
+00:11.188	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 228, status 0, tx 1
+00:11.188	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000438 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0008->LL-0001, len 100, seq 228, st 0  1, dr   0
+00:11.346	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:11.360	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:11.512	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:11.817	ID:5	[INFO: TSCH      ] scanning on channel 25
+00:11.818	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:12.009	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:12.356	ID:2	[INFO: TSCH      ] scanning on channel 25
+00:12.370	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:12.522	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:12.827	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:12.828	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:13.016	ID:4	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:13.019	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:13.047	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:13.047	ID:4	[INFO: TSCH-LOG  ] {asn 00.000004f2 link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0004->LL-NULL, len  94, seq   0, st 0  1
+00:13.047	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+00:13.047	ID:1	[INFO: TSCH-LOG  ] {asn 00.000004f2 link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0004->LL-NULL, len  94, seq 228, edr   0
+00:13.122	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 229, queue 1/64 1/64, len 21 100
+00:13.138	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 229
+00:13.138	ID:1	[INFO: TSCH-LOG  ] {asn 00.000004fb link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0008->LL-0001, len 100, seq 229, edr   0
+00:13.138	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 229, status 0, tx 1
+00:13.138	ID:8	[INFO: TSCH-LOG  ] {asn 00.000004fb link  0   3   0  0  0 ch 20} drift 0 ppm (min/max delta seen: 0/0)
+00:13.138	ID:8	[INFO: TSCH-LOG  ] {asn 00.000004fb link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0008->LL-0001, len 100, seq 229, st 0  1, dr   0
+00:13.366	ID:2	[INFO: TSCH      ] scanning on channel 15
+00:13.380	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:13.532	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:13.837	ID:5	[INFO: TSCH      ] scanning on channel 25
+00:13.838	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:14.029	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:14.376	ID:2	[INFO: TSCH      ] scanning on channel 26
+00:14.390	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:14.479	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:14.485	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:14.485	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000582 link  0   3   0  0  0 ch 26} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:14.485	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000582 link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+00:14.485	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000582 link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq   9, edr   0, dr   0
+00:14.485	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000582 link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq   9, edr   0, dr   0
+00:14.486	ID:2	[INFO: TSCH      ] scan: received packet (35 bytes) on channel 26
+00:14.486	ID:2	[INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+00:14.486	ID:2	[INFO: TSCH Sched] Adding slotframe 0, size 3
+00:14.486	ID:2	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+00:14.486	ID:2	[INFO: TSCH Queue] update time source: (NULL LL addr) -> 0001.0001.0001.0001
+00:14.486	ID:2	[INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.582, jp 1, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0001.0001.0001.0001
+00:14.542	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:14.847	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:14.848	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:15.039	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:15.110	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:15.115	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:15.115	ID:4	[INFO: TSCH-LOG  ] {asn 00.000005c1 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+00:15.115	ID:1	[INFO: TSCH-LOG  ] {asn 00.000005c1 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0004->LL-NULL, len  35, seq 229, edr   0
+00:15.400	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:15.552	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:15.857	ID:5	[INFO: TSCH      ] scanning on channel 26
+00:15.858	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:15.965	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 230, queue 1/64 1/64, len 21 100
+00:15.988	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 230
+00:15.988	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000618 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0008->LL-0001, len 100, seq 230, edr   0
+00:15.988	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 230, status 0, tx 1
+00:15.988	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000618 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0008->LL-0001, len 100, seq 230, st 0  1, dr   0
+00:16.049	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:16.410	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:16.562	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:16.776	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 231, queue 1/64 1/64, len 21 100
+00:16.798	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 231
+00:16.798	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000669 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0008->LL-0001, len 100, seq 231, edr   0
+00:16.798	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 231, status 0, tx 1
+00:16.798	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000669 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0008->LL-0001, len 100, seq 231, st 0  1, dr   0
+00:16.798	ID:8	[WARN: RPL       ] found parent: fe80::201:1:1:1, staying in DAG
+00:16.867	ID:5	[INFO: TSCH      ] scanning on channel 25
+00:16.868	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:17.059	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:17.078	ID:8	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:17.095	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:17.095	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000687 link  0   3   0  0  0 ch 20} bc-0-0 tx LL-0008->LL-NULL, len  35, seq   0, st 0  1
+00:17.095	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000687 link  0   3   0  0  0 ch 20} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 231, edr   0
+00:17.095	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000687 link  0   3   0  0  0 ch 20} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 231, edr   0
+00:17.420	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:17.572	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:17.877	ID:5	[INFO: TSCH      ] scanning on channel 25
+00:17.878	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:18.069	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:18.260	ID:4	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 1
+00:18.260	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 70, queue 1/64 1/64, len 21 43
+00:18.267	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 70
+00:18.267	ID:1	[INFO: App       ] Received from fd00::204:4:4:4, seqnum 1
+00:18.267	ID:1	[INFO: TSCH-LOG  ] {asn 00.000006fc link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len  43, seq  70, edr   0
+00:18.267	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 70, status 0, tx 1
+00:18.267	ID:4	[INFO: TSCH-LOG  ] {asn 00.000006fc link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len  43, seq  70, st 0  1, dr   0
+00:18.430	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:18.582	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:18.887	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:18.888	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:19.079	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:19.440	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:19.500	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 232, queue 1/64 1/64, len 21 83
+00:19.528	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 232
+00:19.528	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000077a link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0008->LL-0001, len  83, seq 232, edr   0
+00:19.528	ID:1	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 10, queue 1/64 1/64, len 21 41
+00:19.528	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 232, status 0, tx 1
+00:19.528	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000077a link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+00:19.528	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000077a link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0008->LL-0001, len  83, seq 232, st 0  1, dr   0
+00:19.557	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 10
+00:19.557	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000077d link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0001->LL-0008, len  41, seq  10, edr   0, dr   0
+00:19.557	ID:1	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 10, status 0, tx 1
+00:19.557	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000077d link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0001->LL-0008, len  41, seq  10, st 0  1
+00:19.592	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:19.897	ID:5	[INFO: TSCH      ] scanning on channel 20
+00:19.898	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:20.089	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:20.450	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:20.602	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:20.709	ID:4	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:20.727	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:20.727	ID:4	[INFO: TSCH-LOG  ] {asn 00.000007f2 link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0004->LL-NULL, len  94, seq   0, st 0  1
+00:20.727	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+00:20.727	ID:1	[INFO: TSCH-LOG  ] {asn 00.000007f2 link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0004->LL-NULL, len  94, seq 232, edr   0
+00:20.907	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:20.908	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:21.099	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:21.460	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:21.612	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:21.792	ID:8	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:21.807	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:21.807	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000085e link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0008->LL-NULL, len  94, seq   0, st 0  1
+00:21.807	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+00:21.807	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000085e link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0008->LL-NULL, len  94, seq 232, edr   0
+00:21.807	ID:2	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+00:21.807	ID:2	[WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+00:21.807	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000085e link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  10, edr   0
+00:21.917	ID:5	[INFO: TSCH      ] scanning on channel 26
+00:21.918	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:22.109	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:22.470	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:22.551	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:22.555	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:22.555	ID:4	[INFO: TSCH-LOG  ] {asn 00.000008a9 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+00:22.555	ID:1	[INFO: TSCH-LOG  ] {asn 00.000008a9 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0004->LL-NULL, len  35, seq 232, edr   0
+00:22.622	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:22.720	ID:2	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 24
+00:22.734	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:22.734	ID:2	[INFO: TSCH-LOG  ] {asn 00.000008bb link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0002->LL-NULL, len  24, seq   0, st 0  1
+00:22.734	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:22.734	ID:1	[INFO: TSCH-LOG  ] {asn 00.000008bb link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0002->LL-NULL, len  24, seq 232, edr   0
+00:22.734	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:22.734	ID:8	[INFO: TSCH-LOG  ] {asn 00.000008bb link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0002->LL-NULL, len  24, seq  10, edr   0
+00:22.740	ID:6	[INFO: TSCH      ] scan: received packet (24 bytes) on channel 20
+00:22.740	ID:6	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 41 e9
+00:22.740	ID:6	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0002.0002.0002.0002 to 0x81a5/ffff.0000.0000.0000
+00:22.927	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:22.928	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:23.119	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:23.480	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:23.632	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:23.937	ID:5	[INFO: TSCH      ] scanning on channel 26
+00:23.938	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:24.129	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:24.490	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:24.642	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:24.947	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:24.948	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:25.139	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:25.347	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 55, queue 1/64 1/64, len 21 21
+00:25.347	ID:2	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+00:25.376	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 55
+00:25.376	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+00:25.376	ID:1	[INFO: TSCH-LOG  ] {asn 00.000009c3 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0002->LL-0001, len  21, seq  55, edr   0
+00:25.376	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 55, status 0, tx 1
+00:25.376	ID:2	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+00:25.376	ID:2	[INFO: TSCH-LOG  ] {asn 00.000009c3 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0002->LL-0001, len  21, seq  55, st 0  1, dr   0
+00:25.500	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:25.572	ID:2	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 56, queue 1/64 1/64, len 21 100
+00:25.588	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 56
+00:25.588	ID:8	[INFO: TSCH-LOG  ] {asn 00.000009d8 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0002->LL-0008, len 100, seq  56, edr   0
+00:25.588	ID:2	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 56, status 0, tx 1
+00:25.588	ID:2	[INFO: TSCH-LOG  ] {asn 00.000009d8 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0002->LL-0008, len 100, seq  56, st 0  1
+00:25.652	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:25.957	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:25.958	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:26.101	ID:1	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:26.127	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:26.127	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000a0e link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
+00:26.127	ID:2	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:26.127	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000a0e link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  10, edr   0, dr   0
+00:26.127	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:26.127	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000a0e link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+00:26.127	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000a0e link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  10, edr   0, dr   0
+00:26.127	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:26.127	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000a0e link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+00:26.127	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000a0e link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  56, edr   0, dr   0
+00:26.149	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:26.510	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:26.662	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:26.967	ID:5	[INFO: TSCH      ] scanning on channel 26
+00:26.968	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:27.159	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:27.463	ID:3	[WARN: TSCH      ] Cannot compute max payload size: not associated
+00:27.463	ID:3	[WARN: 6LoWPAN   ] output: failed to calculate payload size - dropping packet
+00:27.520	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:27.672	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:27.977	ID:5	[INFO: TSCH      ] scanning on channel 15
+00:27.978	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:28.169	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:28.208	ID:2	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 57, queue 1/64 1/64, len 21 100
+00:28.228	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 57
+00:28.228	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000ae0 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0002->LL-0008, len 100, seq  57, edr   0
+00:28.228	ID:2	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 57, status 0, tx 1
+00:28.228	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000ae0 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0002->LL-0008, len 100, seq  57, st 0  1
+00:28.229	ID:3	[INFO: TSCH      ] scan: received packet (17 bytes) on channel 15
+00:28.229	ID:3	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 2, FCF 02 2e
+00:28.229	ID:3	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x0/0000.0000.0000.0000 to 0x81a5/0002.0002.0002.0002
+00:28.530	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:28.682	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:28.815	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:28.825	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:28.825	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000b1c link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+00:28.825	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000b1c link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  57, edr   0
+00:28.827	ID:5	[INFO: TSCH      ] scan: received packet (35 bytes) on channel 15
+00:28.827	ID:5	[INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+00:28.827	ID:5	[INFO: TSCH Sched] Adding slotframe 0, size 3
+00:28.827	ID:5	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+00:28.827	ID:5	[INFO: TSCH Queue] update time source: (NULL LL addr) -> 0004.0004.0004.0004
+00:28.827	ID:5	[INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.b1c, jp 2, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0004.0004.0004.0004
+00:28.853	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 58, queue 1/64 1/64, len 21 100
+00:28.888	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 58
+00:28.888	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000b22 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0002->LL-0001, len 100, seq  58, edr   0
+00:28.888	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 58, status 0, tx 1
+00:28.888	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000b22 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0002->LL-0001, len 100, seq  58, st 0  1, dr   0
+00:28.988	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:29.179	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:29.540	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:29.692	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:29.998	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:30.004	ID:9	[WARN: TSCH      ] Cannot compute max payload size: not associated
+00:30.004	ID:9	[WARN: 6LoWPAN   ] output: failed to calculate payload size - dropping packet
+00:30.037	ID:8	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:30.057	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:30.057	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000b97 link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0008->LL-NULL, len  94, seq   0, st 0  1
+00:30.057	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+00:30.057	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000b97 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  58, edr   0
+00:30.057	ID:2	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+00:30.057	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000b97 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  10, edr   0
+00:30.059	ID:3	[INFO: TSCH      ] scan: received packet (94 bytes) on channel 20
+00:30.059	ID:3	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 41 e9
+00:30.059	ID:3	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0008.0008.0008.0008 to 0x81a5/ffff.0000.0000.0000
+00:30.189	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:30.214	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:30.235	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:30.235	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:30.235	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:30.235	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  10, edr   0, dr   0
+00:30.235	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:30.235	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  10, edr   0, dr   0
+00:30.235	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:30.235	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000ba9 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  58, edr   0, dr   0
+00:30.350	ID:8	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 1
+00:30.350	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 233, queue 1/64 1/64, len 21 43
+00:30.357	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 233
+00:30.357	ID:1	[INFO: App       ] Received from fd00::208:8:8:8, seqnum 1
+00:30.357	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000bb5 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0008->LL-0001, len  43, seq 233, edr   0
+00:30.357	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 233, status 0, tx 1
+00:30.357	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000bb5 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0008->LL-0001, len  43, seq 233, st 0  1, dr   0
+00:30.550	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:30.702	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:30.863	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 59, queue 1/64 1/64, len 21 100
+00:30.898	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 59
+00:30.898	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000beb link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0002->LL-0001, len 100, seq  59, edr   0
+00:30.898	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 59, status 0, tx 1
+00:30.898	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000beb link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0002->LL-0001, len 100, seq  59, st 0  1, dr   0
+00:31.008	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:31.199	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:31.560	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:31.712	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:31.894	ID:1	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:31.917	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:31.917	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000c51 link  0   3   0  0  0 ch 25} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
+00:31.917	ID:2	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:31.917	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000c51 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq 233, edr   0, dr   0
+00:31.917	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:31.917	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000c51 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  10, edr   0, dr   0
+00:31.917	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:31.917	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000c51 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  59, edr   0, dr   0
+00:32.018	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:32.126	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 60, queue 1/64 1/64, len 21 100
+00:32.158	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 60
+00:32.158	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000c69 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0002->LL-0001, len 100, seq  60, edr   0
+00:32.158	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 60, status 0, tx 1
+00:32.158	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000c69 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0002->LL-0001, len 100, seq  60, st 0  1, dr   0
+00:32.158	ID:2	[WARN: RPL       ] found parent: fe80::201:1:1:1, staying in DAG
+00:32.209	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:32.396	ID:2	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:32.425	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:32.425	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000c84 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0002->LL-NULL, len  35, seq   0, st 0  1
+00:32.425	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000c84 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  60, edr   0
+00:32.425	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000c84 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  60, edr   0
+00:32.570	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:32.722	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:32.894	ID:8	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:32.905	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:32.905	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000cb4 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0008->LL-NULL, len  35, seq   0, st 0  1
+00:32.905	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000cb4 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  60, edr   0
+00:32.905	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000cb4 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 233, edr   0
+00:33.028	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:33.219	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:33.580	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:33.732	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:34.038	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:34.229	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:34.590	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:34.742	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:34.795	ID:6	[WARN: TSCH      ] Cannot compute max payload size: not associated
+00:34.795	ID:6	[WARN: 6LoWPAN   ] output: failed to calculate payload size - dropping packet
+00:35.048	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:35.239	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:35.600	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:35.752	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:35.829	ID:5	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 24
+00:35.844	ID:5	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:35.844	ID:5	[INFO: TSCH-LOG  ] {asn 00.00000dda link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0005->LL-NULL, len  24, seq   0, st 0  1
+00:35.844	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 65535
+00:35.844	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000dda link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0005->LL-NULL, len  24, seq  10, edr   0
+00:35.928	ID:7	[WARN: TSCH      ] Cannot compute max payload size: not associated
+00:35.928	ID:7	[WARN: 6LoWPAN   ] output: failed to calculate payload size - dropping packet
+00:36.058	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:36.249	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:36.610	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:36.696	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:36.715	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:36.715	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:36.715	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:36.715	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq 233, edr   0, dr   0
+00:36.715	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:36.715	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  10, edr   0, dr   0
+00:36.715	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:36.715	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000e31 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  60, edr   0, dr   0
+00:36.762	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:36.838	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 61, queue 1/64 1/64, len 21 83
+00:36.868	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 61
+00:36.868	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000e40 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0002->LL-0001, len  83, seq  61, edr   0
+00:36.868	ID:1	[INFO: TSCH      ] send packet to 0002.0002.0002.0002 with seqno 11, queue 1/64 1/64, len 21 41
+00:36.868	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 61, status 0, tx 1
+00:36.868	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000e40 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0002->LL-0001, len  83, seq  61, st 0  1, dr   0
+00:36.897	ID:2	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 11
+00:36.897	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000e43 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0001->LL-0002, len  41, seq  11, edr   0, dr   0
+00:36.897	ID:1	[INFO: TSCH      ] packet sent to 0002.0002.0002.0002, seqno 11, status 0, tx 1
+00:36.897	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000e43 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0001->LL-0002, len  41, seq  11, st 0  1
+00:36.900	ID:6	[INFO: TSCH      ] scan: received packet (17 bytes) on channel 20
+00:36.900	ID:6	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 2, FCF 02 2e
+00:36.900	ID:6	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x0/0000.0000.0000.0000 to 0x81a5/0001.0001.0001.0001
+00:37.068	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:37.259	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:37.620	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:37.669	ID:2	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 1
+00:37.669	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 62, queue 1/64 1/64, len 21 43
+00:37.677	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 62
+00:37.677	ID:1	[INFO: App       ] Received from fd00::202:2:2:2, seqnum 1
+00:37.677	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000e91 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0002->LL-0001, len  43, seq  62, edr   0
+00:37.677	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 62, status 0, tx 1
+00:37.677	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000e91 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0002->LL-0001, len  43, seq  62, st 0  1, dr   0
+00:37.772	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:38.078	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:38.269	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:38.630	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:38.782	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:39.026	ID:4	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:39.057	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:39.057	ID:4	[INFO: TSCH-LOG  ] {asn 00.00000f1b link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0004->LL-NULL, len  94, seq   0, st 0  1
+00:39.057	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+00:39.057	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000f1b link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0004->LL-NULL, len  94, seq  62, edr   0
+00:39.057	ID:5	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+00:39.057	ID:5	[WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+00:39.057	ID:5	[INFO: TSCH-LOG  ] {asn 00.00000f1b link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0004->LL-NULL, len  94, seq   0, edr   0, dr   0
+00:39.088	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:39.279	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:39.640	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:39.642	ID:1	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 2
+00:39.642	ID:1	[INFO: App       ] Received from fd00::201:1:1:1, seqnum 2
+00:39.792	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:40.098	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:40.289	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:40.650	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:40.802	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:40.818	ID:2	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:40.827	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:40.827	ID:2	[INFO: TSCH-LOG  ] {asn 00.00000fcc link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0002->LL-NULL, len  94, seq   0, st 0  1
+00:40.827	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:40.827	ID:1	[INFO: TSCH-LOG  ] {asn 00.00000fcc link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  62, edr   0
+00:40.827	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:40.827	ID:8	[INFO: TSCH-LOG  ] {asn 00.00000fcc link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  62, edr   0
+00:41.108	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:41.299	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:41.660	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:41.691	ID:8	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:41.697	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:41.697	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001023 link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0008->LL-NULL, len  94, seq   0, st 0  1
+00:41.697	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+00:41.697	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001023 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  62, edr   0
+00:41.697	ID:2	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+00:41.697	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001023 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  11, edr   0
+00:41.812	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:42.118	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:42.309	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:42.432	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 117, queue 1/64 1/64, len 21 100
+00:42.448	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 117
+00:42.448	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000106e link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0005->LL-0004, len 100, seq 117, edr   0
+00:42.448	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 117, status 0, tx 1
+00:42.448	ID:5	[INFO: TSCH-LOG  ] {asn 00.0000106e link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0005->LL-0004, len 100, seq 117, st 0  1, dr   0
+00:42.670	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:42.822	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:42.943	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:42.955	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:42.955	ID:4	[INFO: TSCH-LOG  ] {asn 00.000010a1 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+00:42.955	ID:1	[INFO: TSCH-LOG  ] {asn 00.000010a1 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  62, edr   0
+00:42.955	ID:5	[INFO: TSCH-LOG  ] {asn 00.000010a1 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0004->LL-NULL, len  35, seq   0, edr   0, dr   0
+00:43.128	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:43.319	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:43.680	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:43.832	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:44.138	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:44.329	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:44.538	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 118, queue 1/64 1/64, len 21 100
+00:44.548	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 118
+00:44.548	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001140 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0005->LL-0004, len 100, seq 118, edr   0
+00:44.548	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 118, status 0, tx 1
+00:44.548	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001140 link  0   3   0  0  0 ch 15} drift 0 ppm (min/max delta seen: 0/0)
+00:44.548	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001140 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0005->LL-0004, len 100, seq 118, st 0  1, dr   0
+00:44.561	ID:4	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:44.577	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:44.577	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001143 link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0004->LL-NULL, len  94, seq   0, st 0  1
+00:44.577	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+00:44.577	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001143 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0004->LL-NULL, len  94, seq  62, edr   0
+00:44.577	ID:5	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+00:44.577	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001143 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0004->LL-NULL, len  94, seq   0, edr   0, dr   0
+00:44.690	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:44.842	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:45.121	ID:2	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:45.147	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:45.147	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000117c link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0002->LL-NULL, len  94, seq   0, st 0  1
+00:45.147	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:45.147	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000117c link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  62, edr   0
+00:45.147	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:45.147	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000117c link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  62, edr   0
+00:45.148	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:45.150	ID:6	[INFO: TSCH      ] scan: received packet (94 bytes) on channel 15
+00:45.150	ID:6	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 41 e9
+00:45.150	ID:6	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0002.0002.0002.0002 to 0x81a5/ffff.0000.0000.0000
+00:45.152	ID:7	[INFO: TSCH      ] scan: received packet (94 bytes) on channel 15
+00:45.152	ID:7	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 41 e9
+00:45.152	ID:7	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0002.0002.0002.0002 to 0x81a5/ffff.0000.0000.0000
+00:45.335	ID:8	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:45.339	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:45.355	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:45.355	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001191 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0008->LL-NULL, len  35, seq   0, st 0  1
+00:45.355	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001191 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  62, edr   0
+00:45.355	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001191 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  11, edr   0
+00:45.700	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:45.852	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:46.158	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:46.349	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:46.586	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 119, queue 1/64 1/64, len 21 100
+00:46.618	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 119
+00:46.618	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000120f link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0005->LL-0004, len 100, seq 119, edr   0
+00:46.618	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 119, status 0, tx 1
+00:46.618	ID:5	[INFO: TSCH-LOG  ] {asn 00.0000120f link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0005->LL-0004, len 100, seq 119, st 0  1, dr   0
+00:46.710	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:46.862	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:47.168	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:47.359	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:47.385	ID:2	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:47.395	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:47.395	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000125d link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0002->LL-NULL, len  35, seq   0, st 0  1
+00:47.395	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000125d link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  62, edr   0
+00:47.395	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000125d link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  62, edr   0
+00:47.573	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 234, queue 1/64 1/64, len 21 21
+00:47.573	ID:8	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+00:47.606	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 234
+00:47.606	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+00:47.606	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001272 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0008->LL-0001, len  21, seq 234, edr   0
+00:47.606	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 234, status 0, tx 1
+00:47.606	ID:8	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+00:47.606	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001272 link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+00:47.606	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001272 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0008->LL-0001, len  21, seq 234, st 0  1, dr   0
+00:47.720	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:47.872	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:48.102	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 71, queue 1/64 1/64, len 21 21
+00:48.102	ID:4	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+00:48.116	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 71
+00:48.116	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+00:48.116	ID:1	[INFO: TSCH-LOG  ] {asn 00.000012a5 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0004->LL-0001, len  21, seq  71, edr   0
+00:48.116	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 71, status 0, tx 1
+00:48.116	ID:4	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+00:48.116	ID:4	[INFO: TSCH-LOG  ] {asn 00.000012a5 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:48.116	ID:4	[INFO: TSCH-LOG  ] {asn 00.000012a5 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0004->LL-0001, len  21, seq  71, st 0  1, dr   0
+00:48.178	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:48.261	ID:4	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 2
+00:48.261	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 72, queue 1/64 1/64, len 21 43
+00:48.267	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 72
+00:48.267	ID:1	[INFO: App       ] Received from fd00::204:4:4:4, seqnum 2
+00:48.267	ID:1	[INFO: TSCH-LOG  ] {asn 00.000012b4 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len  43, seq  72, edr   0
+00:48.267	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 72, status 0, tx 1
+00:48.267	ID:4	[INFO: TSCH-LOG  ] {asn 00.000012b4 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len  43, seq  72, st 0  1, dr   0
+00:48.369	ID:3	[INFO: TSCH      ] scanning on channel 20
+00:48.730	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:48.882	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:49.125	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 63, queue 1/64 1/64, len 21 21
+00:49.125	ID:2	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+00:49.136	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 63
+00:49.136	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+00:49.136	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000130b link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0002->LL-0001, len  21, seq  63, edr   0
+00:49.136	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 63, status 0, tx 1
+00:49.136	ID:2	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+00:49.136	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000130b link  0   3   0  0  0 ch 20} drift 0 ppm (min/max delta seen: 0/0)
+00:49.136	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000130b link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0002->LL-0001, len  21, seq  63, st 0  1, dr   0
+00:49.188	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:49.379	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:49.426	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:49.435	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:49.435	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001329 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+00:49.435	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001329 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  63, edr   0
+00:49.435	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001329 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+00:49.435	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001329 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  72, edr   0, dr   0
+00:49.698	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:49.705	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:49.705	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001344 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+00:49.705	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001344 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0001->LL-NULL, len  35, seq 234, edr   0, dr   0
+00:49.705	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001344 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0001->LL-NULL, len  35, seq 119, edr   0, dr   0
+00:49.705	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001344 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  63, edr   0, dr   0
+00:49.740	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:49.892	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:50.198	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:50.223	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 120, queue 1/64 1/64, len 21 100
+00:50.248	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 120
+00:50.248	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000137a link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0005->LL-0004, len 100, seq 120, edr   0
+00:50.248	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 120, status 0, tx 1
+00:50.248	ID:5	[INFO: TSCH-LOG  ] {asn 00.0000137a link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0005->LL-0004, len 100, seq 120, st 0  1, dr   0
+00:50.248	ID:5	[WARN: RPL       ] found parent: fe80::204:4:4:4, staying in DAG
+00:50.389	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:50.750	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:50.902	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:51.208	ID:9	[INFO: TSCH      ] scanning on channel 26
+00:51.249	ID:1	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:51.267	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:51.267	ID:1	[INFO: TSCH-LOG  ] {asn 00.000013e0 link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
+00:51.267	ID:2	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:51.267	ID:2	[INFO: TSCH-LOG  ] {asn 00.000013e0 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0001->LL-NULL, len  94, seq 234, edr   0, dr   0
+00:51.267	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:51.267	ID:4	[INFO: TSCH-LOG  ] {asn 00.000013e0 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0001->LL-NULL, len  94, seq 120, edr   0, dr   0
+00:51.267	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+00:51.267	ID:8	[INFO: TSCH-LOG  ] {asn 00.000013e0 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  63, edr   0, dr   0
+00:51.399	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:51.760	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:51.912	ID:7	[INFO: TSCH      ] scanning on channel 20
+00:52.218	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:52.298	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 121, queue 1/64 1/64, len 21 91
+00:52.318	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 121
+00:52.318	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 73, queue 1/64 1/64, len 21 92
+00:52.318	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 121, status 0, tx 1
+00:52.318	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001449 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0005->LL-0004, len  91, seq 121, st 0  1, dr   0
+00:52.319	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001449 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0005->LL-0004, len  91, seq 121, edr   0
+00:52.348	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 73
+00:52.348	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000144c link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len  92, seq  73, edr   0
+00:52.348	ID:1	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 12, queue 1/64 1/64, len 21 49
+00:52.348	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 73, status 0, tx 1
+00:52.348	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000144c link  0   3   0  0  0 ch 15} drift 0 ppm (min/max delta seen: 0/0)
+00:52.348	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000144c link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len  92, seq  73, st 0  1, dr   0
+00:52.377	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 12
+00:52.377	ID:4	[INFO: TSCH      ] send packet to 0005.0005.0005.0005 with seqno 74, queue 1/64 1/64, len 21 58
+00:52.377	ID:1	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 12, status 0, tx 1
+00:52.377	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000144f link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0001->LL-0004, len  49, seq  12, st 0  1
+00:52.378	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000144f link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0001->LL-0004, len  49, seq  12, edr   0, dr   0
+00:52.407	ID:5	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 74
+00:52.407	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001452 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0004->LL-0005, len  58, seq  74, edr   0, dr   0
+00:52.407	ID:4	[INFO: TSCH      ] packet sent to 0005.0005.0005.0005, seqno 74, status 0, tx 1
+00:52.407	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001452 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0004->LL-0005, len  58, seq  74, st 0  1
+00:52.409	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:52.770	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:52.922	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:53.228	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:53.419	ID:3	[INFO: TSCH      ] scanning on channel 26
+00:53.638	ID:2	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:53.665	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:53.665	ID:2	[INFO: TSCH-LOG  ] {asn 00.000014d0 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0002->LL-NULL, len  35, seq   0, st 0  1
+00:53.665	ID:1	[INFO: TSCH-LOG  ] {asn 00.000014d0 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  74, edr   0
+00:53.665	ID:8	[INFO: TSCH-LOG  ] {asn 00.000014d0 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  12, edr   0
+00:53.780	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:53.932	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:54.238	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:54.429	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:54.790	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:54.942	ID:7	[INFO: TSCH      ] scanning on channel 26
+00:55.248	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:55.404	ID:9	[WARN: TSCH      ] Cannot compute max payload size: not associated
+00:55.404	ID:9	[WARN: 6LoWPAN   ] output: failed to calculate payload size - dropping packet
+00:55.420	ID:5	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:55.437	ID:5	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:55.437	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001581 link  0   3   0  0  0 ch 25} bc-1-0 tx LL-0005->LL-NULL, len  94, seq   0, st 0  1
+00:55.437	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 65535
+00:55.437	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001581 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0005->LL-NULL, len  94, seq  12, edr   0
+00:55.439	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:55.800	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:55.952	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:56.258	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:56.449	ID:3	[INFO: TSCH      ] scanning on channel 25
+00:56.810	ID:6	[INFO: TSCH      ] scanning on channel 20
+00:56.962	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:57.268	ID:9	[INFO: TSCH      ] scanning on channel 20
+00:57.459	ID:3	[INFO: TSCH      ] scanning on channel 15
+00:57.820	ID:6	[INFO: TSCH      ] scanning on channel 15
+00:57.972	ID:7	[INFO: TSCH      ] scanning on channel 25
+00:57.974	ID:8	[INFO: TSCH      ] Enqueuing EB packet 35 16
+00:57.985	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:57.985	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001680 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0008->LL-NULL, len  35, seq   0, st 0  1
+00:57.985	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001680 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  74, edr   0
+00:57.985	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001680 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  12, edr   0
+00:57.989	ID:3	[INFO: TSCH      ] scan: received packet (35 bytes) on channel 15
+00:57.989	ID:3	[INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+00:57.989	ID:3	[INFO: TSCH Sched] Adding slotframe 0, size 3
+00:57.989	ID:3	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+00:57.989	ID:3	[INFO: TSCH Queue] update time source: (NULL LL addr) -> 0008.0008.0008.0008
+00:57.989	ID:3	[INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.1680, jp 2, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0008.0008.0008.0008
+00:58.278	ID:9	[INFO: TSCH      ] scanning on channel 25
+00:58.376	ID:2	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+00:58.407	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+00:58.407	ID:2	[INFO: TSCH-LOG  ] {asn 00.000016aa link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0002->LL-NULL, len  94, seq   0, st 0  1
+00:58.407	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:58.407	ID:1	[INFO: TSCH-LOG  ] {asn 00.000016aa link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  74, edr   0
+00:58.407	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+00:58.407	ID:8	[INFO: TSCH-LOG  ] {asn 00.000016aa link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  12, edr   0
+00:58.830	ID:6	[INFO: TSCH      ] scanning on channel 25
+00:58.982	ID:7	[INFO: TSCH      ] scanning on channel 15
+00:59.288	ID:9	[INFO: TSCH      ] scanning on channel 15
+00:59.840	ID:6	[INFO: TSCH      ] scanning on channel 26
+00:59.992	ID:7	[INFO: TSCH      ] scanning on channel 25
+01:00.298	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:00.351	ID:8	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 2
+01:00.351	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 235, queue 1/64 1/64, len 21 43
+01:00.357	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 235
+01:00.357	ID:1	[INFO: App       ] Received from fd00::208:8:8:8, seqnum 2
+01:00.357	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000176d link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0008->LL-0001, len  43, seq 235, edr   0
+01:00.357	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 235, status 0, tx 1
+01:00.357	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000176d link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+01:00.357	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000176d link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0008->LL-0001, len  43, seq 235, st 0  1, dr   0
+01:00.850	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:01.002	ID:7	[INFO: TSCH      ] scanning on channel 15
+01:01.308	ID:9	[INFO: TSCH      ] scanning on channel 26
+01:01.860	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:02.012	ID:7	[INFO: TSCH      ] scanning on channel 26
+01:02.318	ID:9	[INFO: TSCH      ] scanning on channel 15
+01:02.413	ID:5	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:02.427	ID:5	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:02.427	ID:5	[INFO: TSCH-LOG  ] {asn 00.0000183c link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0005->LL-NULL, len  94, seq   0, st 0  1
+01:02.427	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 65535
+01:02.427	ID:4	[INFO: TSCH-LOG  ] {asn 00.0000183c link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0005->LL-NULL, len  94, seq  12, edr   0
+01:02.870	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:02.932	ID:4	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:02.967	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:02.967	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001872 link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0004->LL-NULL, len  94, seq   0, st 0  1
+01:02.967	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+01:02.967	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001872 link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0004->LL-NULL, len  94, seq 235, edr   0
+01:02.967	ID:5	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 65535
+01:02.967	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001872 link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+01:02.967	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001872 link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0004->LL-NULL, len  94, seq  74, edr   0, dr   0
+01:03.022	ID:7	[INFO: TSCH      ] scanning on channel 15
+01:03.081	ID:3	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 24
+01:03.084	ID:3	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:03.084	ID:3	[INFO: TSCH-LOG  ] {asn 00.0000187e link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0003->LL-NULL, len  24, seq   0, st 0  1
+01:03.084	ID:8	[INFO: TSCH      ] received from 0003.0003.0003.0003 with seqno 65535
+01:03.084	ID:8	[INFO: TSCH-LOG  ] {asn 00.0000187e link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0003->LL-NULL, len  24, seq  12, edr   0
+01:03.206	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 64, queue 1/64 1/64, len 21 21
+01:03.206	ID:2	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+01:03.236	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 64
+01:03.236	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+01:03.236	ID:1	[INFO: TSCH-LOG  ] {asn 00.0000188d link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0002->LL-0001, len  21, seq  64, edr   0
+01:03.236	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 64, status 0, tx 1
+01:03.236	ID:2	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+01:03.236	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000188d link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+01:03.236	ID:2	[INFO: TSCH-LOG  ] {asn 00.0000188d link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0002->LL-0001, len  21, seq  64, st 0  1, dr   0
+01:03.328	ID:9	[INFO: TSCH      ] scanning on channel 25
+01:03.341	ID:5	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:03.355	ID:5	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:03.355	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001899 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0005->LL-NULL, len  35, seq   0, st 0  1
+01:03.355	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001899 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0005->LL-NULL, len  35, seq  12, edr   0
+01:03.740	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 75, queue 1/64 1/64, len 21 21
+01:03.740	ID:4	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+01:03.746	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 75
+01:03.746	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+01:03.746	ID:1	[INFO: TSCH-LOG  ] {asn 00.000018c0 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len  21, seq  75, edr   0
+01:03.746	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 75, status 0, tx 1
+01:03.746	ID:4	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+01:03.746	ID:4	[INFO: TSCH-LOG  ] {asn 00.000018c0 link  0   3   0  0  0 ch 15} drift 0 ppm (min/max delta seen: 0/0)
+01:03.746	ID:4	[INFO: TSCH-LOG  ] {asn 00.000018c0 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len  21, seq  75, st 0  1, dr   0
+01:03.787	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:03.805	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:03.805	ID:1	[INFO: TSCH-LOG  ] {asn 00.000018c6 link  0   3   0  0  0 ch 26} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+01:03.805	ID:2	[INFO: TSCH-LOG  ] {asn 00.000018c6 link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq 235, edr   0, dr   0
+01:03.805	ID:4	[INFO: TSCH-LOG  ] {asn 00.000018c6 link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  12, edr   0, dr   0
+01:03.805	ID:8	[INFO: TSCH-LOG  ] {asn 00.000018c6 link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  64, edr   0, dr   0
+01:03.880	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:04.032	ID:7	[INFO: TSCH      ] scanning on channel 25
+01:04.330	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:04.338	ID:9	[INFO: TSCH      ] scanning on channel 26
+01:04.345	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:04.345	ID:4	[INFO: TSCH-LOG  ] {asn 00.000018fc link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+01:04.345	ID:1	[INFO: TSCH-LOG  ] {asn 00.000018fc link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  75, edr   0
+01:04.345	ID:5	[INFO: TSCH-LOG  ] {asn 00.000018fc link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  75, edr   0, dr   0
+01:04.890	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:05.013	ID:5	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 1
+01:05.013	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 122, queue 1/64 1/64, len 21 51
+01:05.037	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 122
+01:05.037	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 76, queue 1/64 1/64, len 21 52
+01:05.037	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 122, status 0, tx 1
+01:05.037	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001941 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0005->LL-0004, len  51, seq 122, st 0  1, dr   0
+01:05.038	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001941 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0005->LL-0004, len  51, seq 122, edr   0
+01:05.042	ID:7	[INFO: TSCH      ] scanning on channel 25
+01:05.067	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 76
+01:05.067	ID:1	[INFO: App       ] Received from fd00::205:5:5:5, seqnum 1
+01:05.067	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001944 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0004->LL-0001, len  52, seq  76, edr   0
+01:05.067	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 76, status 0, tx 1
+01:05.067	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001944 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0004->LL-0001, len  52, seq  76, st 0  1, dr   0
+01:05.348	ID:9	[INFO: TSCH      ] scanning on channel 15
+01:05.900	ID:6	[INFO: TSCH      ] scanning on channel 26
+01:06.052	ID:7	[INFO: TSCH      ] scanning on channel 26
+01:06.358	ID:9	[INFO: TSCH      ] scanning on channel 26
+01:06.853	ID:8	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:06.867	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:06.867	ID:8	[INFO: TSCH-LOG  ] {asn 00.000019f8 link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0008->LL-NULL, len  94, seq   0, st 0  1
+01:06.867	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+01:06.867	ID:1	[INFO: TSCH-LOG  ] {asn 00.000019f8 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  76, edr   0
+01:06.867	ID:2	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+01:06.867	ID:2	[INFO: TSCH-LOG  ] {asn 00.000019f8 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0008->LL-NULL, len  94, seq 235, edr   0
+01:06.867	ID:3	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+01:06.867	ID:3	[WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+01:06.867	ID:3	[INFO: TSCH-LOG  ] {asn 00.000019f8 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0008->LL-NULL, len  94, seq 235, edr   0, dr   0
+01:06.910	ID:6	[INFO: TSCH      ] scanning on channel 26
+01:07.062	ID:7	[INFO: TSCH      ] scanning on channel 15
+01:07.368	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:07.670	ID:2	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 2
+01:07.670	ID:2	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 65, queue 1/64 1/64, len 21 43
+01:07.677	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65
+01:07.677	ID:1	[INFO: App       ] Received from fd00::202:2:2:2, seqnum 2
+01:07.677	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001a49 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0002->LL-0001, len  43, seq  65, edr   0
+01:07.677	ID:2	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 65, status 0, tx 1
+01:07.677	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001a49 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+01:07.677	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001a49 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0002->LL-0001, len  43, seq  65, st 0  1, dr   0
+01:07.803	ID:2	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:07.825	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:07.825	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001a58 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0002->LL-NULL, len  35, seq   0, st 0  1
+01:07.825	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001a58 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  65, edr   0
+01:07.825	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001a58 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0002->LL-NULL, len  35, seq  65, edr   0
+01:07.832	ID:7	[INFO: TSCH      ] scan: received packet (35 bytes) on channel 15
+01:07.832	ID:7	[INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+01:07.832	ID:7	[INFO: TSCH Sched] Adding slotframe 0, size 3
+01:07.832	ID:7	[INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
+01:07.832	ID:7	[INFO: TSCH Queue] update time source: (NULL LL addr) -> 0002.0002.0002.0002
+01:07.832	ID:7	[INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.1a58, jp 2, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0002.0002.0002.0002
+01:07.920	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:08.378	ID:9	[INFO: TSCH      ] scanning on channel 15
+01:08.902	ID:7	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 24
+01:08.930	ID:6	[INFO: TSCH      ] scanning on channel 15
+01:08.934	ID:7	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:08.934	ID:7	[INFO: TSCH-LOG  ] {asn 00.00001ac7 link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0007->LL-NULL, len  24, seq   0, st 0  1
+01:08.934	ID:2	[INFO: TSCH      ] received from 0007.0007.0007.0007 with seqno 65535
+01:08.934	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001ac7 link  0   3   0  0  0 ch 20} bc-1-0 rx LL-0007->LL-NULL, len  24, seq 235, edr   0
+01:09.383	ID:6	[WARN: TSCH      ] Cannot compute max payload size: not associated
+01:09.383	ID:6	[WARN: 6LoWPAN   ] output: failed to calculate payload size - dropping packet
+01:09.388	ID:9	[INFO: TSCH      ] scanning on channel 26
+01:09.642	ID:1	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 3
+01:09.642	ID:1	[INFO: App       ] Received from fd00::201:1:1:1, seqnum 3
+01:09.940	ID:6	[INFO: TSCH      ] scanning on channel 20
+01:10.317	ID:5	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:10.345	ID:5	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:10.345	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001b54 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0005->LL-NULL, len  35, seq   0, st 0  1
+01:10.345	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001b54 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0005->LL-NULL, len  35, seq 122, edr   0
+01:10.398	ID:9	[INFO: TSCH      ] scanning on channel 25
+01:10.629	ID:3	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 71, queue 1/64 1/64, len 21 100
+01:10.648	ID:8	[INFO: TSCH      ] received from 0003.0003.0003.0003 with seqno 71
+01:10.648	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001b72 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0003->LL-0008, len 100, seq  71, edr   0
+01:10.648	ID:3	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 71, status 0, tx 1
+01:10.648	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001b72 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0003->LL-0008, len 100, seq  71, st 0  1, dr   0
+01:10.950	ID:6	[INFO: TSCH      ] scanning on channel 20
+01:11.233	ID:2	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:11.247	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:11.247	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001bae link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0002->LL-NULL, len  94, seq   0, st 0  1
+01:11.247	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+01:11.247	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001bae link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  65, edr   0
+01:11.247	ID:7	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+01:11.247	ID:7	[WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+01:11.247	ID:7	[INFO: TSCH-LOG  ] {asn 00.00001bae link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0002->LL-NULL, len  94, seq   0, edr   0, dr   0
+01:11.247	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+01:11.247	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001bae link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  71, edr   0
+01:11.408	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:11.432	ID:3	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 72, queue 1/64 1/64, len 21 100
+01:11.458	ID:8	[INFO: TSCH      ] received from 0003.0003.0003.0003 with seqno 72
+01:11.458	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001bc3 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0003->LL-0008, len 100, seq  72, edr   0
+01:11.458	ID:3	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 72, status 0, tx 1
+01:11.458	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001bc3 link  0   3   0  0  0 ch 20} drift 0 ppm (min/max delta seen: 0/0)
+01:11.458	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001bc3 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0003->LL-0008, len 100, seq  72, st 0  1, dr   0
+01:11.854	ID:8	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:11.877	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:11.877	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001bed link  0   3   0  0  0 ch 25} bc-1-0 tx LL-0008->LL-NULL, len  94, seq   0, st 0  1
+01:11.877	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+01:11.877	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001bed link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0008->LL-NULL, len  94, seq  65, edr   0
+01:11.877	ID:2	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+01:11.877	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001bed link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0008->LL-NULL, len  94, seq 235, edr   0
+01:11.877	ID:3	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 65535
+01:11.877	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001bed link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0008->LL-NULL, len  94, seq 235, edr   0, dr   0
+01:11.960	ID:6	[INFO: TSCH      ] scanning on channel 26
+01:12.118	ID:8	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:12.145	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:12.145	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001c08 link  0   3   0  0  0 ch 15} bc-0-0 tx LL-0008->LL-NULL, len  35, seq   0, st 0  1
+01:12.145	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001c08 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  65, edr   0
+01:12.145	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001c08 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 235, edr   0
+01:12.145	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001c08 link  0   3   0  0  0 ch 15} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 235, edr   0, dr   0
+01:12.403	ID:3	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 73, queue 1/64 1/64, len 21 100
+01:12.418	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:12.418	ID:8	[INFO: TSCH      ] received from 0003.0003.0003.0003 with seqno 73
+01:12.418	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001c23 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0003->LL-0008, len 100, seq  73, edr   0
+01:12.418	ID:3	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 73, status 0, tx 1
+01:12.418	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001c23 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0003->LL-0008, len 100, seq  73, st 0  1, dr   0
+01:12.970	ID:6	[INFO: TSCH      ] scanning on channel 25
+01:13.428	ID:9	[INFO: TSCH      ] scanning on channel 15
+01:13.436	ID:7	[INFO: TSCH      ] send packet to 0002.0002.0002.0002 with seqno 35, queue 1/64 1/64, len 21 100
+01:13.468	ID:9	[INFO: TSCH      ] scan: received packet (100 bytes) on channel 15
+01:13.468	ID:9	[INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 21 ec
+01:13.468	ID:9	[INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0007.0007.0007.0007 to 0x81a5/0002.0002.0002.0002
+01:13.468	ID:2	[INFO: TSCH      ] received from 0007.0007.0007.0007 with seqno 35
+01:13.468	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001c8c link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0007->LL-0002, len 100, seq  35, edr   0
+01:13.468	ID:7	[INFO: TSCH      ] packet sent to 0002.0002.0002.0002, seqno 35, status 0, tx 1
+01:13.468	ID:7	[INFO: TSCH-LOG  ] {asn 00.00001c8c link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0007->LL-0002, len 100, seq  35, st 0  1, dr   0
+01:13.856	ID:3	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 74, queue 1/64 1/64, len 21 100
+01:13.888	ID:8	[INFO: TSCH      ] received from 0003.0003.0003.0003 with seqno 74
+01:13.888	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001cb6 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0003->LL-0008, len 100, seq  74, edr   0
+01:13.888	ID:3	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 74, status 0, tx 1
+01:13.888	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001cb6 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0003->LL-0008, len 100, seq  74, st 0  1, dr   0
+01:13.888	ID:3	[WARN: RPL       ] found parent: fe80::208:8:8:8, staying in DAG
+01:13.980	ID:6	[INFO: TSCH      ] scanning on channel 26
+01:14.438	ID:9	[INFO: TSCH      ] scanning on channel 15
+01:14.990	ID:6	[INFO: TSCH      ] scanning on channel 25
+01:14.996	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 236, queue 1/64 1/64, len 21 21
+01:14.996	ID:8	[INFO: TSCH      ] sending KA to 0001.0001.0001.0001
+01:15.026	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 236
+01:15.026	ID:1	[WARN: 6LoWPAN   ] input: empty packet
+01:15.026	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001d28 link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0008->LL-0001, len  21, seq 236, edr   0
+01:15.026	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 236, status 0, tx 1
+01:15.026	ID:8	[INFO: TSCH      ] KA sent to 0001.0001.0001.0001, st 0-1
+01:15.026	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001d28 link  0   3   0  0  0 ch 15} drift 0 ppm (min/max delta seen: 0/0)
+01:15.026	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001d28 link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0008->LL-0001, len  21, seq 236, st 0  1, dr   0
+01:15.448	ID:9	[INFO: TSCH      ] scanning on channel 25
+01:15.754	ID:7	[INFO: TSCH      ] send packet to 0002.0002.0002.0002 with seqno 36, queue 1/64 1/64, len 21 100
+01:15.778	ID:2	[INFO: TSCH      ] received from 0007.0007.0007.0007 with seqno 36
+01:15.778	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001d73 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0007->LL-0002, len 100, seq  36, edr   0
+01:15.778	ID:7	[INFO: TSCH      ] packet sent to 0002.0002.0002.0002, seqno 36, status 0, tx 1
+01:15.778	ID:7	[INFO: TSCH-LOG  ] {asn 00.00001d73 link  0   3   0  0  0 ch 20} drift 0 ppm (min/max delta seen: 0/0)
+01:15.778	ID:7	[INFO: TSCH-LOG  ] {asn 00.00001d73 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0007->LL-0002, len 100, seq  36, st 0  1, dr   0
+01:16.000	ID:6	[INFO: TSCH      ] scanning on channel 26
+01:16.049	ID:1	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:16.077	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:16.077	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001d91 link  0   3   0  0  0 ch 25} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
+01:16.077	ID:2	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+01:16.077	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001d91 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+01:16.077	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001d91 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  36, edr   0, dr   0
+01:16.077	ID:4	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+01:16.077	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001d91 link  0   3   0  0  0 ch 25} drift 0 ppm (min/max delta seen: 0/0)
+01:16.077	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001d91 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq 122, edr   0, dr   0
+01:16.077	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
+01:16.077	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001d91 link  0   3   0  0  0 ch 25} bc-1-0 rx LL-0001->LL-NULL, len  94, seq  74, edr   0, dr   0
+01:16.458	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:16.713	ID:3	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 75, queue 1/64 1/64, len 21 91
+01:16.713	ID:5	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:16.737	ID:5	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:16.737	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001dd3 link  0   3   0  0  0 ch 20} bc-1-0 tx LL-0005->LL-NULL, len  94, seq   0, st 0  1
+01:16.738	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001dd3 link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0003->LL-0008, len  91, seq  75, st 2  1
+01:16.768	ID:8	[INFO: TSCH      ] received from 0003.0003.0003.0003 with seqno 75
+01:16.768	ID:8	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 237, queue 1/64 1/64, len 21 92
+01:16.768	ID:3	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 75, status 0, tx 2
+01:16.768	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001dd6 link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+01:16.768	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001dd6 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0003->LL-0008, len  91, seq  75, st 0  2, dr   0
+01:16.769	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001dd6 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0003->LL-0008, len  91, seq  75, edr   0
+01:16.798	ID:1	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 237
+01:16.798	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001dd9 link  0   3   0  0  0 ch 25} uc-1-0 rx LL-0008->LL-0001, len  92, seq 237, edr   0
+01:16.798	ID:1	[INFO: TSCH      ] send packet to 0008.0008.0008.0008 with seqno 13, queue 1/64 1/64, len 21 49
+01:16.798	ID:8	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 237, status 0, tx 1
+01:16.798	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001dd9 link  0   3   0  0  0 ch 25} uc-1-0 tx LL-0008->LL-0001, len  92, seq 237, st 0  1, dr   0
+01:16.827	ID:8	[INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 13
+01:16.827	ID:8	[INFO: TSCH      ] send packet to 0003.0003.0003.0003 with seqno 238, queue 1/64 1/64, len 21 58
+01:16.827	ID:1	[INFO: TSCH      ] packet sent to 0008.0008.0008.0008, seqno 13, status 0, tx 1
+01:16.827	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001ddc link  0   3   0  0  0 ch 15} uc-1-0 tx LL-0001->LL-0008, len  49, seq  13, st 0  1
+01:16.828	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001ddc link  0   3   0  0  0 ch 15} uc-1-0 rx LL-0001->LL-0008, len  49, seq  13, edr   0, dr   0
+01:16.855	ID:5	[INFO: TSCH      ] send packet to 0004.0004.0004.0004 with seqno 123, queue 1/64 1/64, len 21 21
+01:16.855	ID:5	[INFO: TSCH      ] sending KA to 0004.0004.0004.0004
+01:16.857	ID:3	[INFO: TSCH      ] received from 0008.0008.0008.0008 with seqno 238
+01:16.857	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001ddf link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0008->LL-0003, len  58, seq 238, edr   0, dr   0
+01:16.857	ID:8	[INFO: TSCH      ] packet sent to 0003.0003.0003.0003, seqno 238, status 0, tx 1
+01:16.857	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001ddf link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0008->LL-0003, len  58, seq 238, st 0  1
+01:16.886	ID:4	[INFO: TSCH      ] received from 0005.0005.0005.0005 with seqno 123
+01:16.886	ID:4	[WARN: 6LoWPAN   ] input: empty packet
+01:16.886	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001de2 link  0   3   0  0  0 ch 26} uc-1-0 rx LL-0005->LL-0004, len  21, seq 123, edr   0
+01:16.886	ID:5	[INFO: TSCH      ] packet sent to 0004.0004.0004.0004, seqno 123, status 0, tx 1
+01:16.886	ID:5	[INFO: TSCH      ] KA sent to 0004.0004.0004.0004, st 0-1
+01:16.886	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001de2 link  0   3   0  0  0 ch 26} drift 0 ppm (min/max delta seen: 0/0)
+01:16.886	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001de2 link  0   3   0  0  0 ch 26} uc-1-0 tx LL-0005->LL-0004, len  21, seq 123, st 0  1, dr   0
+01:17.010	ID:6	[INFO: TSCH      ] scanning on channel 25
+01:17.468	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:17.475	ID:1	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:17.485	ID:1	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:17.485	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001e1e link  0   3   0  0  0 ch 26} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
+01:17.485	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001e1e link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq 238, edr   0, dr   0
+01:17.485	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001e1e link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq 123, edr   0, dr   0
+01:17.485	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001e1e link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  13, edr   0, dr   0
+01:18.020	ID:6	[INFO: TSCH      ] scanning on channel 25
+01:18.262	ID:4	[INFO: App       ] Send to fd00::201:1:1:1, seqnum 3
+01:18.262	ID:4	[INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 77, queue 1/64 1/64, len 21 43
+01:18.297	ID:1	[INFO: TSCH      ] received from 0004.0004.0004.0004 with seqno 77
+01:18.297	ID:1	[INFO: App       ] Received from fd00::204:4:4:4, seqnum 3
+01:18.297	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001e6f link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0004->LL-0001, len  43, seq  77, edr   0
+01:18.297	ID:4	[INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 77, status 0, tx 1
+01:18.297	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001e6f link  0   3   0  0  0 ch 20} uc-1-0 tx LL-0004->LL-0001, len  43, seq  77, st 0  1, dr   0
+01:18.327	ID:8	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:18.355	ID:8	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:18.355	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001e75 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0008->LL-NULL, len  35, seq   0, st 0  1
+01:18.355	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001e75 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0008->LL-NULL, len  35, seq  77, edr   0
+01:18.355	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001e75 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 238, edr   0
+01:18.355	ID:3	[INFO: TSCH-LOG  ] {asn 00.00001e75 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0008->LL-NULL, len  35, seq 238, edr   0, dr   0
+01:18.434	ID:4	[INFO: TSCH      ] Enqueuing EB packet 35 16
+01:18.445	ID:4	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:18.445	ID:4	[INFO: TSCH-LOG  ] {asn 00.00001e7e link  0   3   0  0  0 ch 26} bc-0-0 tx LL-0004->LL-NULL, len  35, seq   0, st 0  1
+01:18.445	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001e7e link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  77, edr   0
+01:18.445	ID:5	[INFO: TSCH-LOG  ] {asn 00.00001e7e link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0004->LL-NULL, len  35, seq  77, edr   0, dr   0
+01:18.478	ID:9	[INFO: TSCH      ] scanning on channel 20
+01:18.601	ID:2	[INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
+01:18.627	ID:2	[INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
+01:18.627	ID:2	[INFO: TSCH-LOG  ] {asn 00.00001e90 link  0   3   0  0  0 ch 15} bc-1-0 tx LL-0002->LL-NULL, len  94, seq   0, st 0  1
+01:18.627	ID:1	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+01:18.627	ID:1	[INFO: TSCH-LOG  ] {asn 00.00001e90 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  77, edr   0
+01:18.627	ID:7	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+01:18.627	ID:7	[INFO: TSCH-LOG  ] {asn 00.00001e90 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq   0, edr   0, dr   0
+01:18.627	ID:8	[INFO: TSCH      ] received from 0002.0002.0002.0002 with seqno 65535
+01:18.627	ID:8	[INFO: TSCH-LOG  ] {asn 00.00001e90 link  0   3   0  0  0 ch 15} bc-1-0 rx LL-0002->LL-NULL, len  94, seq  13, edr   0

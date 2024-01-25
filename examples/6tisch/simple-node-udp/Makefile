@@ -17,4 +17,7 @@ ifeq ($(MAKE_WITH_SECURITY),1)
 CFLAGS += -DWITH_SECURITY=1
 endif
 
+MODULES_REL += $(CONTIKI)/utils
+MODULES_REL += $(CONTIKI)/data/temp_data
+
 include $(CONTIKI)/Makefile.include

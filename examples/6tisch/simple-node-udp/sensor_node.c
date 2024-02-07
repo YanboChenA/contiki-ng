@@ -112,6 +112,8 @@ PROCESS_THREAD(node_process, ev, data)
             
             simple_udp_sendto(&udp_conn, &current_data, sizeof(current_data), &dest_ipaddr);
 
+            // LOG_INFO_("Sensor ID: %c, Data Size: %d\n", sensor_id, sizeof(current_data));
+
         }
 
     etimer_set(&periodic_timer, SEND_INTERVAL);

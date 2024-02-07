@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <simconf version="2023090101">
   <simulation>
-    <title>Test ringbufindex</title>
-    <randomseed>1</randomseed>
+    <title>My simulation</title>
+    <randomseed>123456</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
       org.contikios.cooja.radiomediums.UDGM
@@ -16,10 +16,9 @@
     </events>
     <motetype>
       org.contikios.cooja.contikimote.ContikiMoteType
-      <description>ringbufindex testee</description>
-      <source>[CONFIG_DIR]/code-ringbufindex/test-ringbufindex.c</source>
-      <commands>$(MAKE) TARGET=cooja clean
-$(MAKE) -j$(CPUS) test-ringbufindex.cooja TARGET=cooja</commands>
+      <description>Cooja Mote Type #1</description>
+      <source>[CONFIG_DIR]/node.c</source>
+      <commands>$(MAKE) -j$(CPUS) node.cooja TARGET=cooja</commands>
       <moteinterface>org.contikios.cooja.interfaces.Position</moteinterface>
       <moteinterface>org.contikios.cooja.interfaces.Battery</moteinterface>
       <moteinterface>org.contikios.cooja.contikimote.interfaces.ContikiVib</moteinterface>
@@ -46,6 +45,46 @@ $(MAKE) -j$(CPUS) test-ringbufindex.cooja TARGET=cooja</commands>
           <id>1</id>
         </interface_config>
       </mote>
+      <mote>
+        <interface_config>
+          org.contikios.cooja.interfaces.Position
+          <pos x="0.0" y="50.0" />
+        </interface_config>
+        <interface_config>
+          org.contikios.cooja.contikimote.interfaces.ContikiMoteID
+          <id>2</id>
+        </interface_config>
+      </mote>
+      <mote>
+        <interface_config>
+          org.contikios.cooja.interfaces.Position
+          <pos x="50.0" y="0.0" />
+        </interface_config>
+        <interface_config>
+          org.contikios.cooja.contikimote.interfaces.ContikiMoteID
+          <id>3</id>
+        </interface_config>
+      </mote>
+      <mote>
+        <interface_config>
+          org.contikios.cooja.interfaces.Position
+          <pos x="50.0" y="50.0" />
+        </interface_config>
+        <interface_config>
+          org.contikios.cooja.contikimote.interfaces.ContikiMoteID
+          <id>4</id>
+        </interface_config>
+      </mote>
+      <mote>
+        <interface_config>
+          org.contikios.cooja.interfaces.Position
+          <pos x="100.0" y="0.0" />
+        </interface_config>
+        <interface_config>
+          org.contikios.cooja.contikimote.interfaces.ContikiMoteID
+          <id>5</id>
+        </interface_config>
+      </mote>
     </motetype>
   </simulation>
   <plugin>
@@ -56,9 +95,9 @@ $(MAKE) -j$(CPUS) test-ringbufindex.cooja TARGET=cooja</commands>
       <skin>org.contikios.cooja.plugins.skins.GridVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.UDGMVisualizerSkin</skin>
-      <viewport>0.9090909090909091 0.0 0.0 0.9090909090909091 194.0 173.0</viewport>
+      <viewport>3.5272727272727273 0.0 0.0 3.5272727272727273 17.636363636363637 84.81818181818183</viewport>
     </plugin_config>
-    <bounds x="1" y="1" height="400" width="400" z="4" />
+    <bounds x="1" y="1" height="400" width="400" z="1" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.LogListener
@@ -67,18 +106,22 @@ $(MAKE) -j$(CPUS) test-ringbufindex.cooja TARGET=cooja</commands>
       <formatted_time />
       <coloring />
     </plugin_config>
-    <bounds x="400" y="160" height="240" width="1320" z="3" />
+    <bounds x="400" y="160" height="240" width="1199" z="4" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.TimeLine
     <plugin_config>
       <mote>0</mote>
+      <mote>1</mote>
+      <mote>2</mote>
+      <mote>3</mote>
+      <mote>4</mote>
       <showRadioRXTX />
       <showRadioHW />
       <showLEDs />
       <zoomfactor>500.0</zoomfactor>
     </plugin_config>
-    <bounds x="0" y="957" height="166" width="1720" z="2" />
+    <bounds x="0" y="996" height="166" width="1599" z="3" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.Notes
@@ -86,13 +129,14 @@ $(MAKE) -j$(CPUS) test-ringbufindex.cooja TARGET=cooja</commands>
       <notes>Enter notes here</notes>
       <decorations>true</decorations>
     </plugin_config>
-    <bounds x="680" y="0" height="160" width="1040" z="1" />
+    <bounds x="400" y="0" height="160" width="1199" z="2" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.ScriptRunner
     <plugin_config>
-      <scriptfile>[CONFIG_DIR]/js/04-ringbufindex.js</scriptfile>
+      <scriptfile>[CONFIG_DIR]/node.js</scriptfile>
+      <active>true</active>
     </plugin_config>
-    <bounds x="663" y="105" height="525" width="495" />
+    <bounds x="395" y="255" height="700" width="600" />
   </plugin>
 </simconf>

@@ -6,6 +6,7 @@
         "tsch-cs.h": "c",
         "netstack.h": "c",
         "routing.h": "c",
-        "uip-ds6-route.h": "c"
+        "uip-ds6-route.h": "c",
+        "sensor_data.h": "c"
     }
 }

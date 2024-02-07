@@ -87,7 +87,9 @@ static void send_sensor_data(uip_ipaddr_t *dest_ipaddr, struct etimer *timer) {
 }
 
 PROCESS_THREAD(node_process, ev, data) {
-    static struct etimer periodic_timer;
+    static struct etimer sensor_timer;
+    static struct etimer schedule_timer;
+
     static uip_ipaddr_t dest_ipaddr;
 
     PROCESS_BEGIN();
@@ -99,16 +101,23 @@ PROCESS_THREAD(node_process, ev, data) {
     }
     NETSTACK_MAC.on();
 
-    etimer_set(&periodic_timer, random_rand() % SEND_INTERVAL);
+    etimer_set(&sensor_timer, random_rand() % SEND_INTERVAL);
+    etimer_set(&schedule_timer, random_rand() % SEND_INTERVAL);
 
     while(1) {
-        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&periodic_timer));
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&sensor_timer));
 
         if(NETSTACK_ROUTING.node_is_reachable() && NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr)) {
-            send_sensor_data(&dest_ipaddr, &periodic_timer);
+            send_sensor_data(&dest_ipaddr, &sensor_timer);
         } else {
             // Reset the timer if the network is not reachable or the root IP address cannot be obtained
-            etimer_set(&periodic_timer, SEND_INTERVAL);
+            etimer_set(&sensor_timer, SEND_INTERVAL);
+        }
+
+        // Periodically print the scheduling table
+        if(etimer_expired(&schedule_timer)) {
+            tsch_schedule_print();
+            etimer_reset(&schedule_timer);
         }
     }
 

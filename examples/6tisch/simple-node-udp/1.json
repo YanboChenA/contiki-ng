@@ -1,0 +1,45 @@
+{
+    "network_config": {
+      "send_interval": 5,
+      "packet_size": 100,
+      "max_runtime": 3600
+    },
+    "load_variation_global": [
+      {
+        "start_time": 100,
+        "end_time": 200,
+        "interval": 10,
+        "packet_size": 120
+      }
+    ],
+    "node_specific": [
+      {
+        "node_id": 2,
+        "load_variation": [
+          {
+            "start_time": 300,
+            "end_time": 400,
+            "interval": 5,
+            "packet_size": 150
+          }
+        ],
+        "failures": [
+          {
+            "failure_time": 1500,
+            "recovery_time": 1600
+          }
+        ]
+      },
+      {
+        "node_id": 4,
+        "load_variation": [
+          {
+            "start_time": 500,
+            "end_time": 600,
+            "interval": 8,
+            "packet_size": 200
+          }
+        ]
+      }
+    ]
+  }

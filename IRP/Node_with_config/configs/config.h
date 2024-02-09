@@ -7,6 +7,7 @@
 #define MAX_LOAD_VARIATIONS 5
 #define MAX_NODE_FAILURES 5
 
+
 const sensor_config_t sensor_config = {
   .send_interval = 10,
   .packet_size = 120,

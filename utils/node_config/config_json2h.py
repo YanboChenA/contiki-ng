@@ -13,6 +13,7 @@ class ConfigGenerator:
             "network_config": {},
             "load_variation_global": [],
             "node_specific": []
+            #TODO may be add packet size later
         }
 
     def load_from_json(self, filepath):

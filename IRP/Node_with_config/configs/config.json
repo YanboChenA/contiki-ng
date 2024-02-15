@@ -1,9 +1,4 @@
 {
-  "config_limits": {
-    "MAX_NODE_SPECIFIC": 5,
-    "MAX_LOAD_VARIATIONS": 5,
-    "MAX_NODE_FAILURES": 5
-  },
   "network_config": {
     "send_interval": 10,
     "packet_size": 120,

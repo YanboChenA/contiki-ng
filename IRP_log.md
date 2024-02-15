@@ -7,10 +7,18 @@
 1. A center node, not as a sensor, as a server to send control info to each sensor node, and also collect info, this node should be python based or a node to communicate with outside python script(ML)
 2. Using 6p function to realise dynamic control of scheduling table.
 
-#### TODO:
+### Week 15
 
-1. Fix error: after timeout, test failed
+#### Idea
 
-2. Complete training data file generating
+1. Use GNN network for further ML part.
 
-3. 
+2. Use config file to config the behaviour of the nodes in the network to improve complexity of network.
+
+3. Pre-define some serneos or some modes of the networks, such as high latency, high load, or lossy or other somethings.
+
+
+
+
+
+

@@ -5,100 +5,116 @@
 #include "lib/random.h"
 #include "sys/node-id.h"
 #include <string.h>
+#include <stdlib.h>
+
+#include "events.h" 
 
 #include "sys/log.h"
 #define LOG_MODULE "App"
 #define LOG_LEVEL LOG_LEVEL_INFO
 
 #define UDP_PORT	8765
-#define SEND_INTERVAL		  (60 * CLOCK_SECOND)
+// #define SEND_INTERVAL		  (60 * CLOCK_SECOND)
 
-#define DATA_SIZE 100 // Default data size
-#define SEND_INTERVAL 1 // Default send interval
+#define PACKET_SIZE 100 // Default data size
+#define SEND_INTERVAL (10 * CLOCK_SECOND) // Default send interval
 
-#include "config.h" 
+static struct simple_udp_connection udp_conn;
 
-// from the struct sensor_config_t in the config.h file, 
-// create a structure that contain the routine, like variation, offline, etc.
-// The structure include the time and the behavior of the node in that time.
-typedef enum {
-    EVENT_SEND_DATA, // Send data event
-    EVENT_NODE_OFFLINE, // Node offline event
-    EVENT_NODE_ONLINE, //  
-    EVENT_LOAD_VARIATION
-} event_type_t;
+static void 
+rx_callback( struct simple_udp_connection *c,
+                  const uip_ipaddr_t *sender_addr,
+                  uint16_t sender_port,
+                  const uip_ipaddr_t *receiver_addr,
+                  uint16_t receiver_port,
+                  const uint8_t *data,
+                  uint16_t datalen)
+{
+    uint32_t seqnum;
+    if(datalen >= sizeof(seqnum)) {
+        memcpy(&seqnum, data, sizeof(seqnum));
 
-typedef struct {
-    clock_time_t time;
-    event_type_t event_type;
-} time_event_t;
+        LOG_INFO("Received from ");
+        LOG_INFO_6ADDR(sender_addr);
+        LOG_INFO_(", seqnum %" PRIu32 "\n", seqnum);
+    }
+}
+
+
+static void send_data(uip_ipaddr_t *dest_ipaddr, struct etimer *timer, uint32_t packet_size) {
+    static uint32_t seqnum =0;
+
+    // uint8_t payload[packet_size] = {0}; // Example payload data
+
+    uint8_t payload[packet_size];
+    memset(payload, 0, sizeof(payload));
+
+    seqnum++;
+    LOG_INFO("Sending to ");
+    LOG_INFO_6ADDR(dest_ipaddr);
+    LOG_INFO_(", seqnum %" PRIu32 "\n", seqnum);
+
+    simple_udp_sendto(&udp_conn, payload, packet_size, dest_ipaddr);
+}
+
 
 PROCESS(sensor_node_process, "Sensor Node Process");
 AUTOSTART_PROCESSES(&sensor_node_process);
 
-// 模拟的发送数据函数
-void send_data(void) {
-    uint8_t payload[DATA_SIZE] = {0}; // 示例负载数据
-    NETSTACK_NETWORK.output(NULL); // 实际发送数据
-}
-
-// 检查当前时间是否在任何失败时间段内
-int check_failure_status(void) {
-    // 获取当前时间（以秒为单位）
-    clock_time_t current_time = clock_seconds();
-    
-    for (int i = 0; i < MAX_NODE_FAILURES; i++) {
-        node_failure_t failure = sensor_config.node_specific[0].failures[i]; // 假设当前节点ID为0
-        if (current_time >= failure.failure_time && current_time <= failure.recovery_time) {
-            return 1; // 节点应该下线
-        }
-    }
-    return 0; // 节点应该在线
-}
-
-// 根据当前时间调整发送间隔
-clock_time_t adjust_send_interval(void) {
-    clock_time_t interval = CLOCK_SECOND * sensor_config.send_interval; // 默认间隔
-    
-    // 获取当前时间（以秒为单位）
-    clock_time_t current_time = clock_seconds();
-    
-    // 检查全局负载变化
-    for (int i = 0; i < MAX_LOAD_VARIATIONS; i++) {
-        load_variation_t variation = sensor_config.load_variation_global[i];
-        if (current_time >= variation.start_time && current_time <= variation.end_time) {
-            interval = CLOCK_SECOND / variation.interval; // 调整间隔
-            break;
-        }
-    }
-    
-    return interval;
-}
-
 PROCESS_THREAD(sensor_node_process, ev, data) {
     static struct etimer send_timer;
-    static clock_time_t send_interval;
+    static struct etimer event_timer;
+    static clock_time_t next_interval;
+
+    uint32_t si = SEND_INTERVAL;
+    uint32_t ps = PACKET_SIZE;
+
+    static uip_ipaddr_t dest_ipaddr;
+
+    int event_index = 0;
+    // set initial event_timer
+    etimer_set(&event_timer, event_list[event_index].time);
+    event_index++;
     
     PROCESS_BEGIN();
     
-    // 初始化发送间隔
-    send_interval = adjust_send_interval();
-    etimer_set(&send_timer, send_interval);
+    simple_udp_register(&udp_conn, UDP_PORT, NULL, UDP_PORT, rx_callback);
+
+    if (node_id == 1) { 
+        NETSTACK_ROUTING.root_start();
+    }
+    NETSTACK_MAC.on();
 
     while(1) {
-        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&send_timer));
-
-        // 检查节点是否应该下线
-        if (check_failure_status()) {
-            NETSTACK_MAC.off(0); // 关闭MAC层，模拟节点下线
-        } else {
-            NETSTACK_MAC.on(); // 确保MAC层开启
-            send_data(); // 发送数据
+        //set a switch to wait the event timer or send timer:
+        if(etimer_expired(&event_timer)){
+            //check the node id 
+            if(node_id == event_list[event_index].node_id){
+                // Check if the node should go offline
+                if(event_list[event_index].event_type == EVENT_FAILURE){
+                    NETSTACK_MAC.off(); // Turn off the MAC layer to simulate node going offline
+                } 
+                else if(event_list[event_index].event_type == EVENT_RECOVERY){
+                    NETSTACK_MAC.on(); // Make sure the MAC layer is on
+                }
+                else if(event_list[event_index].event_type == EVENT_LOAD_VARIATION){
+                    si = event_list[event_index].target_send_interval * CLOCK_SECOND;
+                    ps = event_list[event_index].target_packet_size;
+                }
+                event_index++;
+                if (event_index < event_list_size){
+                    next_interval = (event_list[event_index].time - event_list[event_index-1].time) * CLOCK_SECOND;
+                    etimer_set(&event_timer, next_interval);
+                }
+            }
         }
-
-        // 根据负载动态调整发送间隔
-        send_interval = adjust_send_interval();
-        etimer_set(&send_timer, send_interval);
+            
+        if (etimer_expired(&send_timer)) {
+            if(NETSTACK_ROUTING.node_is_reachable() && NETSTACK_ROUTING.get_root_ipaddr(&dest_ipaddr)) {
+                send_data(&dest_ipaddr, &send_timer,ps);
+            }
+            etimer_set(&send_timer, si);
+        }
     }
 
     PROCESS_END();

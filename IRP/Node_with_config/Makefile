@@ -17,6 +17,7 @@ ifeq ($(MAKE_WITH_SECURITY),1)
 CFLAGS += -DWITH_SECURITY=1
 endif
 
+# MODULES_REL += $(CONTIKI)/utils/node_config
 # MODULES_REL += $(CONTIKI)/utils/sensor_data_io
 # MODULES_REL += $(CONTIKI)/data/temp_data
 

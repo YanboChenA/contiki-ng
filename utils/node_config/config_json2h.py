@@ -58,45 +58,51 @@ class ConfigGenerator:
             
             # Network Config
             net_config = self.config['network_config']
+
+            # Send Interval, Packet Size, Max Runtime
+            file.write(f'#define SEND_INTERVAL          ({net_config.get("send_interval", 0)} * CLOCK_SECOND)\n')
+            file.write(f'#define PACKET_SIZE {net_config.get("packet_size", 0)}\n')
+            file.write(f'#define MAX_RUNTIME            ({net_config.get("max_runtime", 0)} * CLOCK_SECOND)\n\n')
+
             file.write('const sensor_config_t sensor_config = {\n')
-            file.write(f'  .send_interval = {net_config.get("send_interval", 0)},\n')
-            file.write(f'  .packet_size = {net_config.get("packet_size", 0)},\n')
-            file.write(f'  .max_runtime = {net_config.get("max_runtime", 0)},\n')
+            # file.write(f'  send_interval = {net_config.get("send_interval", 0)},\n')
+            # file.write(f'  packet_size = {net_config.get("packet_size", 0)},\n')
+            # file.write(f'  max_runtime = {net_config.get("max_runtime", 0)},\n')
             
             # Global Load Variation
-            file.write('  .load_variation_global = {\n')
+            file.write('  load_variation_global = {\n')
             for variation in self.config.get('load_variation_global', []):
                 file.write('    {')
-                file.write(f'.start_time = {variation["start_time"]}, ')
-                file.write(f'.end_time = {variation["end_time"]}, ')
-                file.write(f'.interval = {variation["interval"]}, ')
-                file.write(f'.packet_size = {variation["packet_size"]}')
+                file.write(f'start_time = {variation["start_time"]}, ')
+                file.write(f'end_time = {variation["end_time"]}, ')
+                file.write(f'interval = {variation["interval"]}, ')
+                file.write(f'packet_size = {variation["packet_size"]}')
                 file.write('},\n')
             file.write('  },\n')
             
             # Node Specific Config
-            file.write('  .node_specific = {\n')
+            file.write('  node_specific = {\n')
             for node in self.config.get('node_specific', []):
                 file.write('    {\n')
-                file.write(f'      .node_id = {node["node_id"]},\n')
+                file.write(f'      node_id = {node["node_id"]},\n')
                 
                 # Load Variations
-                file.write('      .load_variations = {\n')
+                file.write('      load_variations = {\n')
                 for lv in node.get('load_variation', []):
                     file.write('        {')
-                    file.write(f'.start_time = {lv["start_time"]}, ')
-                    file.write(f'.end_time = {lv["end_time"]}, ')
-                    file.write(f'.interval = {lv["interval"]}, ')
-                    file.write(f'.packet_size = {lv["packet_size"]}')
+                    file.write(f'start_time = {lv["start_time"]}, ')
+                    file.write(f'end_time = {lv["end_time"]}, ')
+                    file.write(f'interval = {lv["interval"]}, ')
+                    file.write(f'packet_size = {lv["packet_size"]}')
                     file.write('},\n')
                 file.write('      },\n')
                 
                 # Failures
-                file.write('      .failures = {\n')
+                file.write('      failures = {\n')
                 for failure in node.get('failures', []):
                     file.write('        {')
-                    file.write(f'.failure_time = {failure["failure_time"]}, ')
-                    file.write(f'.recovery_time = {failure.get("recovery_time", 0)}')
+                    file.write(f'failure_time = {failure["failure_time"]}, ')
+                    file.write(f'recovery_time = {failure.get("recovery_time", 0)}')
                     file.write('},\n')
                 file.write('      },\n')
                 file.write('    },\n')
@@ -109,9 +115,9 @@ class ConfigGenerator:
 if __name__ == "__main__":
     # # get current work directory
     # cwd = os.getcwd()
-
-    config_file = '/home/yanbo/contiki-ng/utils/config/config.json'
-    output_file = '/home/yanbo/contiki-ng/utils/config/config.h'
+    folder = "/home/yanbo/contiki-ng/IRP/Node_with_config/configs"
+    config_file = os.path.join(folder, "config.json")
+    output_file = os.path.join(folder, "config.h")
     # generate_config_h(config_file, output_file)
     cg = ConfigGenerator()
     cg.load_from_json(config_file)

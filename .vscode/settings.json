@@ -8,6 +8,8 @@
         "routing.h": "c",
         "uip-ds6-route.h": "c",
         "sensor_data.h": "c",
-        "tsch-schedule.h": "c"
+        "tsch-schedule.h": "c",
+        "radio.h": "c",
+        "packetbuf.h": "c"
     }
 }

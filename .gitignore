@@ -26,7 +26,7 @@ serialdump-*
 build
 tools/coffee-manager/build/
 tools/coffee-manager/coffee.jar
-COOJA.testlog
+# COOJA.testlog
 
 # platform build artifacts
 *.cc2538dk
@@ -42,6 +42,7 @@ COOJA.testlog
 *.zoul
 *.nrf
 *.gecko
+*.pdf
 
 # do not ignore platform makefiles
 !Makefile.cc2538dk

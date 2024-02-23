@@ -11,7 +11,6 @@ import matplotlib.pyplot as pl
 PLOT_ALL_NODES = True
 
 ###########################################
-
 LOG_FILE = 'COOJA.testlog'
 
 COORDINATOR_ID = 1

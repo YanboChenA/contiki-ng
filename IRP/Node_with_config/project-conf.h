@@ -48,4 +48,6 @@
 #endif
 #define TSCH_LOG_CONF_PER_SLOT                     1
 
+#define ENERGEST_CONF_ON                           1
+
 #endif /* PROJECT_CONF_H_ */

@@ -6,7 +6,9 @@
 #include "sys/node-id.h"
 #include <string.h>
 #include <stdlib.h>
+
 #include "net/packetbuf.h"
+#include "sys/energest.h"
 
 // #include "net/routing/rpl-lite/rpl.h"
 // #include "net/rpl/rpl-private.h"
@@ -18,10 +20,11 @@
 #define LOG_LEVEL LOG_LEVEL_INFO
 
 #define UDP_PORT	8765
-// #define SEND_INTERVAL		  (60 * CLOCK_SECOND)
 
 #define PACKET_SIZE 100 // Default data size
 #define SEND_INTERVAL (10 * CLOCK_SECOND) // Default send interval
+#define LOG_INTERVAL (30 * CLOCK_SECOND) // Default log interval
+
 
 static struct simple_udp_connection udp_conn;
 
@@ -39,15 +42,23 @@ rx_callback( struct simple_udp_connection *c,
     uint8_t lqi = packetbuf_attr(PACKETBUF_ATTR_LINK_QUALITY);
 
     static uint32_t seqnum;
-    if(datalen >= sizeof(seqnum)) {
-        memcpy(&seqnum, data, sizeof(seqnum));
+    // if(datalen >= sizeof(seqnum)) {
+    memcpy(&seqnum, data, sizeof(seqnum));
 
-        LOG_INFO("Received from ");
-        LOG_INFO_6ADDR(sender_addr);
-        LOG_INFO_(", seqnum %" PRIu32 "", seqnum);
-        LOG_INFO_(", RSSI: %d, LQI: %u\n",rssi, lqi);
+    LOG_INFO("APP: Received from ");
+    LOG_INFO_6ADDR(sender_addr);
+    LOG_INFO_(", seqnum %" PRIu32 "", seqnum);
+    LOG_INFO_(", RSSI: %d, LQI: %u\n",rssi, lqi);
 
-    }
+    energest_flush();
+    LOG_INFO("Energest: CPU %lu LPM %lu TX %lu RX %lu\n",
+       energest_type_time(ENERGEST_TYPE_CPU),
+       energest_type_time(ENERGEST_TYPE_LPM),
+       energest_type_time(ENERGEST_TYPE_TRANSMIT),
+       energest_type_time(ENERGEST_TYPE_LISTEN));
+
+
+    // }
 }
 
 
@@ -62,26 +73,14 @@ static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
     for (int i = 0; i < packet_size; i++) {
         payload[i] = rand() % 256;
     }
-    
-    
 
     seqnum++;
-    LOG_INFO("Sending to ");
+    LOG_INFO("APP: Sending to ");
     LOG_INFO_6ADDR(dest_ipaddr);
     LOG_INFO_(", seqnum %" PRIu32 "\n", seqnum);
 
     simple_udp_sendto(&udp_conn, payload, packet_size, dest_ipaddr);
 }
-
-// static struct ctimer restart_timer;
-// static bool is_restarting = false;
-
-// void restart_process(void *ptr) {
-//   process_start(&sensor_node_process, NULL);
-// }
-
-
-
 
 PROCESS(sensor_node_process, "Sensor Node Process");
 AUTOSTART_PROCESSES(&sensor_node_process);
@@ -89,6 +88,8 @@ AUTOSTART_PROCESSES(&sensor_node_process);
 PROCESS_THREAD(sensor_node_process, ev, data) {
     static struct etimer send_timer;
     static struct etimer event_timer;
+    static struct etimer log_timer;
+
     static clock_time_t next_interval;
     static bool send_enable = true;
 
@@ -102,6 +103,8 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
     static radio_value_t correct_pan_id;
 
 
+    static uint32_t log_index = 0;
+
     PROCESS_BEGIN();
 
     simple_udp_register(&udp_conn, UDP_PORT, NULL, UDP_PORT, rx_callback);
@@ -114,6 +117,7 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
 
     etimer_set(&send_timer, random_rand() % si);
     etimer_set(&event_timer, event_list[0].time * CLOCK_SECOND);
+    etimer_set(&log_timer, LOG_INTERVAL);
 
     while(1) {
         PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&send_timer));
@@ -169,6 +173,17 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
             }
         }
 
+        if(etimer_expired(&log_timer)){
+            energest_flush();
+            LOG_INFO("LOG_INDEX %d\n", log_index);
+            LOG_INFO("Energest: CPU %lu LPM %lu TX %lu RX %lu\n",
+                energest_type_time(ENERGEST_TYPE_CPU),
+                energest_type_time(ENERGEST_TYPE_LPM),
+                energest_type_time(ENERGEST_TYPE_TRANSMIT),
+                energest_type_time(ENERGEST_TYPE_LISTEN));
+            etimer_set(&log_timer, LOG_INTERVAL);
+            log_index++;
+        }
     }
     PROCESS_END();
 }

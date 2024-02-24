@@ -1,5 +1,7 @@
 #include "contiki.h"
+#include "net/ipv6/uip.h"
 #include "net/ipv6/simple-udp.h"
+#include "net/ipv6/uip-ds6.h"
 #include "net/mac/tsch/tsch.h"
 #include "net/mac/tsch/tsch-schedule.h"
 #include "lib/random.h"
@@ -62,25 +64,44 @@ rx_callback( struct simple_udp_connection *c,
 }
 
 
-static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
-    static uint32_t seqnum =0;
+// static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
+//     static uint32_t seqnum =0;
 
-    // uint8_t payload[packet_size] = {0}; // Example payload data
+//     // uint8_t payload[packet_size] = {0}; // Example payload data
+
+//     uint8_t payload[packet_size];
+//     // memset(payload, 0, sizeof(payload));
+//     //Insert random data in the packet payload
+//     for (int i = 0; i < packet_size; i++) {
+//         payload[i] = rand() % 256;
+//     }
+
+//     seqnum++;
+//     LOG_INFO("APP: Sending to ");
+//     LOG_INFO_6ADDR(dest_ipaddr);
+//     LOG_INFO_(", seqnum %" PRIu32 "\n", seqnum);
+
+//     simple_udp_sendto(&udp_conn, payload, packet_size, dest_ipaddr);
+// }
+
+static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
+    static uint32_t seqnum = 0;
 
     uint8_t payload[packet_size];
-    // memset(payload, 0, sizeof(payload));
-    //Insert random data in the packet payload
     for (int i = 0; i < packet_size; i++) {
         payload[i] = rand() % 256;
     }
+    memcpy(payload, &seqnum, sizeof(seqnum));
 
-    seqnum++;
     LOG_INFO("APP: Sending to ");
     LOG_INFO_6ADDR(dest_ipaddr);
     LOG_INFO_(", seqnum %" PRIu32 "\n", seqnum);
 
+    seqnum++;
+
     simple_udp_sendto(&udp_conn, payload, packet_size, dest_ipaddr);
 }
+
 
 PROCESS(sensor_node_process, "Sensor Node Process");
 AUTOSTART_PROCESSES(&sensor_node_process);
@@ -110,7 +131,15 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
     simple_udp_register(&udp_conn, UDP_PORT, NULL, UDP_PORT, rx_callback);
 
     if (node_id == 1) { 
+        uip_ipaddr_t root_ipaddr;
         NETSTACK_ROUTING.root_start();
+
+
+
+        NETSTACK_ROUTING.get_root_ipaddr(&root_ipaddr);
+        LOG_INFO("Node %d started as root, root ip address: ", node_id);
+        LOG_INFO_6ADDR(&root_ipaddr);
+        LOG_INFO_("\n");
     }
     NETSTACK_MAC.on();
 
@@ -137,19 +166,7 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
                 if (event_list[event_index].event_type == EVENT_FAILURE) {
                     NETSTACK_RADIO.get_value(RADIO_PARAM_PAN_ID, &correct_pan_id);
                     send_enable = false;
-                    // NETSTACK_ROUTING.leave_network();
-                    // tsch_disassociate();
                     NETSTACK_RADIO.set_value(RADIO_PARAM_PAN_ID, incorrect_pan_id);
-                    // NETSTACK_MAC.init();
-                    // bool mac_off_success = NETSTACK_MAC.off();
-                    // bool radio_off_success = 
-                    // NETSTACK_RADIO.off();
-                    // tsch_disassociate();
-
-                    // LOG_INFO("MAC off success: %d,  ", mac_off_success);
-                    // LOG_INFO_(", radio_off_succes: %d\n", radio_off_success);
-
-                    
                     LOG_INFO("Node %d went offline\n", node_id);
                 } 
                 else if (event_list[event_index].event_type == EVENT_RECOVERY) {
@@ -175,15 +192,17 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
 
         if(etimer_expired(&log_timer)){
             energest_flush();
-            LOG_INFO("LOG_INDEX %d\n", log_index);
-            LOG_INFO("Energest: CPU %lu LPM %lu TX %lu RX %lu\n",
-                energest_type_time(ENERGEST_TYPE_CPU),
-                energest_type_time(ENERGEST_TYPE_LPM),
-                energest_type_time(ENERGEST_TYPE_TRANSMIT),
-                energest_type_time(ENERGEST_TYPE_LISTEN));
+            LOG_INFO("Energest: Index %d CPU %lu LPM %lu TX %lu RX %lu Total_time %lu\n",
+                            log_index,
+                            energest_type_time(ENERGEST_TYPE_CPU),
+                            energest_type_time(ENERGEST_TYPE_LPM),
+                            energest_type_time(ENERGEST_TYPE_TRANSMIT),
+                            energest_type_time(ENERGEST_TYPE_LISTEN),
+                            ENERGEST_GET_TOTAL_TIME());
             etimer_set(&log_timer, LOG_INTERVAL);
             log_index++;
         }
     }
     PROCESS_END();
 }
+

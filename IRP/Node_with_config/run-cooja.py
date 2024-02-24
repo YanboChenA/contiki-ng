@@ -2,18 +2,34 @@
 
 import sys
 import os
+import shutil
 from subprocess import Popen, PIPE, STDOUT, CalledProcessError
+import datetime
 
 # get the path of this example
 SELF_PATH = os.path.dirname(os.path.abspath(__file__))
-print("Self path:", SELF_PATH)
-# move three levels up
+# print("Self path:", SELF_PATH)
+
+# move two levels up
 CONTIKI_PATH = os.path.dirname(os.path.dirname(SELF_PATH))
-print("CONTIKI_PATH:", CONTIKI_PATH)
+# print("CONTIKI_PATH:", CONTIKI_PATH)
+
 COOJA_PATH = os.path.normpath(os.path.join(CONTIKI_PATH, "tools", "cooja"))
-# print(COOJA_PATH)
-cooja_input = 'cooja.csc'
-cooja_output = 'COOJA.testlog'
+# print("COOJA_PATH:", COOJA_PATH)
+
+# contiki-ng/data/raw as the save path
+SAVE_PATH = os.path.join(CONTIKI_PATH, "data", "raw")
+print("SAVE_PATH:", SAVE_PATH)
+
+# cooja_input = 'cooja.csc'
+cooja_input = os.path.join(SELF_PATH, 'cooja.csc')
+# print("cooja_input:", cooja_input)
+# cooja_output = 'COOJA.testlog'
+cooja_output = os.path.join(SELF_PATH, 'COOJA.testlog')
+
+
+
+
 
 #######################################################
 # Run a child process and get its output
@@ -77,9 +93,28 @@ def execute_test(cooja_file):
     if not is_done:
         sys.stdout.write("  test failed.\n")
         return False
+    
+    save_logfile()
 
     sys.stdout.write(" test done\n")
     return True
+
+#######################################################
+# Move the logfile to the save path and rename it
+# Rename format should be current date and time
+def save_logfile():
+    file_name = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".testlog"
+    file_name = os.path.join(SAVE_PATH, file_name)
+    # move cooja_output to save path
+    try:
+        shutil.move(cooja_output, file_name)
+    except:
+        print("Cannot move Cooja output to save path.")
+        return False
+    print("Cooja output saved as:", file_name)
+    return True
+    
+    
 
 #######################################################
 # Run the application

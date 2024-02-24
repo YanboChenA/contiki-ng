@@ -128,29 +128,11 @@
   <plugin>
     org.contikios.cooja.plugins.LogListener
     <plugin_config>
-      <filter />
+      <filter>ID</filter>
       <formatted_time />
       <coloring />
     </plugin_config>
-    <bounds x="400" y="160" height="240" width="1232" z="2" />
-  </plugin>
-  <plugin>
-    org.contikios.cooja.plugins.TimeLine
-    <plugin_config>
-      <mote>0</mote>
-      <mote>1</mote>
-      <mote>2</mote>
-      <mote>3</mote>
-      <mote>4</mote>
-      <mote>5</mote>
-      <mote>6</mote>
-      <mote>7</mote>
-      <showRadioRXTX />
-      <showRadioHW />
-      <showLEDs />
-      <zoomfactor>500.0</zoomfactor>
-    </plugin_config>
-    <bounds x="0" y="793" height="166" width="1632" z="4" />
+    <bounds x="931" y="430" height="1084" width="1488" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.Notes
@@ -158,7 +140,7 @@
       <notes>Enter notes here</notes>
       <decorations>true</decorations>
     </plugin_config>
-    <bounds x="400" y="0" height="160" width="1232" z="1" />
+    <bounds x="963" y="124" height="160" width="1232" z="2" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.ScriptRunner
@@ -174,6 +156,6 @@
       <scriptfile>[CONFIG_DIR]/coojalogger.js</scriptfile>
       <active>true</active>
     </plugin_config>
-    <bounds x="0" y="0" height="700" width="600" />
+    <bounds x="2809" y="161" height="700" width="600" z="1" />
   </plugin>
 </simconf>

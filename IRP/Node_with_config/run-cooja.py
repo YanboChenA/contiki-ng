@@ -68,8 +68,10 @@ def execute_test(cooja_file):
         print("Cannot remove previous Cooja output:", ex)
         return False
 
+    save_file = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".testlog"
+
     filename = os.path.join(SELF_PATH, cooja_file)
-    print(filename)
+    # print(filename)
     args = " ".join([COOJA_PATH + "/gradlew --no-watch-fs --parallel --build-cache -p", COOJA_PATH, "run --args='--contiki=" + CONTIKI_PATH, "--no-gui", "--logdir=" + SELF_PATH, filename + "'"])
     sys.stdout.write("  Running Cooja, args={}\n".format(args))
 
@@ -94,7 +96,7 @@ def execute_test(cooja_file):
         sys.stdout.write("  test failed.\n")
         return False
     
-    save_logfile()
+    save_logfile(save_file)
 
     sys.stdout.write(" test done\n")
     return True
@@ -102,16 +104,18 @@ def execute_test(cooja_file):
 #######################################################
 # Move the logfile to the save path and rename it
 # Rename format should be current date and time
-def save_logfile():
-    file_name = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".testlog"
+def save_logfile(file_name=None):
+    if file_name is None:
+        file_name = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".testlog"
+    
     file_name = os.path.join(SAVE_PATH, file_name)
     # move cooja_output to save path
     try:
         shutil.move(cooja_output, file_name)
     except:
-        print("Cannot move Cooja output to save path.")
+        sys.stdout.write("Cannot move Cooja output to save path.")
         return False
-    print("Cooja output saved as:", file_name)
+    sys.stdout.write("Cooja output saved as:", file_name)
     return True
     
     

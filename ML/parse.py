@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-02-23 12:48:11
+LastEditTime: 2024-02-23 22:11:50
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -27,11 +27,11 @@ class NodeStats:
         self.tsch_join_time_sec = None
         self.is_tsch_joined = False
 
-        self.Energist_CPU = None
-        self.Energist_LPM = None
-        self.Energist_TX = None
-        self.Energist_RX = None
-
+        self.Energist_CPU = []
+        self.Energist_LPM = []
+        self.Energist_TX = []
+        self.Energist_RX = []
+        self.Energist_RX = []
 class LinkStats:
     """Record the Link's statistics
     """
@@ -39,7 +39,7 @@ class LinkStats:
         self.type = type
         self.src = src
         self.dst = dst
-        self.seqnum = 
+        self.seqnum = None
         self.send_ts = None
         self.recv_ts = None
         
@@ -53,8 +53,7 @@ class LogParse:
             with open(log_path, 'r') as file:
                 self.log = file.readlines()
         self.nodes = {}
-        self.applinks = {}
-                
+        self.applinks = {}         
         pass
     
     def process(self):
@@ -62,41 +61,55 @@ class LogParse:
             line = line.strip()
             fields = line.split()
 
-            timestamp = int(fields[0])/1000 # in milliseconds
-            node_id = int(fields[1])        # node id
-            if node_id not in self.nodes:
-                self.nodes[node_id] = NodeStats(node_id)
+            try:
+                timestamp = int(fields[0]) // 1000 # in milliseconds
+                node = int(fields[1])        # node id
+            except:
+                continue
+
+            if node not in self.nodes:
+                self.nodes[node] = NodeStats(node)
 
             # 73000 8 [INFO: Main      ] Link-layer address: 0008.0008.0008.0008
             if "Link-layer address" in line:
-                self.nodes[node_id].link_layer_addr = fields[-1]
+                self.nodes[node].link_layer_addr = fields[-1]
                 continue
 
             # 73000 8 [INFO: Main      ] Tentative link-local IPv6 address: fe80::208:8:8:8
             if "IPv6 address" in line:
-                self.nodes[node_id].IPv6_addr = fields[-1]
+                self.nodes[node].IPv6_addr = fields[-1]
                 continue
 
             # 508000 4 [INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.c, jp 1, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0001.0001.0001.0001
             if "association done" in line:
                 # print("association done")
-                if self.nodes[node_id].tsch_join_time_sec is None:
-                    self.nodes[node_id].tsch_join_time_sec = timestamp
-                self.nodes[node_id].is_tsch_joined = True
+                if self.nodes[node].tsch_join_time_sec is None:
+                    self.nodes[node].tsch_join_time_sec = timestamp
+                self.nodes[node].is_tsch_joined = True
                 continue
 
+            # 536000 2 [INFO: TSCH Queue] update time source: (NULL LL addr) -> 0001.0001.0001.0001
+            if "update time source" in line:
+                self.nodes[node].tsch_time_source = line.split(" -> ")[1]
+                continue
+
+
             if "leaving the network" in line:
-                self.nodes[node_id].is_tsch_joined = False
+                self.nodes[node].is_tsch_joined = False
                 continue
 
             # 2757000 1 [INFO: App       ] APP: Sending to fd00::201:1:1:1, seqnum 1
             if "APP: Sending" in line:
                 seqnum = int(fields[-1])
                 dst_IPv6_addr = fields[-3][:-1]    
-                for node in self.nodes:
+                print(dst_IPv6_addr)
+                for node in self.nodes.keys():
                     if self.nodes[node].IPv6_addr == dst_IPv6_addr:
-                        dst_node_id = node
-                self.applinks.append(LinkStats(Link_APP, node_id, dst_node_id, seqnum, timestamp))
+                        dst_node = node
+                # print(line)
+                print(self.nodes[1].IPv6_addr)
+                # print(self.nodes.keys())
+                self.applinks[seqnum] = LinkStats(Link_APP, node, dst_node, seqnum, timestamp)
                 continue
             
             # 2757000 1 [INFO: App       ] APP: Received from fd00::201:1:1:1, seqnum 1, RSSI: 0, LQI: 0
@@ -117,20 +130,17 @@ class LogParse:
                 # LPM = int(fields[-5])
                 # TX = int(fields[-3])
                 # RX = int(fields[-1])
-                self.nodes[node_id].Energist_CPU = int(fields[-7])
-                self.nodes[node_id].Energist_LPM = int(fields[-5])
-                self.nodes[node_id].Energist_TX  = int(fields[-3])
-                self.nodes[node_id].Energist_RX  = int(fields[-1])
+                self.nodes[node].Energist_CPU.append(int(fields[-7]))
+                self.nodes[node].Energist_LPM.append(int(fields[-5]))
+                self.nodes[node].Energist_TX.append(int(fields[-3]))
+                self.nodes[node].Energist_RX.append(int(fields[-1]))
                 continue
-
-                
-        
-        
-
 
 
 
 if __name__ == '__main__':
     filepath = "F:\Course\year_4\Individual_Researching\contiki-ng\data\\raw\COOJA.testlog"
-    log = log_parse(log_path=filepath)
-    log._try()
+    log = LogParse(log_path=filepath)
+    log.process()
+    # log = log_parse(log_path=filepath)
+    # log._try()

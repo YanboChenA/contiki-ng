@@ -20,16 +20,16 @@ typedef struct {
 int event_list_size = 10;
 
 node_event_t event_list[] = {
-    {.time = 100, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 15, .target_packet_size = 100, .node_id = -1},
-    {.time = 200, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 5, .target_packet_size = 100, .node_id = -1},
-    {.time = 300, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 20, .target_packet_size = 100, .node_id = 1},
-    {.time = 400, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 5, .target_packet_size = 100, .node_id = 1},
-    {.time = 500, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 25, .target_packet_size = 100, .node_id = 2},
-    {.time = 600, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 5, .target_packet_size = 100, .node_id = 2},
-    {.time = 800, .event_type = EVENT_FAILURE, .target_send_interval = 5, .target_packet_size = 100, .node_id = 3},
-    {.time = 1000, .event_type = EVENT_RECOVERY, .target_send_interval = 5, .target_packet_size = 100, .node_id = 3},
-    {.time = 2000, .event_type = EVENT_FAILURE, .target_send_interval = 5, .target_packet_size = 100, .node_id = 2},
-    {.time = 2100, .event_type = EVENT_RECOVERY, .target_send_interval = 5, .target_packet_size = 100, .node_id = 2},
+    {.time = 100, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 15, .target_packet_size = 60, .node_id = -1},
+    {.time = 200, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 5, .target_packet_size = 60, .node_id = -1},
+    {.time = 300, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 20, .target_packet_size = 60, .node_id = 1},
+    {.time = 400, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 5, .target_packet_size = 60, .node_id = 1},
+    {.time = 500, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 25, .target_packet_size = 60, .node_id = 2},
+    {.time = 600, .event_type = EVENT_LOAD_VARIATION, .target_send_interval = 5, .target_packet_size = 60, .node_id = 2},
+    {.time = 800, .event_type = EVENT_FAILURE, .target_send_interval = 5, .target_packet_size = 60, .node_id = 3},
+    {.time = 1000, .event_type = EVENT_RECOVERY, .target_send_interval = 5, .target_packet_size = 60, .node_id = 3},
+    {.time = 2000, .event_type = EVENT_FAILURE, .target_send_interval = 5, .target_packet_size = 60, .node_id = 2},
+    {.time = 2100, .event_type = EVENT_RECOVERY, .target_send_interval = 5, .target_packet_size = 60, .node_id = 2},
 };
 
 #endif /* EVENTS_H_ */

@@ -51,38 +51,8 @@ rx_callback( struct simple_udp_connection *c,
     LOG_INFO_6ADDR(sender_addr);
     LOG_INFO_(", seqnum %" PRIu32 "", seqnum);
     LOG_INFO_(", RSSI: %d, LQI: %u\n",rssi, lqi);
-
-    energest_flush();
-    LOG_INFO("Energest: CPU %lu LPM %lu TX %lu RX %lu\n",
-       energest_type_time(ENERGEST_TYPE_CPU),
-       energest_type_time(ENERGEST_TYPE_LPM),
-       energest_type_time(ENERGEST_TYPE_TRANSMIT),
-       energest_type_time(ENERGEST_TYPE_LISTEN));
-
-
-    // }
 }
 
-
-// static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
-//     static uint32_t seqnum =0;
-
-//     // uint8_t payload[packet_size] = {0}; // Example payload data
-
-//     uint8_t payload[packet_size];
-//     // memset(payload, 0, sizeof(payload));
-//     //Insert random data in the packet payload
-//     for (int i = 0; i < packet_size; i++) {
-//         payload[i] = rand() % 256;
-//     }
-
-//     seqnum++;
-//     LOG_INFO("APP: Sending to ");
-//     LOG_INFO_6ADDR(dest_ipaddr);
-//     LOG_INFO_(", seqnum %" PRIu32 "\n", seqnum);
-
-//     simple_udp_sendto(&udp_conn, payload, packet_size, dest_ipaddr);
-// }
 
 static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
     static uint32_t seqnum = 0;

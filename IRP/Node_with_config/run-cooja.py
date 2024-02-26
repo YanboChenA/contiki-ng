@@ -113,9 +113,11 @@ def save_logfile(file_name=None):
     try:
         shutil.move(cooja_output, file_name)
     except:
-        sys.stdout.write("Cannot move Cooja output to save path.")
+        # sys.stdout.write("Cannot move Cooja output to save path.")
+        print("Cananot move Cooja output to save path.")
         return False
-    sys.stdout.write("Cooja output saved as:", file_name)
+    # sys.stdout.write("Cooja output saved as:", file_name)
+    print("Cooja output saved as:", file_name)
     return True
     
     

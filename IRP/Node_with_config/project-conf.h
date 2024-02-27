@@ -7,7 +7,9 @@
 #endif /* WITH_SECURITY */
 
 /* USB serial takes space, free more space elsewhere */
-#define SICSLOWPAN_CONF_FRAG 0
+#define SICSLOWPAN_CONF_FRAG 1
+#define SICSLOWPAN_CONF_FRAGMENT_BUFFERS 8
+#define SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS 2
 #define UIP_CONF_BUFFER_SIZE 160
 
 /*******************************************************/
@@ -51,3 +53,4 @@
 #define ENERGEST_CONF_ON                           1
 
 #endif /* PROJECT_CONF_H_ */
+

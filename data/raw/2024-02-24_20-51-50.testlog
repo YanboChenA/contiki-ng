@@ -125,39 +125,13 @@ Starting COOJA logger
 3656020 1 [INFO: TSCH      ] send packet to ffff.ffff.ffff.ffff with seqno 0, queue 1/64 1/64, len 14 94
 3687128 1 [INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
 3687128 1 [INFO: TSCH-LOG  ] {asn 00.0000014a link  0   3   0  0  0 ch 26} bc-1-0 tx LL-0001->LL-NULL, len  94, seq   0, st 0  1
-3687128 4 [INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
-3687128 4 [WARN: RPL       ] just joined, no parent yet, setting timer for leaving
-3687128 4 [INFO: TSCH-LOG  ] {asn 00.0000014a link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0001->LL-NULL, len  94, seq   0, edr   0, dr   0
-3687128 5 [INFO: TSCH      ] scan: received packet (94 bytes) on channel 26
-3687128 5 [INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 41 e9
-3687128 5 [INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0001.0001.0001.0001 to 0x81a5/ffff.0000.0000.0000
-3687128 7 [INFO: TSCH      ] received from 0001.0001.0001.0001 with seqno 65535
-3687128 7 [WARN: RPL       ] just joined, no parent yet, setting timer for leaving
+3687128 4 [INFO: TSCH-LOG  ] {asn 00.0000014a link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0001->LL-NULL, len  94, seq   0, edr      0, dr   0
 3687128 7 [INFO: TSCH-LOG  ] {asn 00.0000014a link  0   3   0  0  0 ch 26} bc-1-0 rx LL-0001->LL-NULL, len  94, seq   0, edr   0, dr   0
-3737000 5 [INFO: TSCH      ] scanning on channel 15
-3808000 1 [INFO: TSCH      ] Enqueuing EB packet 35 16
 3835240 1 [INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
 3835240 1 [INFO: TSCH-LOG  ] {asn 00.00000159 link  0   3   0  0  0 ch 25} bc-0-0 tx LL-0001->LL-NULL, len  35, seq   0, st 0  1
 3835240 4 [INFO: TSCH-LOG  ] {asn 00.00000159 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq   0, edr   0, dr   0
 3835240 7 [INFO: TSCH-LOG  ] {asn 00.00000159 link  0   3   0  0  0 ch 25} bc-0-0 rx LL-0001->LL-NULL, len  35, seq   0, edr   0, dr   0
-3929000 3 [INFO: TSCH      ] scanning on channel 20
-4113000 8 [INFO: TSCH      ] scanning on channel 26
-4276000 2 [INFO: TSCH      ] scanning on channel 15
-4290000 6 [INFO: TSCH      ] scanning on channel 15
-4747000 5 [INFO: TSCH      ] scanning on channel 26
-4939000 3 [INFO: TSCH      ] scanning on channel 15
-5123000 8 [INFO: TSCH      ] scanning on channel 25
-5286000 2 [INFO: TSCH      ] scanning on channel 25
-5300000 6 [INFO: TSCH      ] scanning on channel 26
-5757000 5 [INFO: TSCH      ] scanning on channel 20
-5949000 3 [INFO: TSCH      ] scanning on channel 25
-6133000 8 [INFO: TSCH      ] scanning on channel 26
-6296000 2 [INFO: TSCH      ] scanning on channel 25
-6310000 6 [INFO: TSCH      ] scanning on channel 15
 6514000 7 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 35, queue 1/64 1/64, len 21 100
-6537320 5 [INFO: TSCH      ] scan: received packet (100 bytes) on channel 20
-6537320 5 [INFO: TSCH Pkt  ] ! parse_eb: frame is not a TSCH beacon. Frame version 2, type 1, FCF 21 ec
-6537320 5 [INFO: TSCH Pkt  ] ! parse_eb: frame was from 0x81a5/0007.0007.0007.0007 to 0x81a5/0001.0001.0001.0001
 6538960 1 [INFO: TSCH      ] received from 0007.0007.0007.0007 with seqno 35
 6538960 1 [INFO: TSCH-LOG  ] {asn 00.00000267 link  0   3   0  0  0 ch 20} uc-1-0 rx LL-0007->LL-0001, len 100, seq  35, edr   0
 6538960 7 [INFO: TSCH      ] packet sent to 0001.0001.0001.0001, seqno 35, status 0, tx 1
@@ -184,7 +158,7 @@ Starting COOJA logger
 7375240 7 [INFO: TSCH-LOG  ] {asn 00.000002bb link  0   3   0  0  0 ch 20} bc-0-0 rx LL-0001->LL-NULL, len  35, seq  65, edr   0, dr   0
 7377000 4 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 66, queue 1/64 1/64, len 21 100
 7379000 3 [INFO: TSCH      ] scan: received packet (35 bytes) on channel 20
-7379000 3 [INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
+73790    00 3 [INFO: TSCH      ] parse_eb: no schedule, setting up minimal schedule
 7379000 3 [INFO: TSCH Sched] Adding slotframe 0, size 3
 7379000 3 [INFO: TSCH Sched] add_link sf=0 opt=Tx|Rx|Sh type=ADV ts=0 ch=0 addr=ffff.ffff.ffff.ffff
 7379000 3 [INFO: TSCH Queue] update time source: (NULL LL addr) -> 0001.0001.0001.0001

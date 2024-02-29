@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-02-28 21:07:10
+LastEditTime: 2024-02-29 22:25:51
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -32,7 +32,6 @@ class NodeStats:
 
         self.Energest = []
         self.IPv6_links = {}
-        self.tsch_links = {}
 
 class LinkStats:
     """Record the Link's statistics, udp 
@@ -52,8 +51,15 @@ class LinkStats:
         self.sub_links = [] # sub links' status
 
     def __str__(self) -> str:
-        return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, RSSI: {self.RSSI}, LQI: {self.LQI}, send_ts: {self.send_ts}, recv_ts: {self.recv_ts}"
-
+        if self.sub_links == []:
+            return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, RSSI: {self.RSSI}, LQI: {self.LQI}, send_ts: {self.send_ts}, recv_ts: {self.recv_ts}"
+        else:
+            sublinks_str = "\n"
+            for sublink in self.sub_links:
+                sublinks_str += str(sublink) + "\n"
+            return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, RSSI: {self.RSSI}, LQI: {self.LQI}, send_ts: {self.send_ts}, recv_ts: {self.recv_ts}, \nsublinks: {sublinks_str}"
+    # def get_
+        
 class SubLinkStatus:
     """Record the sublink's status, tsch
     """
@@ -64,9 +70,10 @@ class SubLinkStatus:
         self.seqnum = seqnum
         self.timestamp = timestamp
 
-        # # Queue information 
-        # self.is_queued = False      # Is the packet queued
-        # self.in_queue_st = None     # Timestamp when the packet is put into the queue
+        # Queue information 
+        self.is_queued = False      # Is the packet queued
+        self.queued_ts = None       # Timestamp when the packet is put into the queue
+        self.queue_len = None       # Queue length
 
         # Send or Recieve information
         self.status = None          # status
@@ -76,7 +83,7 @@ class SubLinkStatus:
         self.link_type = None       # BROADCAST or UNICAST
         self.ASN = None             # ASN
         self.link_details = None    # link details
-        self.is_eb = None           # is EB
+        self.is_eb = False          # is EB
         self.security = None        # security
         self.length = None          # length
         self.edr = None             # edr
@@ -85,6 +92,26 @@ class SubLinkStatus:
         self.is_send = False
         self.is_recv = False
 
+    @property
+    def is_valid(self):
+        if self.is_eb:
+            return False
+        if self.status == 2:
+            return False
+        if self.timestamp is None:
+            return False
+        if self.is_send == False or self.is_recv == False:
+            return False
+        return True
+    
+    def is_in_duration(self, start, end):
+        if self.timestamp is None:
+            return False
+        if start is None or end is None:
+            return False
+        if self.timestamp < start or self.timestamp > end:
+            return False
+        return True
 
     def __str__(self) -> str:
         return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, status: {self.status}, tx_attempt: {self.tx_attempt}, timestamp: {self.timestamp}"
@@ -104,16 +131,49 @@ class LogParse:
 
         self.nodes = {}
 
+        self.IPv6_address_map = []
+        # in list is tuple, as below
+        #(node,seqnum,send_ts,recv_ts)
+
         self.tsch_links = [] 
         self.unfinished_links = {} # Key: (src, dst, seqnum), Value: {index in tsch_links=int, timestamp, asn}
         
     def allocate_tsch_links(self):
-         for link in self.tsch_links:
-            src = link.src
-            timestamp = link.timestamp
-            self.nodes[src].tsch_links[timestamp] = link
+        """Add all tsch links to the nodes' IPv6_links by comparing the send_ts and recv_ts
+            If it is not valid, ignore it, not need to consider the src and dst, only consider if the timestamp is in the duration
+        """
+        for node in self.nodes.values():
+            for link in node.IPv6_links.values():
+                self.IPv6_address_map.append((link.src,link.seqnum,link.send_ts,link.recv_ts))
 
+        print("\nAllocating tsch links to IPv6 links")
+        i = 0
+        # Al node's IPv6_links's sum
+        length = sum([len(node.IPv6_links) for node in self.nodes.values()])
+        for node_index in self.nodes.keys():
+            node = self.nodes[node_index]
+            for seqnum in node.IPv6_links.keys():
+                send_ts = node.IPv6_links[seqnum].send_ts
+                recv_ts = node.IPv6_links[seqnum].recv_ts
+                print_process_bar("Allocating", i / length)
+                i += 1
+                # Add all link in duration to the node's IPv6_links
+                for link in self.tsch_links:
+                    if send_ts is None or recv_ts is None:
+                        continue
+                    if link.is_valid and link.is_in_duration(send_ts,recv_ts):
+                        self.nodes[node_index].IPv6_links[seqnum].sub_links.append(link)
+                    if link.timestamp > recv_ts:
+                        break
 
+                # Find link that match the IPv6_links, pind the matched path, means
+                # there will be multiple links in the sub_links to form a IPv6_links or a path
+                # and the below code should delete the link that is not right
+                # link_with_right_src = []
+                # link_with_right_dst = []
+                # for link in self.nodes[node_index].IPv6_links[seqnum].sub_links:
+                    
+                    
     def process(self):
         for line_index, line in enumerate(self.lines):
             print_process_bar("Processing", line_index / len(self.lines))
@@ -121,6 +181,10 @@ class LogParse:
             fields = line.split()
             timestamp = int(fields[0])  # in milliseconds
             node = int(fields[1])        # node id
+
+            # if timestamp ==60299696:
+            #     abcd =1
+            #     pass
 
             # Delete previous or finished links in self.unfinished_links
             if len(self.unfinished_links) > 0:
@@ -180,6 +244,7 @@ class LogParse:
                 seqnum = int(fields[-5][:-1])
                 src_IPv6_addr = fields[-7][:-1].split("::")[-1]
                 src_node = self.IPv6_2_Node(src_IPv6_addr)
+
                 # find seqnum in links
                 self.nodes[src_node].IPv6_links[seqnum].is_received = True
                 self.nodes[src_node].IPv6_links[seqnum].RSSI = RSSI
@@ -201,21 +266,24 @@ class LogParse:
                 self.nodes[node].Energest.append(energest_stats)
                 continue
 
-            # # 8467000 4 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 67, queue 1/64 1/64, len 21 100
-            # if "send packet to" in line and "queue" in line:
-            #     dst_link_layer_addr = fields[-10]
-            #     dst_node = self.MAC_2_Node(dst_link_layer_addr)
-            #     seqnum = 0 if int(fields[-7][:-1]) == 65535 else int(fields[-7][:-1])
-            #     self.tsch_links.append(SubLinkStatus(node, dst_node, seqnum, None))
-            #     self.unfinished_links[(node, dst_node, seqnum)] = {
-            #         "index": len(self.tsch_links) - 1,
-            #         "timestamp": None,
-            #         "ASN": None
-            #     }
-            #     self.tsch_links[-1].in_queue_st = timestamp
-            #     self.tsch_links[-1].is_queued = True
-            #     self.tsch_links[-1].dst.append(dst_node)
-            #     continue
+            # 8467000 4 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 67, queue 1/64 1/64, len 21 100
+            if "send packet to" in line and "queue" in line:
+
+                dst_link_layer_addr = fields[-10]
+                dst_node = self.MAC_2_Node(dst_link_layer_addr)
+                seqnum = 0 if int(fields[-7][:-1]) == 65535 else int(fields[-7][:-1])
+                self.tsch_links.append(SubLinkStatus(node, dst_node, seqnum, None))
+                self.unfinished_links[(node, dst_node, seqnum)] = {
+                    "index": len(self.tsch_links) - 1,
+                    "timestamp": None,
+                    "ASN": None
+                }
+                self.tsch_links[-1].queued_ts = timestamp
+                self.tsch_links[-1].is_queued = True
+                self.tsch_links[-1].queued_len = int(fields[-1])
+                self.tsch_links[-1].seqnum = seqnum
+                self.tsch_links[-1].dst.append(dst_node)
+                continue
 
             # 27085240 3 [INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
             # # if "packet sent to" in line:
@@ -341,7 +409,7 @@ class LogParse:
             # RX
             # 27085240 1 [INFO: TSCH-LOG  ] {asn 00.00000a6e link  0   3   0  0  0 ch 26} bc-0-0 rx LL-0003->LL-NULL, len  35, seq 119, edr   0
             if "[INFO: TSCH-LOG  ]" in line and "rx" in line:
-                is_dr = "dr" in line
+                is_dr = " dr" in line
                 if is_dr:
                     match = re.match(rx_dr_re_pattern, line)
                 else:
@@ -377,7 +445,7 @@ class LogParse:
                             self.tsch_links[index].is_eb = True if int(is_eb) == 0 else False
                             self.tsch_links[index].security = int(securty)
                             self.tsch_links[index].length = int(length)
-                            self.tsch_links[index].edr = edr
+                            self.tsch_links[index].edr = int(edr)
                             # self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
                             # self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
                     elif len(self.unfinished_links) > 0:
@@ -395,7 +463,7 @@ class LogParse:
                                     self.tsch_links[index].is_eb = True if int(is_eb) == 0 else False
                                     self.tsch_links[index].security = int(securty)
                                     self.tsch_links[index].length = int(length)
-                                    self.tsch_links[index].edr = edr
+                                    self.tsch_links[index].edr = int(edr)
                                     # self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
                                     # self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
                                 break
@@ -405,12 +473,12 @@ class LogParse:
                         if node not in self.tsch_links[-1].dst:
                             self.tsch_links[-1].dst.append(node)
                         self.tsch_links[-1].ASN = asn
-                        self.tsch_links[-1].link_details = (link1, link2, link3, link4, link5, ch)
+                        self.tsch_links[-1].link_details = (int(link1), int(link2), int(link3), int(link4), int(link5), int(ch))    
                         self.tsch_links[-1].link_type = link_type
-                        self.tsch_links[-1].is_eb = is_eb
-                        self.tsch_links[-1].security = security
-                        self.tsch_links[-1].length = length
-                        self.tsch_links[-1].edr = edr
+                        self.tsch_links[-1].is_eb = True if int(is_eb) == 0 else False
+                        self.tsch_links[-1].security = int(securty)
+                        self.tsch_links[-1].length = int(length)
+                        self.tsch_links[-1].edr = int(edr)
                         self.unfinished_links[(src_node, dst_node, seqnum)] = {
                             "index": len(self.tsch_links) - 1,
                             "timestamp": timestamp,
@@ -419,8 +487,8 @@ class LogParse:
                     self.tsch_links[-1].is_recv = True
                     continue
                 
-        self.allocate_tsch_links()    
-        
+        self.allocate_tsch_links()  
+
     def MAC_2_Node(self, addr):
         if addr == "0000.0000.0000.0000" or addr == "ffff.ffff.ffff.ffff": #Root / Broadcast
             return 0
@@ -529,25 +597,32 @@ def print_process_bar(content, percentage):
     hashes = '#' * int(percentage * bar_length)
     spaces = ' ' * (bar_length - len(hashes))
     print(f"\r{content}: [{hashes + spaces}] {percentage*100:.2f}%", end='\r')
+    if percentage == 1:
+        print(f"\n{content} is done.")
 
 if __name__ == '__main__':
     filepath = "F:\Course\year_4\Individual_Researching\contiki-ng\data\\raw\\2024-02-27_14-35-05.testlog"
     log = LogParse(log_path=filepath)
     log.process()
+    
 
-    eb_count = 0
-    failed_count = 0
-    useless_links = []
-    for index,link in enumerate(log.tsch_links):
-        if link.is_eb:
-            eb_count += 1
-            useless_links.append(index)
-        if link.status == 2:
-            failed_count += 1
-            useless_links.append(index)
+    for i in range(10):
 
-    print(f"There are {eb_count} EBs in the log file.")
-    print(f"There are {failed_count} failed links in the log file.")
+        print(log.nodes[6].IPv6_links[i])   
+
+    # eb_count = 0
+    # failed_count = 0
+    # useless_links = []
+    # for index,link in enumerate(log.tsch_links):
+    #     if link.is_eb:
+    #         eb_count += 1
+    #         useless_links.append(index)
+    #     if link.status == 2:
+    #         failed_count += 1
+    #         useless_links.append(index)
+
+    # print(f"There are {eb_count} EBs in the log file.")
+    # print(f"There are {failed_count} failed links in the log file.")
     
 
     # print(log.MAC_2_Node("0001.0001.0001.0001"))

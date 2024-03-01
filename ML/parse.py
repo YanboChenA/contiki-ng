@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-02-29 22:25:51
+LastEditTime: 2024-03-01 22:35:10
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -100,9 +100,11 @@ class SubLinkStatus:
             return False
         if self.timestamp is None:
             return False
-        if self.is_send == False or self.is_recv == False:
-            return False
+        # if self.is_send == False or self.is_recv == False:
+        #     return False
         return True
+    
+    # def could_be_deleted(self, timestamp):
     
     def is_in_duration(self, start, end):
         if self.timestamp is None:
@@ -153,6 +155,8 @@ class LogParse:
         for node_index in self.nodes.keys():
             node = self.nodes[node_index]
             for seqnum in node.IPv6_links.keys():
+                # if node == 6 and seqnum == 0:
+                #     stop_pointer = 1
                 send_ts = node.IPv6_links[seqnum].send_ts
                 recv_ts = node.IPv6_links[seqnum].recv_ts
                 print_process_bar("Allocating", i / length)
@@ -163,8 +167,8 @@ class LogParse:
                         continue
                     if link.is_valid and link.is_in_duration(send_ts,recv_ts):
                         self.nodes[node_index].IPv6_links[seqnum].sub_links.append(link)
-                    if link.timestamp > recv_ts:
-                        break
+                    # if link.is_valid and link.timestamp > recv_ts:
+                    #     break
 
                 # Find link that match the IPv6_links, pind the matched path, means
                 # there will be multiple links in the sub_links to form a IPv6_links or a path
@@ -175,6 +179,9 @@ class LogParse:
                     
                     
     def process(self):
+        """Process the log file, and save the information to the self.nodes and self.tsch_links
+        """
+        print("Processing the log ")
         for line_index, line in enumerate(self.lines):
             print_process_bar("Processing", line_index / len(self.lines))
             line = line.strip()
@@ -182,14 +189,15 @@ class LogParse:
             timestamp = int(fields[0])  # in milliseconds
             node = int(fields[1])        # node id
 
-            # if timestamp ==60299696:
-            #     abcd =1
-            #     pass
+            if timestamp == 60837488:
+                stop_pointer =1
+                pass
 
             # Delete previous or finished links in self.unfinished_links
             if len(self.unfinished_links) > 0:
                 for key in list(self.unfinished_links.keys()):
-                    if self.unfinished_links[key]["timestamp"] is not None and self.unfinished_links[key]["timestamp"] != timestamp:
+                    if self.unfinished_links[key]["timestamp"] is not None and timestamp - self.unfinished_links[key]["timestamp"] >= 3000 :
+                        # if self.tsch_links[self.unfinished_links[key]["index"]].is_send and self.tsch_links[self.unfinished_links[key]["index"]].is_recv:
                         del self.unfinished_links[key]
 
             if node not in self.nodes:
@@ -268,7 +276,6 @@ class LogParse:
 
             # 8467000 4 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 67, queue 1/64 1/64, len 21 100
             if "send packet to" in line and "queue" in line:
-
                 dst_link_layer_addr = fields[-10]
                 dst_node = self.MAC_2_Node(dst_link_layer_addr)
                 seqnum = 0 if int(fields[-7][:-1]) == 65535 else int(fields[-7][:-1])
@@ -372,8 +379,25 @@ class LogParse:
                         #     continue
                         index = self.unfinished_links[(src_node, dst_node, seqnum)]["index"]
                         if self.tsch_links[index].is_recv:
+                            if int(status) == 0:
+                                self.tsch_links[index].status = int(status)
+                                self.tsch_links[index].tx_attempt = int(tx_attempt)
+                                self.tsch_links[index].is_send = True
+                            elif int(status) == 2:
+                                # If the link is failed, reset the link to wait for the next send
+                                self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = None
+                                self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = None
+                                self.tsch_links[index].status = int(status)
+                                self.tsch_links[index].is_send = False
+                                self.tsch_links[index].is_recv = False
+                                continue
+                        elif int(status) == 2:
+                            self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = None
+                            self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = None
                             self.tsch_links[index].status = int(status)
-                            self.tsch_links[index].tx_attempt = int(tx_attempt)
+                            self.tsch_links[index].is_send = False
+                            self.tsch_links[index].is_recv = False
+                            continue
                         else:
                             self.tsch_links[index].ASN = asn
                             self.tsch_links[index].link_details = (int(link1), int(link2), int(link3), int(link4), int(link5), int(ch))
@@ -384,8 +408,12 @@ class LogParse:
                             self.tsch_links[index].status = int(status)
                             self.tsch_links[index].tx_attempt = int(tx_attempt)
                             self.tsch_links[index].timestamp = timestamp
-                            # self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
-                            # self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
+                            self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
+                            self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
+                            self.tsch_links[index].is_send = True
+                    # elif len(self.unfinished_links) > 0:
+                    #     for (src, dst, seqnum) in self.unfinished_links.keys():
+                    #         link = self.unfinished_links[(src, dst, seqnum)]
                     else:
                         # If the link is not in the unfinished_links, then add it to the tsch_links
                         self.tsch_links.append(SubLinkStatus(src_node, dst_node, seqnum, timestamp))
@@ -403,7 +431,8 @@ class LogParse:
                             "timestamp": timestamp,
                             "ASN": asn
                         }
-                    self.tsch_links[-1].is_send = True
+                        self.tsch_links[-1].is_send = True
+                    
                     continue
 
             # RX
@@ -438,7 +467,10 @@ class LogParse:
                             self.tsch_links[index].dst.append(node)
                         if self.tsch_links[index].is_send:
                             self.tsch_links[index].edr = int(edr)
+                        # elif self.tsch_links[index].status == "2":
+                        #     continue
                         else:
+                            self.tsch_links[index].timestamp = timestamp
                             self.tsch_links[index].ASN = asn
                             self.tsch_links[index].link_details = (int(link1), int(link2), int(link3), int(link4), int(link5), int(ch))
                             self.tsch_links[index].link_type = link_type
@@ -446,27 +478,30 @@ class LogParse:
                             self.tsch_links[index].security = int(securty)
                             self.tsch_links[index].length = int(length)
                             self.tsch_links[index].edr = int(edr)
-                            # self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
-                            # self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
-                    elif len(self.unfinished_links) > 0:
-                        for (src, dst, seqnum) in self.unfinished_links.keys():
-                            if timestamp - self.unfinished_links[(src, dst, seqnum)]["timestamp"] <= 1000:
-                                index = self.unfinished_links[(src, dst, seqnum)]["index"]
-                                if node not in self.tsch_links[index].dst:
-                                    self.tsch_links[index].dst.append(node)
-                                if self.tsch_links[index].is_send:
-                                    self.tsch_links[index].edr = int(edr)
-                                else:
-                                    self.tsch_links[index].ASN = asn
-                                    self.tsch_links[index].link_details = (int(link1), int(link2), int(link3), int(link4), int(link5), int(ch))
-                                    self.tsch_links[index].link_type = link_type
-                                    self.tsch_links[index].is_eb = True if int(is_eb) == 0 else False
-                                    self.tsch_links[index].security = int(securty)
-                                    self.tsch_links[index].length = int(length)
-                                    self.tsch_links[index].edr = int(edr)
-                                    # self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
-                                    # self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
-                                break
+                            self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
+                            self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
+
+                            self.tsch_links[index].is_recv = True
+                    # elif len(self.unfinished_links) > 0:
+                    #     for (src, dst, seqnum) in self.unfinished_links.keys():
+                    #         if timestamp - self.unfinished_links[(src, dst, seqnum)]["timestamp"] <= 1000:
+                    #         # if src == src_node and dst == dst_node:
+                    #             index = self.unfinished_links[(src, dst, seqnum)]["index"]
+                    #             if node not in self.tsch_links[index].dst:
+                    #                 self.tsch_links[index].dst.append(node)
+                    #             if self.tsch_links[index].is_send:
+                    #                 self.tsch_links[index].edr = int(edr)
+                    #             else:
+                    #                 self.tsch_links[index].ASN = asn
+                    #                 self.tsch_links[index].link_details = (int(link1), int(link2), int(link3), int(link4), int(link5), int(ch))
+                    #                 self.tsch_links[index].link_type = link_type
+                    #                 self.tsch_links[index].is_eb = True if int(is_eb) == 0 else False
+                    #                 self.tsch_links[index].security = int(securty)
+                    #                 self.tsch_links[index].length = int(length)
+                    #                 self.tsch_links[index].edr = int(edr)
+                    #                 # self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
+                    #                 # self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
+                    #             break
                     else:
                         # If the link is not in the unfinished_links, then add it to the tsch_links
                         self.tsch_links.append(SubLinkStatus(src_node, dst_node, seqnum, timestamp))
@@ -484,7 +519,7 @@ class LogParse:
                             "timestamp": timestamp,
                             "ASN": asn
                         }
-                    self.tsch_links[-1].is_recv = True
+                        self.tsch_links[-1].is_recv = True
                     continue
                 
         self.allocate_tsch_links()  

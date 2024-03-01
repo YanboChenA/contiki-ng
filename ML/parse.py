@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-01 22:35:10
+LastEditTime: 2024-03-01 23:07:48
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -167,15 +167,40 @@ class LogParse:
                         continue
                     if link.is_valid and link.is_in_duration(send_ts,recv_ts):
                         self.nodes[node_index].IPv6_links[seqnum].sub_links.append(link)
-                    # if link.is_valid and link.timestamp > recv_ts:
-                    #     break
+                    if link.is_valid and link.timestamp > recv_ts + 10000000:
+                        break
+                
+                # Delete incorrect sublinks, in following steps: 
+                # STEP 1: find the all link with with same src 
+                #   -- if the link's dst and src are same as the IPv6 link's dst and src, then save it, as only one hop link
+                #   -- Else if the link's dst same as the IPv6 link's dst, but src is not same, 
+                #   --      consider it as the links' first hop, and go to the next step
+                # STEP 2: find the all link with with same dst with the first hop
+                #   -- if the link's dst is same as the IPv6 link's dst, then save it
+                #   -- Else if the link's dst is not same as the IPv6 link's dst, 
+                #   --      then consider it as the links' second hop, the following steps are the same as the first hop
 
-                # Find link that match the IPv6_links, pind the matched path, means
-                # there will be multiple links in the sub_links to form a IPv6_links or a path
-                # and the below code should delete the link that is not right
-                # link_with_right_src = []
-                # link_with_right_dst = []
-                # for link in self.nodes[node_index].IPv6_links[seqnum].sub_links:
+                saved_hops = {}
+                hop_index = 1
+                IPv6_src = node.IPv6_links[seqnum].src
+                IPv6_dst = node.IPv6_links[seqnum].dst
+                while True:
+                    saved_hops[hop_index]=[]
+                    for sublink in self.nodes[node_index].IPv6_links[seqnum].sub_links:
+                        if sublink.src == IPv6_src:
+                            saved_hops[hop_index].append(sublink)
+                    target = len(saved_hops[hop_index])
+                    now = 0
+                    for sublink in saved_hops[hop_index]:
+                        if sublink.dst == IPv6_dst:
+                            now += 1
+                    if now == target:
+                        break
+                    hop_index += 1
+                self.nodes[node_index].IPv6_links[seqnum].sub_links = saved_hops
+                
+
+                
                     
                     
     def process(self):
@@ -189,7 +214,7 @@ class LogParse:
             timestamp = int(fields[0])  # in milliseconds
             node = int(fields[1])        # node id
 
-            if timestamp == 60837488:
+            if timestamp == 60567488:
                 stop_pointer =1
                 pass
 
@@ -467,6 +492,7 @@ class LogParse:
                             self.tsch_links[index].dst.append(node)
                         if self.tsch_links[index].is_send:
                             self.tsch_links[index].edr = int(edr)
+                            # self.tsch_links[index].is_recv = True
                         # elif self.tsch_links[index].status == "2":
                         #     continue
                         else:
@@ -481,7 +507,7 @@ class LogParse:
                             self.unfinished_links[(src_node, dst_node, seqnum)]["ASN"] = asn
                             self.unfinished_links[(src_node, dst_node, seqnum)]["timestamp"] = timestamp
 
-                            self.tsch_links[index].is_recv = True
+                        self.tsch_links[index].is_recv = True
                     # elif len(self.unfinished_links) > 0:
                     #     for (src, dst, seqnum) in self.unfinished_links.keys():
                     #         if timestamp - self.unfinished_links[(src, dst, seqnum)]["timestamp"] <= 1000:

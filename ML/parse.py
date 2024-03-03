@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-01 23:07:48
+LastEditTime: 2024-03-03 22:34:21
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -30,8 +30,96 @@ class NodeStats:
 
         self.is_root = False
 
-        self.Energest = []
-        self.IPv6_links = {}
+        self.Energest = [] # A list include the Energest statistics, each element is a dict, include the CPU, LPM, TX, RX, Total_time
+        self.IPv6_links = {} # seqnum: LinkStats, include the link status, each element is a LinkStats
+
+        self.data = []  # Include the data from the log, for further GNN training
+                        # Reallocate the data in time period of 30s
+        self.IPv6_link_status = [] # Include the link status, for further GNN training
+        self.node_status = [] # include a dict, include the periods' average send and receive rate, success rate, and the Energest statistics
+        self.after_calculate_Energest = False
+        self.after_allocate_IPv6_links = False
+    
+    def calculate_Energest(self):
+        temp_Energest = self.Energest
+        self.Energest = [temp_Energest[0]]
+        for i in range(1,len(temp_Energest)):
+            self.Energest.append({
+                "CPU": temp_Energest[i]["CPU"] - temp_Energest[i-1]["CPU"],
+                "LPM": temp_Energest[i]["LPM"] - temp_Energest[i-1]["LPM"],
+                "TX": temp_Energest[i]["TX"] - temp_Energest[i-1]["TX"],
+                "RX": temp_Energest[i]["RX"] - temp_Energest[i-1]["RX"],
+                "Total_time": temp_Energest[i]["Total_time"] - temp_Energest[i-1]["Total_time"]
+            })
+        self.after_calculate_Energest = True
+
+    def allocate_IPv6_links(self):
+        """Allocating the IPv6 links, and add the sub links to the IPv6_links
+        Allocating or regroup the data in time period of 30s
+        """
+        timeperiod = 30000000 # 30s, 30,000,000us
+        # total runtime is 1 hour, pre built the data list
+        self.IPv6_link_status = [[] for _ in range(120)]
+        for seqnum in self.IPv6_links.keys():
+            link = self.IPv6_links[seqnum]
+            if link.send_ts is None or link.recv_ts is None:
+                continue
+            # calculate the link's send_ts in which time period
+            index = link.send_ts // timeperiod
+            self.IPv6_link_status[index].append(link)
+        self.after_allocate_IPv6_links = True
+
+    def calculate_node_status(self):
+        """Calculate the node's status, include the periods' average send and receive rate, success rate, and the Energest statistics
+        """
+        # TODO: Add other attributes if needed in the future
+        timeperiod = 30000000 # 30s, 30,000,000us
+        if self.after_allocate_IPv6_links == False:
+            self.allocate_IPv6_links()
+        if self.after_calculate_Energest == False:
+            self.calculate_Energest()
+
+        self.node_status = [[] for _ in range(120)]
+        for index in range(120):
+            IPv6_links = self.IPv6_link_status[index]
+
+
+            transmit_delay = 0
+            tansmit_num = len(IPv6_links)
+
+            tsch_link_num = 0
+            tsch_link_transmit_num = 0
+
+            for link in IPv6_links:
+                transmit_delay += link.recv_ts - link.send_ts
+                tsch_link_num += len(link.sub_links)
+                for sublink in link.sub_links:
+                    tsch_link_transmit_num += sublink.tx_attempt
+
+            transmit_delay = transmit_delay / tansmit_num if tansmit_num != 0 else 0
+            tsch_success_rate = tsch_link_num / tsch_link_transmit_num if tsch_link_num != 0 else 0
+
+            try:
+                Energest = self.Energest[index]
+                CPU_usage = Energest["CPU"] / Energest["Total_time"]
+                LPM_usage = Energest["LPM"] / Energest["Total_time"]
+                TX_duty_cycle = Energest["TX"] / Energest["Total_time"]
+                RX_duty_cycle = Energest["RX"] / Energest["Total_time"]
+            except:
+                CPU_usage = 0
+                LPM_usage = 0
+                TX_duty_cycle = 0
+                RX_duty_cycle = 0
+            
+
+            self.node_status[index] = {
+                "transmit_delay": transmit_delay / tansmit_num if tansmit_num != 0 else 0,
+                "tsch_success_rate": tsch_success_rate if tsch_link_num != 0 else 0,
+                "CPU_usage": CPU_usage,
+                "LPM_usage": LPM_usage,
+                "TX_duty_cycle": TX_duty_cycle,
+                "RX_duty_cycle": RX_duty_cycle
+            }
 
 class LinkStats:
     """Record the Link's statistics, udp 
@@ -91,6 +179,9 @@ class SubLinkStatus:
         # Class control
         self.is_send = False
         self.is_recv = False
+
+    def __eq__(self, other) -> bool:
+        return self.src == other.src and self.dst == other.dst and self.seqnum == other.seqnum and self.timestamp == other.timestamp and self.ASN == other.ASN
 
     @property
     def is_valid(self):
@@ -154,6 +245,8 @@ class LogParse:
         length = sum([len(node.IPv6_links) for node in self.nodes.values()])
         for node_index in self.nodes.keys():
             node = self.nodes[node_index]
+            if node_index == 6:
+                stop_pointer = 1
             for seqnum in node.IPv6_links.keys():
                 # if node == 6 and seqnum == 0:
                 #     stop_pointer = 1
@@ -170,40 +263,44 @@ class LogParse:
                     if link.is_valid and link.timestamp > recv_ts + 10000000:
                         break
                 
-                # Delete incorrect sublinks, in following steps: 
-                # STEP 1: find the all link with with same src 
-                #   -- if the link's dst and src are same as the IPv6 link's dst and src, then save it, as only one hop link
-                #   -- Else if the link's dst same as the IPv6 link's dst, but src is not same, 
-                #   --      consider it as the links' first hop, and go to the next step
-                # STEP 2: find the all link with with same dst with the first hop
-                #   -- if the link's dst is same as the IPv6 link's dst, then save it
-                #   -- Else if the link's dst is not same as the IPv6 link's dst, 
-                #   --      then consider it as the links' second hop, the following steps are the same as the first hop
-
-                saved_hops = {}
-                hop_index = 1
+                sublinks = self.nodes[node_index].IPv6_links[seqnum].sub_links
                 IPv6_src = node.IPv6_links[seqnum].src
                 IPv6_dst = node.IPv6_links[seqnum].dst
-                while True:
-                    saved_hops[hop_index]=[]
-                    for sublink in self.nodes[node_index].IPv6_links[seqnum].sub_links:
-                        if sublink.src == IPv6_src:
-                            saved_hops[hop_index].append(sublink)
-                    target = len(saved_hops[hop_index])
-                    now = 0
-                    for sublink in saved_hops[hop_index]:
-                        if sublink.dst == IPv6_dst:
-                            now += 1
-                    if now == target:
-                        break
-                    hop_index += 1
-                self.nodes[node_index].IPv6_links[seqnum].sub_links = saved_hops
-                
 
+                # Find the path from src to dst
+                self.all_paths = []
+                self.find_link_path(IPv6_src, IPv6_dst, sublinks)
+                self.nodes[node_index].IPv6_links[seqnum].sub_links = self.all_paths
+        
+    def find_link_path(self, src, dst, sublinks, current_path=[]):
+        # If the current node is equal to the destination node, we have found a path
+        if src == dst:
+            for link in current_path:
+                self.all_paths.append(link)
+            return
+        # Check the sublinks from the current node
+        for index, link in enumerate(sublinks):
+            is_in_current_path = link in current_path
+            is_in_all_paths = link in self.all_paths
+            if link.src == src and not is_in_current_path and not is_in_all_paths:
+                # Add the current link to the path
+                current_path.append(link)
+                # link.dst: [1] as an example, should be a list, but in this case, it should be an int
+                next_src = link.dst[0] if len(link.dst) == 1 else link.dst
+                # Recursively search for the path from the destination node of the current link to the destination node
+                self.find_link_path(next_src, dst, sublinks, current_path)
+                # Backtrack: Remove the current link and explore the next possible link
+                current_path.pop()
+        # return
                 
-                    
-                    
     def process(self):
+        self.analyse_log()
+        self.allocate_tsch_links()
+        for node in self.nodes.values():
+            node.calculate_node_status()
+            # node.allocate_IPv6_links()
+                    
+    def analyse_log(self):
         """Process the log file, and save the information to the self.nodes and self.tsch_links
         """
         print("Processing the log ")
@@ -314,7 +411,8 @@ class LogParse:
                 self.tsch_links[-1].is_queued = True
                 self.tsch_links[-1].queued_len = int(fields[-1])
                 self.tsch_links[-1].seqnum = seqnum
-                self.tsch_links[-1].dst.append(dst_node)
+                if dst_node not in self.tsch_links[-1].dst:
+                    self.tsch_links[-1].dst.append(dst_node)
                 continue
 
             # 27085240 3 [INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
@@ -548,7 +646,7 @@ class LogParse:
                         self.tsch_links[-1].is_recv = True
                     continue
                 
-        self.allocate_tsch_links()  
+        # self.allocate_tsch_links()  
 
     def MAC_2_Node(self, addr):
         if addr == "0000.0000.0000.0000" or addr == "ffff.ffff.ffff.ffff": #Root / Broadcast
@@ -667,32 +765,14 @@ if __name__ == '__main__':
     log.process()
     
 
+
     for i in range(10):
 
         print(log.nodes[6].IPv6_links[i])   
 
-    # eb_count = 0
-    # failed_count = 0
-    # useless_links = []
-    # for index,link in enumerate(log.tsch_links):
-    #     if link.is_eb:
-    #         eb_count += 1
-    #         useless_links.append(index)
-    #     if link.status == 2:
-    #         failed_count += 1
-    #         useless_links.append(index)
+    print(len(log.nodes[6].IPv6_link_status[0]))
+    print(len(log.nodes[6].IPv6_links))
 
-    # print(f"There are {eb_count} EBs in the log file.")
-    # print(f"There are {failed_count} failed links in the log file.")
-    
-
-    # print(log.MAC_2_Node("0001.0001.0001.0001"))
-    # print(len(log.nodes[1].Energest))
-    # print(len(log.nodes[3].IPv6_links))
-    # for link in list(log.nodes[3].IPv6_links.values())[:10]:
-    #     print(link)
-    # print(len(log.nodes[3].tsch_links))
-    # for link in list(log.nodes[3].tsch_links.values())[:50]:
-    #     print(link)
+    # print(log.nodes[6].node_status)
 
 

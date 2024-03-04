@@ -2,12 +2,14 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-03 22:34:21
+LastEditTime: 2024-03-04 12:06:52
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
 
 import re
+import numpy as np
+
 tx_re_pattern = r".*\{asn (.*?) link\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+ch\s+(\d+)\}\s+(.*?)-(\d+)-(\d+)\s+tx\s+LL-(.*?)->LL-(.*?),\s+len\s+(\d+),\s+seq\s+(\d+),\s+st\s+(\d+)\s+(\d+)"
 rx_re_pattern = r".*\{asn (.*?) link\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+ch\s+(\d+)\}\s+(.*?)-(\d+)-(\d+)\s+rx\s+LL-(.*?)->LL-(.*?),\s+len\s+(\d+),\s+seq\s+(\d+),\s+edr\s+(\d+)"
 rx_dr_re_pattern = r".*\{asn (.*?) link\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+ch\s+(\d+)\}\s+(.*?)-(\d+)-(\d+)\s+rx\s+LL-(.*?)->LL-(.*?),\s+len\s+(\d+),\s+seq\s+(\d+),\s+edr\s+(\d+),\s+dr\s+(\d+)"
@@ -39,6 +41,8 @@ class NodeStats:
         self.node_status = [] # include a dict, include the periods' average send and receive rate, success rate, and the Energest statistics
         self.after_calculate_Energest = False
         self.after_allocate_IPv6_links = False
+
+        self.data_num = 120 # 1 hour, 120 periods
     
     def calculate_Energest(self):
         temp_Energest = self.Energest
@@ -121,6 +125,10 @@ class NodeStats:
                 "RX_duty_cycle": RX_duty_cycle
             }
 
+    def get_node_status(self, index):
+        # return the node's status in the index as a list
+        return list(self.node_status[index].values())
+
 class LinkStats:
     """Record the Link's statistics, udp 
     """
@@ -146,7 +154,14 @@ class LinkStats:
             for sublink in self.sub_links:
                 sublinks_str += str(sublink) + "\n"
             return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, RSSI: {self.RSSI}, LQI: {self.LQI}, send_ts: {self.send_ts}, recv_ts: {self.recv_ts}, \nsublinks: {sublinks_str}"
-    # def get_
+    
+    def calculate_link_status(self):
+        """Calculate the link's status, include the periods' average send and receive rate, success rate, and the Energest statistics
+        """
+        self.sub_links_num = len(self.sub_links)
+        self.sub_links_delay = self.send_ts - self.recv_ts
+        
+
         
 class SubLinkStatus:
     """Record the sublink's status, tsch
@@ -759,6 +774,8 @@ def print_process_bar(content, percentage):
     if percentage == 1:
         print(f"\n{content} is done.")
 
+
+
 if __name__ == '__main__':
     filepath = "F:\Course\year_4\Individual_Researching\contiki-ng\data\\raw\\2024-02-27_14-35-05.testlog"
     log = LogParse(log_path=filepath)
@@ -766,13 +783,29 @@ if __name__ == '__main__':
     
 
 
-    for i in range(10):
+    # for i in range(10):
 
-        print(log.nodes[6].IPv6_links[i])   
+    #     print(log.nodes[6].IPv6_links[i])   
 
-    print(len(log.nodes[6].IPv6_link_status[0]))
-    print(len(log.nodes[6].IPv6_links))
+    # print(len(log.nodes[6].IPv6_link_status[0]))
+    # print(len(log.nodes[6].IPv6_links))
+
+    # print(len(log.nodes.keys()))
+    
 
     # print(log.nodes[6].node_status)
+
+    import torch
+
+    nodes = log.nodes
+    node_num = len(nodes.keys()) # 8
+    node_features = [[] for _ in range(node_num)]
+    index = 5
+    for node_id in range(1,node_num+1):
+        node = nodes[node_id]
+        node_features[node_id-1] = node.get_node_status(index)
+    print("\n\n")
+    print(node_features)
+    print(torch.tensor(node_features, dtype=torch.float))
 
 

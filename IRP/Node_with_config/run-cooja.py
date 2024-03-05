@@ -74,9 +74,9 @@ def execute_test(cooja_file):
 
     save_file = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".testlog"
 
-    filename = os.path.join(SELF_PATH, cooja_file)
+    filename = os.path.join(CSC_PATH, cooja_file)
     # print(filename)
-    args = " ".join([COOJA_PATH + "/gradlew --no-watch-fs --parallel --build-cache -p", COOJA_PATH, "run --args='--contiki=" + CONTIKI_PATH, "--no-gui", "--logdir=" + SELF_PATH, filename + "'"])
+    args = " ".join([COOJA_PATH + "/gradlew --no-watch-fs --parallel --build-cache -p", COOJA_PATH, "run --args='--contiki=" + CONTIKI_PATH, "--no-gui", "--logdir=" + CSC_PATH, filename + "'"])
     sys.stdout.write("  Running Cooja, args={}\n".format(args))
 
     (retcode, output) = run_subprocess(args, '')

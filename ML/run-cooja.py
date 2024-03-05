@@ -14,6 +14,10 @@ SELF_PATH = os.path.dirname(os.path.abspath(__file__))
 CONTIKI_PATH = os.path.dirname(os.path.dirname(SELF_PATH))
 # print("CONTIKI_PATH:", CONTIKI_PATH)
 
+# Contiki-ng/IRP/Node_with_config
+CSC_PATH = os.path.normpath(os.path.join(CONTIKI_PATH, "IRP", "Node_with_config"))
+# print("CSC_PATH:", CSC_PATH)
+
 COOJA_PATH = os.path.normpath(os.path.join(CONTIKI_PATH, "tools", "cooja"))
 # print("COOJA_PATH:", COOJA_PATH)
 
@@ -22,10 +26,10 @@ SAVE_PATH = os.path.join(CONTIKI_PATH, "data", "raw")
 print("SAVE_PATH:", SAVE_PATH)
 
 # cooja_input = 'cooja.csc'
-cooja_input = os.path.join(SELF_PATH, 'cooja.csc')
+cooja_input = os.path.join(CSC_PATH, 'cooja.csc')
 # print("cooja_input:", cooja_input)
 # cooja_output = 'COOJA.testlog'
-cooja_output = os.path.join(SELF_PATH, 'COOJA.testlog')
+cooja_output = os.path.join(CSC_PATH, 'COOJA.testlog')
 
 
 
@@ -70,9 +74,9 @@ def execute_test(cooja_file):
 
     save_file = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".testlog"
 
-    filename = os.path.join(SELF_PATH, cooja_file)
+    filename = os.path.join(CSC_PATH, cooja_file)
     # print(filename)
-    args = " ".join([COOJA_PATH + "/gradlew --no-watch-fs --parallel --build-cache -p", COOJA_PATH, "run --args='--contiki=" + CONTIKI_PATH, "--no-gui", "--logdir=" + SELF_PATH, filename + "'"])
+    args = " ".join([COOJA_PATH + "/gradlew --no-watch-fs --parallel --build-cache -p", COOJA_PATH, "run --args='--contiki=" + CONTIKI_PATH, "--no-gui", "--logdir=" + CSC_PATH, filename + "'"])
     sys.stdout.write("  Running Cooja, args={}\n".format(args))
 
     (retcode, output) = run_subprocess(args, '')

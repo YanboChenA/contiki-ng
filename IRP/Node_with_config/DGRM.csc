@@ -179,4 +179,12 @@
     org.contikios.cooja.plugins.DGRMConfigurator
     <bounds x="134" y="438" height="300" width="400" />
   </plugin>
+  <plugin>
+    org.contikios.cooja.plugins.ScriptRunner
+    <plugin_config>
+      <scriptfile>[CONFIG_DIR]/coojalogger.js</scriptfile>
+      <active>true</active>
+    </plugin_config>
+    <bounds x="0" y="0" height="700" width="600" z="-1" minimized="true" />
+  </plugin>
 </simconf>

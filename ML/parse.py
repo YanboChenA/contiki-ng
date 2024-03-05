@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-04 12:06:52
+LastEditTime: 2024-03-04 16:13:27
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -146,6 +146,8 @@ class LinkStats:
 
         self.sub_links = [] # sub links' status
 
+        self.after_calculate_link_status = False
+    
     def __str__(self) -> str:
         if self.sub_links == []:
             return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, RSSI: {self.RSSI}, LQI: {self.LQI}, send_ts: {self.send_ts}, recv_ts: {self.recv_ts}"
@@ -158,11 +160,72 @@ class LinkStats:
     def calculate_link_status(self):
         """Calculate the link's status, include the periods' average send and receive rate, success rate, and the Energest statistics
         """
-        self.sub_links_num = len(self.sub_links)
-        self.sub_links_delay = self.send_ts - self.recv_ts
-        
 
-        
+        # Aggregate sublink status
+        # Sublink status includes: 
+        #           number of sublinks
+        #           number of queued sublinks
+        #           number of total sublinks tx attempts
+        #           hop count
+        #           fragment count
+        #           average queued delay if the sublink is queued
+        #           average length of sublinks
+        self.sub_links_num = len(self.sub_links) 
+        self.sub_links_tx_num = 0
+        self.sub_links_queued_num = 0
+        self.sub_links_queued_delay = 0
+        self.sub_links_length = 0
+
+        for sublink in self.sub_links:
+            if sublink.is_queued:
+                self.sub_links_queued_num += 1
+                self.sub_links_queued_delay += self.send_ts - sublink.queued_ts
+            self.sub_links_tx_num += sublink.tx_attempt
+            self.sub_links_length += sublink.length
+
+        self.sub_links_queued_delay = self.sub_links_queued_delay / self.sub_links_queued_num if self.sub_links_queued_num != 0 else 0
+        self.sub_links_length = self.sub_links_length / self.sub_links_num if self.sub_links_num != 0 else 0
+
+        if self.sub_links_num <= 1:
+            self.sub_links_hop_count = 0
+            self.sub_links_fragment_count = 0
+        else:
+            self.sub_links_fragment_count = 0
+            for sublink in self.sub_links:
+                if sublink.src == self.src:
+                    self.sub_links_fragment_count += 1
+            self.sub_links_hop_count = self.sub_links_num // self.sub_links_fragment_count if self.sub_links_fragment_count != 0 else 0
+
+        # Calculate the link status
+        if self.recv_ts is None or self.send_ts is None:
+            self.delay = 0
+        else:
+            self.delay = self.recv_ts - self.send_ts
+
+        self.after_calculate_link_status = True
+
+    def get_link_status(self):
+        # return the link's status in the index as a list
+
+        if self.after_calculate_link_status == False:
+            self.calculate_link_status()
+
+        # link_status:  send timestamp，
+        #               receive timestamp，
+        #               delay，
+        #               number of sublinks，
+        #               number of total sublinks tx attempts，
+        #               number of queued sublinks，
+        #               average queued delay if the sublink is queued，
+        #               average length of sublinks，
+        #               hop count，
+        #               fragment count
+        link_status = [self.send_ts,self.recv_ts,self.delay,self.sub_links_num,self.sub_links_tx_num,self.sub_links_queued_num,self.sub_links_queued_delay,self.sub_links_length,self.sub_links_hop_count,self.sub_links_fragment_count]
+        if None in link_status:
+            # change the None to 0
+            link_status = [0 if x is None else x for x in link_status]
+        return link_status
+               
 class SubLinkStatus:
     """Record the sublink's status, tsch
     """
@@ -677,89 +740,6 @@ class LogParse:
                 return node
         return None
 
-def delete_lines(input_file, output_file):
-    """Delete lines from the files, and save as another file
-
-    Args:
-        filename (str): file path
-    """
-    
-    with open(input_file, 'r') as file:
-        lines = file.readlines()
-        line_number = len(lines)
-        # add first 2 lines and the last 3 lines to cancel_lines
-        save_lines = []
-        lines = lines[2:-3]
-        for index, line in enumerate(lines):
-            line = line.strip()
-            # 73000 8 [INFO: Main      ] Link-layer address: 0008.0008.0008.0008
-            if "Link-layer address" in line:
-                save_lines.append(line)
-                continue
-
-            # 73000 8 [INFO: Main      ] Tentative link-local IPv6 address: fe80::208:8:8:8
-            if "IPv6 address" in line:
-                save_lines.append(line)
-                continue
-
-            # 382000 1 [INFO: App       ] Node 1 started as root, root ip address: fd00::201:1:1:1
-            if "started as root" in line:
-                save_lines.append(line)
-                continue
-
-            # 508000 4 [INFO: TSCH      ] association done (1), sec 0, PAN ID 81a5, asn-0.c, jp 1, timeslot id 0, hopping id 0, slotframe len 0 with 0 links, from 0001.0001.0001.0001
-            if "association done" in line:
-                save_lines.append(line)
-                continue
-
-            # 536000 2 [INFO: TSCH Queue] update time source: (NULL LL addr) -> 0001.0001.0001.0001
-            if "update time source" in line:
-                save_lines.append(line)
-                continue
-
-            if "leaving the network" in line:
-                save_lines.append(line)
-                continue
-
-            # 2757000 1 [INFO: App       ] APP: Sending to fd00::201:1:1:1, seqnum 1
-            if "APP: Sending" in line:
-                save_lines.append(line)
-                continue
-            
-            # 2757000 1 [INFO: App       ] APP: Received from fd00::201:1:1:1, seqnum 1, RSSI: 0, LQI: 0
-            if "APP: Received" in line:
-                save_lines.append(line)
-                continue
-
-            # 30073000 8 [INFO: App       ] Energest: Index 0 CPU 30000000 LPM 0 TX 22784 RX 9564348 Total_time 30000000
-            if "Energest:" in line:
-                save_lines.append(line)
-                continue
-
-            # 8467000 4 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 67, queue 1/64 1/64, len 21 100
-            if "send packet to" in line and "queue" in line:
-                save_lines.append(line)
-                continue
-
-            # 27085240 3 [INFO: TSCH      ] packet sent to 0000.0000.0000.0000, seqno 0, status 0, tx 1
-            if "packet sent to" in line:
-                save_lines.append(line)
-                continue
-
-            # 27085240 3 [INFO: TSCH-LOG  ] {asn 00.00000a6e link  0   3   0  0  0 ch 26} bc-0-0 tx LL-0003->LL-NULL, len  35, seq   0, st 0  1
-            if "INFO: TSCH-LOG" in line:
-                save_lines.append(line)
-                continue
-
-            if "received from" in line:
-                save_lines.append(line)
-                continue
-
-        # save as another file
-        with open(output_file, 'w') as file:
-            for line in save_lines:
-                file.write(line + "\n")
-
 def print_process_bar(content, percentage):
     """Print the process bar
 
@@ -774,14 +754,10 @@ def print_process_bar(content, percentage):
     if percentage == 1:
         print(f"\n{content} is done.")
 
-
-
 if __name__ == '__main__':
     filepath = "F:\Course\year_4\Individual_Researching\contiki-ng\data\\raw\\2024-02-27_14-35-05.testlog"
     log = LogParse(log_path=filepath)
     log.process()
-    
-
 
     # for i in range(10):
 
@@ -791,7 +767,6 @@ if __name__ == '__main__':
     # print(len(log.nodes[6].IPv6_links))
 
     # print(len(log.nodes.keys()))
-    
 
     # print(log.nodes[6].node_status)
 
@@ -807,5 +782,3 @@ if __name__ == '__main__':
     print("\n\n")
     print(node_features)
     print(torch.tensor(node_features, dtype=torch.float))
-
-

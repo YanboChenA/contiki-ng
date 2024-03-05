@@ -73,6 +73,11 @@ summary
 tests/18-coap-lwm2m/Californium.properties
 tests/18-coap-lwm2m/leshan-server-demo*.jar
 
+# Python/Conda virtual environment artifacts
+year4_IRP/*
+*.conda_trash
+.conda/
+
 # do not ignore files in /data/raw/
 !data/raw/*
 

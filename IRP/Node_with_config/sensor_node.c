@@ -30,8 +30,6 @@
 
 static struct simple_udp_connection udp_conn;
 
-
-
 static void 
 rx_callback( struct simple_udp_connection *c,
                   const uip_ipaddr_t *sender_addr,
@@ -74,12 +72,39 @@ static void send_data(uip_ipaddr_t *dest_ipaddr, uint32_t packet_size) {
 
 
 PROCESS(sensor_node_process, "Sensor Node Process");
-AUTOSTART_PROCESSES(&sensor_node_process);
+PROCESS(energest_process, "Energest Process");
+AUTOSTART_PROCESSES(&sensor_node_process, &energest_process);
+
+PROCESS_THREAD(energest_process, ev, data)
+{
+    static struct etimer log_timer;
+    static uint32_t log_index = 0;
+
+    PROCESS_BEGIN();
+
+    etimer_set(&log_timer, LOG_INTERVAL);
+    while(1) {
+        PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&log_timer));
+
+        energest_flush(); 
+
+        LOG_INFO("Energest: Index %d CPU %lu LPM %lu TX %lu RX %lu Total_time %lu\n",
+                        log_index,
+                        energest_type_time(ENERGEST_TYPE_CPU),
+                        energest_type_time(ENERGEST_TYPE_LPM),
+                        energest_type_time(ENERGEST_TYPE_TRANSMIT),
+                        energest_type_time(ENERGEST_TYPE_LISTEN),
+                        ENERGEST_GET_TOTAL_TIME());
+
+        etimer_set(&log_timer, LOG_INTERVAL);
+    }
+    PROCESS_END();
+}
 
 PROCESS_THREAD(sensor_node_process, ev, data) {
     static struct etimer send_timer;
     static struct etimer event_timer;
-    static struct etimer log_timer;
+    // static struct etimer log_timer;
 
     static clock_time_t next_interval;
     static bool send_enable = true;
@@ -94,7 +119,7 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
     static radio_value_t correct_pan_id;
 
 
-    static uint32_t log_index = 0;
+    // static uint32_t log_index = 0;
 
     PROCESS_BEGIN();
 
@@ -116,7 +141,7 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
 
     etimer_set(&send_timer, random_rand() % si);
     etimer_set(&event_timer, event_list[0].time * CLOCK_SECOND);
-    etimer_set(&log_timer, LOG_INTERVAL);
+    // etimer_set(&log_timer, LOG_INTERVAL);
 
     while(1) {
         PROCESS_WAIT_EVENT_UNTIL(etimer_expired(&send_timer));
@@ -160,19 +185,18 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
             }
         }
 
-        if(etimer_expired(&log_timer)){
-            energest_flush();
-            LOG_INFO("Energest: Index %d CPU %lu LPM %lu TX %lu RX %lu Total_time %lu\n",
-                            log_index,
-                            energest_type_time(ENERGEST_TYPE_CPU),
-                            energest_type_time(ENERGEST_TYPE_LPM),
-                            energest_type_time(ENERGEST_TYPE_TRANSMIT),
-                            energest_type_time(ENERGEST_TYPE_LISTEN),
-                            ENERGEST_GET_TOTAL_TIME());
-            etimer_set(&log_timer, LOG_INTERVAL);
-            log_index++;
-        }
+        // if(etimer_expired(&log_timer)){
+        //     energest_flush();
+        //     LOG_INFO("Energest: Index %d CPU %lu LPM %lu TX %lu RX %lu Total_time %lu\n",
+        //                     log_index,
+        //                     energest_type_time(ENERGEST_TYPE_CPU),
+        //                     energest_type_time(ENERGEST_TYPE_LPM),
+        //                     energest_type_time(ENERGEST_TYPE_TRANSMIT),
+        //                     energest_type_time(ENERGEST_TYPE_LISTEN),
+        //                     ENERGEST_GET_TOTAL_TIME());
+        //     etimer_set(&log_timer, LOG_INTERVAL);
+        //     log_index++;
+        // }
     }
     PROCESS_END();
 }
-

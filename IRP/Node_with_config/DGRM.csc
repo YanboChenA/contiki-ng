@@ -10,7 +10,7 @@
         <source>1</source>
         <dest>
           org.contikios.cooja.radiomediums.DGRMDestinationRadio
-          <radio>2</radio>
+          <radio>2</radio> 
           <ratio>1.0</ratio>
           <signal>-10.0</signal>
           <lqi>105</lqi>

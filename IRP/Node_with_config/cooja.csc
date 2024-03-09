@@ -1,11 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <simconf version="2023090101">
   <simulation>
-    <title>My simulation</title>
-    <randomseed>123456</randomseed>
+    <title>MRM SImulation</title>
+    <randomseed>generated</randomseed>
     <motedelay_us>1000000</motedelay_us>
     <radiomedium>
       org.contikios.mrm.MRM
+      <bg_noise_var value="2.0" />
+      <bg_noise_mean value="-85" />
       <obstacles />
     </radiomedium>
     <events>
@@ -13,7 +15,7 @@
     </events>
     <motetype>
       org.contikios.cooja.contikimote.ContikiMoteType
-      <description>Sensor Node</description>
+      <description>sensor_node</description>
       <source>[CONFIG_DIR]/sensor_node.c</source>
       <commands>$(MAKE) -j$(CPUS) sensor_node.cooja TARGET=cooja</commands>
       <moteinterface>org.contikios.cooja.interfaces.Position</moteinterface>
@@ -35,77 +37,77 @@
       <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="468.5037251766066" y="923.2707760421541" />
+          <pos x="0.0" y="0.0" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>1</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="355.03859488017093" y="266.23151690512503" />
+          <pos x="31.196401720694567" y="36.4719730718943" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>2</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="810.8732779446331" y="1046.9101702057872" />
+          <pos x="-30.02963126097441" y="37.31114815374211" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>3</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="839.8693990034033" y="753.2193934038293" />
+          <pos x="-1.8448704571099341" y="10.780570799584552" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>4</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="292.4666307710668" y="732.1952380377685" />
+          <pos x="-44.814125507493095" y="-29.363054478793206" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>5</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="601.7656744431905" y="1246.3529038851914" />
+          <pos x="-9.385273749030986" y="-18.774652801846102" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>6</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="397.24569379141485" y="807.2827970419955" />
+          <pos x="46.687726672830635" y="-4.467333282418615" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
           <id>7</id>
         </interface_config>
       </mote>
-      <mote>
+    <mote>
         <interface_config>
           org.contikios.cooja.interfaces.Position
-          <pos x="153.6001384982326" y="1077.977058508019" />
+          <pos x="11.036028081373757" y="20.17333238548099" />
         </interface_config>
         <interface_config>
           org.contikios.cooja.contikimote.interfaces.ContikiMoteID
@@ -119,20 +121,32 @@
     <plugin_config>
       <moterelations>true</moterelations>
       <skin>org.contikios.cooja.plugins.skins.IDVisualizerSkin</skin>
+      <skin>org.contikios.cooja.plugins.skins.GridVisualizerSkin</skin>
       <skin>org.contikios.cooja.plugins.skins.TrafficVisualizerSkin</skin>
       <skin>org.contikios.mrm.MRMVisualizerSkin</skin>
-      <viewport>0.5314740580389816 0.0 0.0 0.5314740580389816 37.998356682947666 -115.94969012198604</viewport>
+      <viewport>0.9090909090909091 0.0 0.0 0.9090909090909091 194.0 173.0</viewport>
     </plugin_config>
-    <bounds x="1" y="1" height="627" width="617" z="3" />
+    <bounds x="1" y="1" height="400" width="400" z="1" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.LogListener
     <plugin_config>
-      <filter>ID</filter>
+      <filter />
       <formatted_time />
       <coloring />
     </plugin_config>
-    <bounds x="931" y="430" height="1084" width="1488" />
+    <bounds x="400" y="160" height="240" width="1232" z="4" />
+  </plugin>
+  <plugin>
+    org.contikios.cooja.plugins.TimeLine
+    <plugin_config>
+      <mote>0</mote>
+      <showRadioRXTX />
+      <showRadioHW />
+      <showLEDs />
+      <zoomfactor>500.0</zoomfactor>
+    </plugin_config>
+    <bounds x="0" y="793" height="166" width="1632" z="3" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.Notes
@@ -140,7 +154,7 @@
       <notes>Enter notes here</notes>
       <decorations>true</decorations>
     </plugin_config>
-    <bounds x="963" y="124" height="160" width="1232" z="2" />
+    <bounds x="400" y="0" height="160" width="1232" z="2" />
   </plugin>
   <plugin>
     org.contikios.cooja.plugins.ScriptRunner
@@ -148,14 +162,6 @@
       <scriptfile>[CONFIG_DIR]/coojalogger.js</scriptfile>
       <active>true</active>
     </plugin_config>
-    <bounds x="0" y="0" height="700" width="600" z="-1" minimized="true" />
-  </plugin>
-  <plugin>
-    org.contikios.cooja.plugins.ScriptRunner
-    <plugin_config>
-      <scriptfile>[CONFIG_DIR]/coojalogger.js</scriptfile>
-      <active>true</active>
-    </plugin_config>
-    <bounds x="2809" y="161" height="700" width="600" z="1" />
+    <bounds x="635" y="420" height="700" width="600" />
   </plugin>
 </simconf>

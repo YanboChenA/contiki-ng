@@ -1,4 +1,4 @@
-CONTIKI_PROJECT = root_node sensor_node
+CONTIKI_PROJECT = sensor_node
 all: $(CONTIKI_PROJECT)
 
 PLATFORMS_ONLY = cooja

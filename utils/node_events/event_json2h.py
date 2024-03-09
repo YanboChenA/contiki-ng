@@ -93,7 +93,11 @@ class EventGenerator:
             file.write('    int target_packet_size;\n')
             file.write('    int node_id;\n')  # Added node_id
             file.write('} node_event_t;\n\n')
-
+            
+            event_list_size = len(self.event_list)
+            # file.write('int event_list_size = '+event_list_size+"\n")
+            file.write('int event_list_size = {};\n\n'.format(event_list_size))
+                       
             # Events array
             file.write('node_event_t event_list[] = {\n')
             for event in self.event_list:

@@ -11,5 +11,6 @@
         "tsch-schedule.h": "c",
         "radio.h": "c",
         "packetbuf.h": "c"
-    }
+    },
+    "python.REPL.enableREPLSmartSend": false
 }

@@ -193,17 +193,29 @@ def save_json(node_map, label_list, env_labal, save_time):
     with open(json_file, 'w') as f:
         json.dump(data, f, indent=4)
 
-def run_simulation():
-    # Generate CSC file
-    env_label = 0
-    node_map = generate_csc_file(node_num = 8, env_label=env_label)
+def run_simulation(node_num=8,env_label=0):
+    """Run the simulation with the given node number and environment label
+
+    Args:
+        node_num (int, optional): Node numbers. Defaults to 8.
+        env_label (int, optional): The environment label. Defaults to 0.
+    """    
+    
+    node_map = generate_csc_file(node_num, env_label)
+    
     label_list = generate_labels()
     event_list = generate_events(label_list)
     generate_events_h(event_list, os.path.join(CSC_PATH, "events.h"))
+    
     save_time = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    
     save_json(node_map, label_list, env_label, save_time)
     execute_test(cooja_input,save_time)
     
+def generate_random_node_num_and_env_label():
+    node_num = random.randint(8,16)
+    env_label = random.randint(0,2)
+    return node_num, env_label
     
 #######################################################
 # Run the application
@@ -228,4 +240,7 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    run_simulation()
+    for i in range(10):
+        print("Current runtimes:", i)
+        node_num,env_label = generate_random_node_num_and_env_label()
+        run_simulation(8, env_label)

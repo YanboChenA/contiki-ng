@@ -169,8 +169,8 @@ def generate_node_map(num):
         else:
 
             #  x and y coordinate: float in range (0, 100)
-            x_coordinate = random.uniform(-50, 50)
-            y_coordinate = random.uniform(-50, 50)
+            x_coordinate = random.uniform(-75, 75)
+            y_coordinate = random.uniform(-75, 75)
 
             node_map[i] = (x_coordinate, y_coordinate)
     return node_map
@@ -240,7 +240,7 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    for i in range(10):
+    for i in range(1):
         print("Current runtimes:", i)
         node_num,env_label = generate_random_node_num_and_env_label()
         run_simulation(8, env_label)

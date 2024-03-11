@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-04 16:13:27
+LastEditTime: 2024-03-11 10:12:39
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -35,7 +35,7 @@ class NodeStats:
         self.Energest = [] # A list include the Energest statistics, each element is a dict, include the CPU, LPM, TX, RX, Total_time
         self.IPv6_links = {} # seqnum: LinkStats, include the link status, each element is a LinkStats
 
-        self.data = []  # Include the data from the log, for further GNN training
+        # self.data = []  # Include the data from the log, for further GNN training
                         # Reallocate the data in time period of 30s
         self.IPv6_link_status = [] # Include the link status, for further GNN training
         self.node_status = [] # include a dict, include the periods' average send and receive rate, success rate, and the Energest statistics
@@ -70,7 +70,8 @@ class NodeStats:
                 continue
             # calculate the link's send_ts in which time period
             index = link.send_ts // timeperiod
-            self.IPv6_link_status[index].append(link)
+            if index <= 119:
+                self.IPv6_link_status[index].append(link)
         self.after_allocate_IPv6_links = True
 
     def calculate_node_status(self):
@@ -86,7 +87,6 @@ class NodeStats:
         self.node_status = [[] for _ in range(120)]
         for index in range(120):
             IPv6_links = self.IPv6_link_status[index]
-
 
             transmit_delay = 0
             tansmit_num = len(IPv6_links)
@@ -129,6 +129,366 @@ class NodeStats:
         # return the node's status in the index as a list
         return list(self.node_status[index].values())
 
+class Features:
+    """Get the features from the log used for the training data, include the node features, and edge features
+    Node features include:
+        Node information:
+            CPU usage
+            LPM usage
+            TX duty cycle
+            RX duty cycle
+
+        IPv6 links' status:
+            Transmit delay for sended IPv6 links (average, max, min)
+            hop count for sended IPv6 links (average, max, min)
+            fragment count for sended IPv6 links (average, max, min)
+            Num of send IPv6 links
+            Num of receive IPv6 links
+
+        TSCH links' status:
+            TSCH success rate for sended tsch links (average, max, min)
+            attempt for sended tsch links (average, max, min)
+            length for sended tsch links (average, max, min)
+            Num of send tsch links
+            Num of receive tsch links
+
+    Edge features include:
+        # Two type of edge features, one is the link's status(IPv6), the other is the sublink's status(TSCH)
+        Link's status(IPv6):
+            num of sublinks (average, max, min)
+            num of queued sublinks (average, max, min)
+            num of total sublinks tx attempts (average, max, min)
+            RSSI (average, max, min)
+            LQI (average, max, min)
+            delay (average, max, min)
+            hop count (average, max, min)
+            fragment count (average, max, min)
+        
+        Sublink's status(TSCH):
+            num of usage of this sublink(from src to dst)
+            send attempts (average, max, min)
+            queued delay (average, max, min)
+            length (average, max, min)
+    """
+    def __init__(self, LogParser):
+        self.LogParser = LogParser
+        self.nodes = LogParser.nodes
+        self.tsch_links = LogParser.tsch_links
+
+    def calculate_features(self):
+        # node features is a np.array, shape should (node_index,feature_num,period_num)
+        node_features = np.zeros((len(self.nodes.keys()), 20, 120))
+        edge_features_IPv6 = [[] for _ in range(120)]
+        edge_features_tsch = [[] for _ in range(120)]
+        edge_index_IPv6 = [[] for _ in range(120)]
+        edge_index_tsch = [[] for _ in range(120)]
+
+        node_num = len(self.nodes.keys())
+        # Node Features
+        for index in range(120):
+            # Node Features
+            node_CPU_usage              = np.zeros(node_num) # 0
+            node_LPM                    = np.zeros(node_num) # 1
+            node_TX_duty_cycle          = np.zeros(node_num) # 2
+            node_RX_duty_cycle          = np.zeros(node_num) # 3
+
+            node_IPv6_delay_sum         = np.zeros(node_num) # 4
+            node_IPv6_delay_max         = np.zeros(node_num) # 5
+            # node_IPv6_delay_min         = np.zeros(node_num)
+
+            node_IPv6_hop_count_sum     = np.zeros(node_num) # 6
+            node_IPv6_hop_count_max     = np.zeros(node_num) # 7
+            # node_IPv6_hop_count_min     = np.zeros(node_num)
+
+            node_IPv6_fragment_count_sum = np.zeros(node_num) # 8
+            node_IPv6_fragment_count_max = np.zeros(node_num) # 9
+            # node_IPv6_fragment_count_min = np.zeros(node_num)
+
+            node_IPv6_send_num          = np.zeros(node_num) # 10
+            node_IPv6_recv_num          = np.zeros(node_num) # 11
+            
+            node_tsch_success_rate_sum  = np.zeros(node_num) # 12 
+            node_tsch_success_rate_max  = np.zeros(node_num) # 13
+            # node_tsch_success_rate_min  = np.zeros(node_num)
+
+            node_tsch_tx_attempt_sum    = np.zeros(node_num) # 14
+            node_tsch_tx_attempt_max    = np.zeros(node_num) # 15
+            # node_tsch_tx_attempt_min    = np.zeros(node_num)
+
+            node_tsch_length_sum        = np.zeros(node_num) # 16
+            node_tsch_length_max        = np.zeros(node_num) # 17
+            # node_tsch_length_min        = np.zeros(node_num)
+
+            node_tsch_send_num          = np.zeros(node_num) # 18
+            node_tsch_recv_num          = np.zeros(node_num) # 19
+            
+            IPv6_Edge_Attr = {} # Key: (src, dst)
+            TSCH_Edge_Attr = {} # Key: (src, dst)
+
+            for node_id, node in self.nodes.items():
+                node_index = node_id - 1
+                IPv6_links = node.IPv6_link_status[index]
+                try:
+                    Energest = node.Energest[index]
+                    node_CPU_usage[node_index]      = Energest["CPU"] / Energest["Total_time"]
+                    node_LPM[node_index]            = Energest["LPM"] / Energest["Total_time"]
+                    node_TX_duty_cycle[node_index]  = Energest["TX"] / Energest["Total_time"]
+                    node_RX_duty_cycle[node_index]  = Energest["RX"] / Energest["Total_time"]
+                except:
+                    node_CPU_usage[node_index]      = 0
+                    node_LPM[node_index]            = 0
+                    node_TX_duty_cycle[node_index]  = 0
+                    node_RX_duty_cycle[node_index]  = 0
+                
+                for link in IPv6_links:
+                    link_attr, sublink_attr = link.calculate_link_status()
+                    src = link.src
+                    src_index = src - 1
+                    node_IPv6_send_num[src_index] += 1
+                    dst = link.dst
+                    dst_index = dst - 1
+                    node_IPv6_recv_num[dst_index] += 1
+                    
+                    if (src, dst) not in IPv6_Edge_Attr.keys():
+                        IPv6_Edge_Attr[(src, dst)] = {
+                            "count": 1,
+                            "sublinks_num_sum": link_attr[0],
+                            "sublinks_num_max": link_attr[0],
+                            # "sublinks_num_min": link_attr[0], 
+                            "sublinks_queued_num_sum": link_attr[1],
+                            "sublinks_queued_num_max": link_attr[1],
+                            # "sublinks_queued_num_min": link_attr[1],
+                            "sublinks_tx_attempts_num_sum": link_attr[2],
+                            "sublinks_tx_attempts_num_max": link_attr[2],
+                            # "sublinks_tx_attempts_num_min": link_attr[2],
+                            "RSSI_sum": link_attr[3],
+                            "RSSI_max": link_attr[3],
+                            # "RSSI_min": link_attr[3],
+                            "LQI_sum": link_attr[4],
+                            "LQI_max": link_attr[4],
+                            # "LQI_min": link_attr[4],
+                            "delay_sum": link_attr[5],
+                            "delay_max": link_attr[5],
+                            # "delay_min": link_attr[5],
+                            "hop_count_sum": link_attr[6],
+                            "hop_count_max": link_attr[6],
+                            # "hop_count_min": link_attr[6],
+                            "fragment_count_sum": link_attr[7],
+                            "fragment_count_max": link_attr[7],
+                            # "fragment_count_min": link_attr[7],
+                            "success_rate_sum": link_attr[8],
+                            "success_rate_max": link_attr[8],
+                            # "success_rate_min": link_attr[8]
+                        }
+                    else:
+                        IPv6_Edge_Attr[(src, dst)]["count"] += 1
+                        # Update the Edge's status for IPv6
+                        IPv6_Edge_Attr[(src, dst)]["sublinks_num_sum"] += link_attr[0]
+                        IPv6_Edge_Attr[(src, dst)]["sublinks_num_max"] = max(IPv6_Edge_Attr[(src, dst)]["sublinks_num_max"], link_attr[0])
+                        # IPv6_Edge_Attr[(src, dst)]["sublinks_num_min"] = min(IPv6_Edge_Attr[(src, dst)]["sublinks_num_min"], link_attr[0])
+                        IPv6_Edge_Attr[(src, dst)]["sublinks_queued_num_sum"] += link_attr[1]
+                        IPv6_Edge_Attr[(src, dst)]["sublinks_queued_num_max"] = max(IPv6_Edge_Attr[(src, dst)]["sublinks_queued_num_max"], link_attr[1])
+                        # IPv6_Edge_Attr[(src, dst)]["sublinks_queued_num_min"] = min(IPv6_Edge_Attr[(src, dst)]["sublinks_queued_num_min"], link_attr[1])
+                        IPv6_Edge_Attr[(src, dst)]["sublinks_tx_attempts_num_sum"] += link_attr[2]
+                        IPv6_Edge_Attr[(src, dst)]["sublinks_tx_attempts_num_max"] = max(IPv6_Edge_Attr[(src, dst)]["sublinks_tx_attempts_num_max"], link_attr[2])
+                        # IPv6_Edge_Attr[(src, dst)]["sublinks_tx_attempts_num_min"] = min(IPv6_Edge_Attr[(src, dst)]["sublinks_tx_attempts_num_min"], link_attr[2])
+                        IPv6_Edge_Attr[(src, dst)]["RSSI_sum"] += link_attr[3]
+                        IPv6_Edge_Attr[(src, dst)]["RSSI_max"] = max(IPv6_Edge_Attr[(src, dst)]["RSSI_max"], link_attr[3])
+                        # IPv6_Edge_Attr[(src, dst)]["RSSI_min"] = min(IPv6_Edge_Attr[(src, dst)]["RSSI_min"], link_attr[3])
+                        IPv6_Edge_Attr[(src, dst)]["LQI_sum"] += link_attr[4]
+                        IPv6_Edge_Attr[(src, dst)]["LQI_max"] = max(IPv6_Edge_Attr[(src, dst)]["LQI_max"], link_attr[4])
+                        # IPv6_Edge_Attr[(src, dst)]["LQI_min"] = min(IPv6_Edge_Attr[(src, dst)]["LQI_min"], link_attr[4])
+                        IPv6_Edge_Attr[(src, dst)]["delay_sum"] += link_attr[5]
+                        IPv6_Edge_Attr[(src, dst)]["delay_max"] = max(IPv6_Edge_Attr[(src, dst)]["delay_max"], link_attr[5])
+                        # IPv6_Edge_Attr[(src, dst)]["delay_min"] = min(IPv6_Edge_Attr[(src, dst)]["delay_min"], link_attr[5])
+                        IPv6_Edge_Attr[(src, dst)]["hop_count_sum"] += link_attr[6]
+                        IPv6_Edge_Attr[(src, dst)]["hop_count_max"] = max(IPv6_Edge_Attr[(src, dst)]["hop_count_max"], link_attr[6])
+                        # IPv6_Edge_Attr[(src, dst)]["hop_count_min"] = min(IPv6_Edge_Attr[(src, dst)]["hop_count_min"], link_attr[6])
+                        IPv6_Edge_Attr[(src, dst)]["fragment_count_sum"] += link_attr[7]
+                        IPv6_Edge_Attr[(src, dst)]["fragment_count_max"] = max(IPv6_Edge_Attr[(src, dst)]["fragment_count_max"], link_attr[7])
+                        # IPv6_Edge_Attr[(src, dst)]["fragment_count_min"] = min(IPv6_Edge_Attr[(src, dst)]["fragment_count_min"], link_attr[7])
+                        IPv6_Edge_Attr[(src, dst)]["success_rate_sum"] += link_attr[8]
+                        IPv6_Edge_Attr[(src, dst)]["success_rate_max"] = max(IPv6_Edge_Attr[(src, dst)]["success_rate_max"], link_attr[8])
+                        # IPv6_Edge_Attr[(src, dst)]["success_rate_min"] = min(IPv6_Edge_Attr[(src, dst)]["success_rate_min"], link_attr[8])
+
+                    # Update the Edge's status for TSCH
+                    for (src, dst), attr in sublink_attr.items():
+                        if (src,dst) not in TSCH_Edge_Attr.keys():
+                            TSCH_Edge_Attr[(src,dst)]= {
+                                "usage_num_sum": sublink_attr[(src,dst)]["usage_num"],
+                                "tx_attempts_sun": sublink_attr[(src,dst)]["tx_attempts_sun"],
+                                "tx_attempts_max": sublink_attr[(src,dst)]["tx_attempts_max"],
+                                # "tx_attempts_min": sublink_attr[(src,dst)]["tx_attempts_min"],
+                                "queued_link_sum": sublink_attr[(src,dst)]["queued_link_sum"],
+                                "queued_delay_sum": sublink_attr[(src,dst)]["queued_delay_sum"],
+                                "queued_delay_max": sublink_attr[(src,dst)]["queued_delay_max"],
+                                # "queued_delay_min": sublink_attr[(src,dst)]["queued_delay_min"],
+                                "length_sum": sublink_attr[(src,dst)]["length_sum"],
+                                "length_max": sublink_attr[(src,dst)]["length_max"],
+                                # "length_min": sublink_attr[(src,dst)]["length_min"]
+                            }
+                        else:
+                            TSCH_Edge_Attr[(src,dst)]["usage_num_sum"] += sublink_attr[(src,dst)]["usage_num"]
+                            TSCH_Edge_Attr[(src,dst)]["tx_attempts_sun"] += sublink_attr[(src,dst)]["tx_attempts_sun"]
+                            TSCH_Edge_Attr[(src,dst)]["tx_attempts_max"] = max(TSCH_Edge_Attr[(src,dst)]["tx_attempts_max"], sublink_attr[(src,dst)]["tx_attempts_max"])
+                            # TSCH_Edge_Attr[(src,dst)]["tx_attempts_min"] = min(TSCH_Edge_Attr[(src,dst)]["tx_attempts_min"], sublink_attr[(src,dst)]["tx_attempts_min"])
+                            TSCH_Edge_Attr[(src,dst)]["queued_link_sum"] += sublink_attr[(src,dst)]["queued_link_sum"]
+                            TSCH_Edge_Attr[(src,dst)]["queued_delay_sum"] += sublink_attr[(src,dst)]["queued_delay_sum"]
+                            TSCH_Edge_Attr[(src,dst)]["queued_delay_max"] = max(TSCH_Edge_Attr[(src,dst)]["queued_delay_max"], sublink_attr[(src,dst)]["queued_delay_max"])
+                            # TSCH_Edge_Attr[(src,dst)]["queued_delay_min"] = min(TSCH_Edge_Attr[(src,dst)]["queued_delay_min"], sublink_attr[(src,dst)]["queued_delay_min"])
+                            TSCH_Edge_Attr[(src,dst)]["length_sum"] += sublink_attr[(src,dst)]["length_sum"]
+                            TSCH_Edge_Attr[(src,dst)]["length_max"] = max(TSCH_Edge_Attr[(src,dst)]["length_max"], sublink_attr[(src,dst)]["length_max"])
+                            # TSCH_Edge_Attr[(src,dst)]["length_min"] = min(TSCH_Edge_Attr[(src,dst)]["length_min"], sublink_attr[(src,dst)]["length_min"])
+                
+                    # Update the node's status
+                    node_IPv6_delay_sum[src_index] += link_attr[5]
+                    node_IPv6_delay_max[src_index] = max(node_IPv6_delay_max[src_index], link_attr[5])
+                    # node_IPv6_delay_min[src_index] = min(node_IPv6_delay_min[src_index], link_attr[5])
+                    node_IPv6_hop_count_sum[src_index] += link_attr[6]
+                    node_IPv6_hop_count_max[src_index] = max(node_IPv6_hop_count_max[src_index], link_attr[6])
+                    # node_IPv6_hop_count_min[src_index] = min(node_IPv6_hop_count_min[src_index], link_attr[6])
+                    node_IPv6_fragment_count_sum[src_index] += link_attr[7]
+                    node_IPv6_fragment_count_max[src_index] = max(node_IPv6_fragment_count_max[src_index], link_attr[7])
+                    # node_IPv6_fragment_count_min[src_index] = min(node_IPv6_fragment_count_min[src_index], link_attr[7])
+                    node_tsch_success_rate_sum[src_index] += link_attr[8]
+                    node_tsch_success_rate_max[src_index] = max(node_tsch_success_rate_max[src_index], link_attr[8])
+                    # node_tsch_success_rate_min[src_index] = min(node_tsch_success_rate_min[src_index], link_attr[8])
+                    for sublink in link.sub_links:
+                        sublink_src = sublink.src
+                        sublink_dst = sublink.dst[0]
+                        sublink_src_index = sublink_src - 1
+                        sublink_dst_index = sublink_dst - 1
+                        node_tsch_tx_attempt_sum[sublink_src_index] += sublink.tx_attempt
+                        node_tsch_tx_attempt_max[sublink_src_index] = max(node_tsch_tx_attempt_max[sublink_src_index], sublink.tx_attempt)
+                        # node_tsch_tx_attempt_min[sublink_src_index] = min(node_tsch_tx_attempt_min[sublink_src_index], sublink.tx_attempt)
+                        node_tsch_length_sum[sublink_src_index] += sublink.length
+                        node_tsch_length_max[sublink_src_index] = max(node_tsch_length_max[sublink_src_index], sublink.length)
+                        # node_tsch_length_min[sublink_src_index] = min(node_tsch_length_min[sublink_src_index], sublink.length)
+                        node_tsch_send_num[sublink_src_index] += 1
+                        node_tsch_recv_num[sublink_dst_index] += 1
+
+            # Calculate the average
+            # Node Features
+            try:
+                node_IPv6_delay_avg             = np.where(node_tsch_send_num != 0, node_tsch_length_sum / node_tsch_send_num, 0)
+                node_IPv6_hop_count_avg         = np.where(node_IPv6_send_num != 0, node_IPv6_hop_count_sum / node_IPv6_send_num, 0)
+                node_IPv6_fragment_count_avg    = np.where(node_IPv6_send_num != 0, node_IPv6_fragment_count_sum / node_IPv6_send_num, 0)
+                node_tsch_success_rate_avg      = np.where(node_tsch_send_num != 0, node_tsch_success_rate_sum / node_tsch_send_num, 0)
+                node_tsch_tx_attempt_avg        = np.where(node_tsch_send_num != 0, node_tsch_tx_attempt_sum / node_tsch_send_num, 0)
+                node_tsch_length_avg            = np.where(node_tsch_send_num != 0, node_tsch_length_sum / node_tsch_send_num, 0)
+            except:
+                node_IPv6_delay_avg             = np.zeros(node_num)
+                node_IPv6_hop_count_avg         = np.zeros(node_num)
+                node_IPv6_fragment_count_avg    = np.zeros(node_num)
+                node_tsch_success_rate_avg      = np.zeros(node_num)
+                node_tsch_tx_attempt_avg        = np.zeros(node_num)
+                node_tsch_length_avg            = np.zeros(node_num)
+
+            # Edge Features for IPv6
+            for (src, dst), attr in IPv6_Edge_Attr.items():
+                count = attr["count"]
+                IPv6_Edge_Attr[(src, dst)]["sublinks_num_avg"] = attr["sublinks_num_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["sublinks_queued_num_avg"] = attr["sublinks_queued_num_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["sublinks_tx_attempts_num_avg"] = attr["sublinks_tx_attempts_num_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["RSSI_avg"] = attr["RSSI_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["LQI_avg"] = attr["LQI_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["delay_avg"] = attr["delay_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["hop_count_avg"] = attr["hop_count_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["fragment_count_avg"] = attr["fragment_count_sum"] / count
+                IPv6_Edge_Attr[(src, dst)]["success_rate_avg"] = attr["success_rate_sum"] / count
+            
+            # Edge Features for TSCH
+            for (src, dst), attr in TSCH_Edge_Attr.items():
+                count = attr["usage_num_sum"]
+                TSCH_Edge_Attr[(src, dst)]["tx_attempts_avg"] = attr["tx_attempts_sun"] / count
+                TSCH_Edge_Attr[(src, dst)]["queued_delay_avg"] = attr["queued_delay_sum"] / count
+                TSCH_Edge_Attr[(src, dst)]["length_avg"] = attr["length_sum"] / count
+
+            # Combine the features
+            # node features is a np.array, shape should (node_index,feature_num,period_num)
+            node_features[:,0,index] = node_CPU_usage
+            node_features[:,1,index] = node_LPM
+            node_features[:,2,index] = node_TX_duty_cycle
+            node_features[:,3,index] = node_RX_duty_cycle
+            node_features[:,4,index] = node_IPv6_delay_avg
+            node_features[:,5,index] = node_IPv6_delay_max
+            # node_features[:,6,index] = node_IPv6_delay_min
+            node_features[:,6,index] = node_IPv6_hop_count_avg
+            node_features[:,7,index] = node_IPv6_hop_count_max
+            # node_features[:,9,index] = node_IPv6_hop_count_min
+            node_features[:,8,index] = node_IPv6_fragment_count_avg
+            node_features[:,9,index] = node_IPv6_fragment_count_max
+            # node_features[:,12,index] = node_IPv6_fragment_count_min
+            node_features[:,10,index] = node_IPv6_send_num
+            node_features[:,11,index] = node_IPv6_recv_num
+            node_features[:,12,index] = node_tsch_success_rate_avg
+            node_features[:,13,index] = node_tsch_success_rate_max
+            # node_features[:,17,index] = node_tsch_success_rate_min
+            node_features[:,14,index] = node_tsch_tx_attempt_avg
+            node_features[:,15,index] = node_tsch_tx_attempt_max
+            # node_features[:,20,index] = node_tsch_tx_attempt_min
+            node_features[:,16,index] = node_tsch_length_avg
+            node_features[:,17,index] = node_tsch_length_max
+            # node_features[:,23,index] = node_tsch_length_min
+            node_features[:,18,index] = node_tsch_send_num
+            node_features[:,19,index] = node_tsch_recv_num
+
+            # Edge Features for IPv6
+            for (src, dst), attr in IPv6_Edge_Attr.items():
+                edge_index_IPv6[index].append([src, dst])
+                edge_features_IPv6[index].append([])
+                edge_features_IPv6[index][-1].append(attr["count"])
+                edge_features_IPv6[index][-1].append(attr["sublinks_num_avg"])
+                edge_features_IPv6[index][-1].append(attr["sublinks_num_max"])
+                # edge_features_IPv6[index][-1].append(attr["sublinks_num_min"])
+                edge_features_IPv6[index][-1].append(attr["sublinks_queued_num_avg"])
+                edge_features_IPv6[index][-1].append(attr["sublinks_queued_num_max"])
+                # edge_features_IPv6[index][-1].append(attr["sublinks_queued_num_min"])
+                edge_features_IPv6[index][-1].append(attr["sublinks_tx_attempts_num_avg"])
+                edge_features_IPv6[index][-1].append(attr["sublinks_tx_attempts_num_max"])
+                # edge_features_IPv6[index][-1].append(attr["sublinks_tx_attempts_num_min"])
+                edge_features_IPv6[index][-1].append(attr["RSSI_avg"])
+                edge_features_IPv6[index][-1].append(attr["RSSI_max"])
+                # edge_features_IPv6[index][-1].append(attr["RSSI_min"])
+                edge_features_IPv6[index][-1].append(attr["LQI_avg"])
+                edge_features_IPv6[index][-1].append(attr["LQI_max"])
+                # edge_features_IPv6[index][-1].append(attr["LQI_min"])
+                edge_features_IPv6[index][-1].append(attr["delay_avg"])
+                edge_features_IPv6[index][-1].append(attr["delay_max"])
+                # edge_features_IPv6[index][-1].append(attr["delay_min"])
+                edge_features_IPv6[index][-1].append(attr["hop_count_avg"])
+                edge_features_IPv6[index][-1].append(attr["hop_count_max"])
+                # edge_features_IPv6[index][-1].append(attr["hop_count_min"])
+                edge_features_IPv6[index][-1].append(attr["fragment_count_avg"])
+                edge_features_IPv6[index][-1].append(attr["fragment_count_max"])
+                # edge_features_IPv6[index][-1].append(attr["fragment_count_min"])
+                edge_features_IPv6[index][-1].append(attr["success_rate_avg"])
+                edge_features_IPv6[index][-1].append(attr["success_rate_max"])
+                # edge_features_IPv6[index][-1].append(attr["success_rate_min"])
+
+            # Edge Features for TSCH
+            for (src, dst), attr in TSCH_Edge_Attr.items():
+                edge_index_tsch[index].append([src, dst])
+                edge_features_tsch[index].append([])
+                edge_features_tsch[index][-1].append(attr["usage_num_sum"])
+                edge_features_tsch[index][-1].append(attr["tx_attempts_avg"])
+                edge_features_tsch[index][-1].append(attr["tx_attempts_max"])
+                # edge_features_tsch[index][-1].append(attr["tx_attempts_min"])
+                edge_features_tsch[index][-1].append(attr["queued_delay_avg"])
+                edge_features_tsch[index][-1].append(attr["queued_delay_max"])
+                # edge_features_tsch[index][-1].append(attr["queued_delay_min"])
+                edge_features_tsch[index][-1].append(attr["length_avg"])
+                edge_features_tsch[index][-1].append(attr["length_max"])
+                # edge_features_tsch[index][-1].append(attr["length_min"])
+
+        self.node_features = node_features
+        self.edge_features_IPv6 = edge_features_IPv6
+        self.edge_features_tsch = edge_features_tsch
+        self.edge_index_IPv6 = edge_index_IPv6
+        self.edge_index_tsch = edge_index_tsch
+  
+                                           
+       
 class LinkStats:
     """Record the Link's statistics, udp 
     """
@@ -158,74 +518,110 @@ class LinkStats:
             return f"{self.src} -> {self.dst}, seqnum: {self.seqnum}, RSSI: {self.RSSI}, LQI: {self.LQI}, send_ts: {self.send_ts}, recv_ts: {self.recv_ts}, \nsublinks: {sublinks_str}"
     
     def calculate_link_status(self):
-        """Calculate the link's status, include the periods' average send and receive rate, success rate, and the Energest statistics
+        """Calculate the link's status and sublinks' status(multiple sublinks for one link, return the)
+            Link's status(IPv6):
+                num of sublinks
+                num of queued sublinks
+                num of total sublinks tx attempts
+                RSSI
+                LQI
+                delay
+                hop count
+                fragment count
+                success rate
+            Sublink's status(TSCH):
+                num of usage of this sublink(from src to dst)
+                send attempts (average, max, min)
+                queued delay (average, max, min)
+                length (average, max, min)                
         """
-
-        # Aggregate sublink status
-        # Sublink status includes: 
-        #           number of sublinks
-        #           number of queued sublinks
-        #           number of total sublinks tx attempts
-        #           hop count
-        #           fragment count
-        #           average queued delay if the sublink is queued
-        #           average length of sublinks
-        self.sub_links_num = len(self.sub_links) 
-        self.sub_links_tx_num = 0
-        self.sub_links_queued_num = 0
-        self.sub_links_queued_delay = 0
-        self.sub_links_length = 0
+        # IPv6 link status
+        sub_links_num = len(self.sub_links) 
+        sub_links_queued_num = 0
+        sub_links_tx_attemps = 0
+        delay = self.recv_ts - self.send_ts if self.recv_ts is not None and self.send_ts is not None else 0
+        hop_count = 0
+        fragment_count = 0
+        success_rate = 0
+        sublink_attr = {}
 
         for sublink in self.sub_links:
+            sub_dst = sublink.dst[0]
+            sub_src = sublink.src
+            if (sub_src, sub_dst) not in sublink_attr.keys():
+                sublink_attr[(sub_src, sub_dst)] = {
+                    "usage_num": 1,
+                    "tx_attempts_sun": 0,
+                    "tx_attempts_max": 0,
+                    "tx_attempts_min": 0,
+                    "queued_link_sum": 0,
+                    "queued_delay_sum": 0,
+                    "queued_delay_max": 0,
+                    "queued_delay_min": 0,
+                    "length_sum": 0,
+                    "length_max": 0,
+                    "length_min": 0
+                }
+            else:
+                sublink_attr[(sub_src, sub_dst)]["usage_num"] += 1
             if sublink.is_queued:
-                self.sub_links_queued_num += 1
-                self.sub_links_queued_delay += self.send_ts - sublink.queued_ts
-            self.sub_links_tx_num += sublink.tx_attempt
-            self.sub_links_length += sublink.length
+                sub_links_queued_num += 1
+                sublink_attr[(sub_src, sub_dst)]["queued_link_sum"] += 1
+                sublink_attr[(sub_src, sub_dst)]["queued_delay_sum"] +=  sublink.timestamp - sublink.queued_ts
+                sublink_attr[(sub_src, sub_dst)]["queued_delay_max"] = max(sublink_attr[(sub_src, sub_dst)]["queued_delay_max"], sublink.queued_ts - sublink.timestamp)
+                sublink_attr[(sub_src, sub_dst)]["queued_delay_min"] = min(sublink_attr[(sub_src, sub_dst)]["queued_delay_min"], sublink.queued_ts - sublink.timestamp)
+            
+            # Update the Link's status
+            sub_links_tx_attemps += sublink.tx_attempt
 
-        self.sub_links_queued_delay = self.sub_links_queued_delay / self.sub_links_queued_num if self.sub_links_queued_num != 0 else 0
-        self.sub_links_length = self.sub_links_length / self.sub_links_num if self.sub_links_num != 0 else 0
+            # Update the Sublink's status
+            sublink_attr[(sub_src, sub_dst)]["tx_attempts_sun"] += sublink.tx_attempt
+            sublink_attr[(sub_src, sub_dst)]["tx_attempts_max"] = max(sublink_attr[(sub_src, sub_dst)]["tx_attempts_max"], sublink.tx_attempt)
+            sublink_attr[(sub_src, sub_dst)]["tx_attempts_min"] = min(sublink_attr[(sub_src, sub_dst)]["tx_attempts_min"], sublink.tx_attempt)
+            sublink_attr[(sub_src, sub_dst)]["length_sum"] += sublink.length
+            sublink_attr[(sub_src, sub_dst)]["length_max"] = max(sublink_attr[(sub_src, sub_dst)]["length_max"], sublink.length)
+            sublink_attr[(sub_src, sub_dst)]["length_min"] = min(sublink_attr[(sub_src, sub_dst)]["length_min"], sublink.length)
+        
+        # self.sub_links_queued_delay = self.sub_links_queued_delay / self.sub_links_queued_num if self.sub_links_queued_num != 0 else 0
+        # self.sub_links_length = self.sub_links_length / sub_links_num if sub_links_num != 0 else 0
 
-        if self.sub_links_num <= 1:
-            self.sub_links_hop_count = 0
-            self.sub_links_fragment_count = 0
+        if sub_links_num <= 1:
+            sub_links_hop_count = 1
+            sub_links_fragment_count = 1
         else:
-            self.sub_links_fragment_count = 0
+            sub_links_fragment_count = 0
             for sublink in self.sub_links:
                 if sublink.src == self.src:
-                    self.sub_links_fragment_count += 1
-            self.sub_links_hop_count = self.sub_links_num // self.sub_links_fragment_count if self.sub_links_fragment_count != 0 else 0
+                    sub_links_fragment_count += 1
+            sub_links_hop_count = sub_links_num // sub_links_fragment_count if sub_links_fragment_count != 0 else 0
 
-        # Calculate the link status
-        if self.recv_ts is None or self.send_ts is None:
-            self.delay = 0
-        else:
-            self.delay = self.recv_ts - self.send_ts
+        success_rate = sub_links_num / sub_links_tx_attemps if sub_links_tx_attemps != 0 else 0
+        
 
-        self.after_calculate_link_status = True
+        # self.after_calculate_link_status = True
+        link_attr = [   sub_links_num,
+                        sub_links_queued_num,
+                        sub_links_tx_attemps,
+                        self.RSSI,
+                        self.LQI,
+                        delay,
+                        sub_links_hop_count,
+                        sub_links_fragment_count,
+                        success_rate]
+        return link_attr, sublink_attr
 
-    def get_link_status(self):
-        # return the link's status in the index as a list
+    # def get_link_status(self):
+    #     # return the link's status in the index as a list
 
-        if self.after_calculate_link_status == False:
-            self.calculate_link_status()
+    #     if self.after_calculate_link_status == False:
+    #         self.calculate_link_status()
 
-        # link_status:  send timestamp，
-        #               receive timestamp，
-        #               delay，
-        #               number of sublinks，
-        #               number of total sublinks tx attempts，
-        #               number of queued sublinks，
-        #               average queued delay if the sublink is queued，
-        #               average length of sublinks，
-        #               hop count，
-        #               fragment count
-        link_status = [self.send_ts,self.recv_ts,self.delay,self.sub_links_num,self.sub_links_tx_num,self.sub_links_queued_num,self.sub_links_queued_delay,self.sub_links_length,self.sub_links_hop_count,self.sub_links_fragment_count]
-        if None in link_status:
-            # change the None to 0
-            link_status = [0 if x is None else x for x in link_status]
-        return link_status
-               
+    #     link_status = [self.send_ts,self.recv_ts,self.delay,sub_links_num,self.sub_links_tx_num,self.sub_links_queued_num,self.sub_links_queued_delay,self.sub_links_length,self.sub_links_hop_count,self.sub_links_fragment_count]
+    #     if None in link_status:
+    #         # change the None to 0
+    #         link_status = [0 if x is None else x for x in link_status]
+    #     return link_status
+
 class SubLinkStatus:
     """Record the sublink's status, tsch
     """
@@ -331,6 +727,8 @@ class LogParse:
                 send_ts = node.IPv6_links[seqnum].send_ts
                 recv_ts = node.IPv6_links[seqnum].recv_ts
                 print_process_bar("Allocating", i / length)
+                # if round(i/length * 100, 2) == 1.09:
+                #     stop_pointer = 1
                 i += 1
                 # Add all link in duration to the node's IPv6_links
                 for link in self.tsch_links:
@@ -356,7 +754,11 @@ class LogParse:
             for link in current_path:
                 self.all_paths.append(link)
             return
+        if len(current_path) >= len(sublinks) or len(sublinks) == 0:
+            return
+        
         # Check the sublinks from the current node
+        # self.src == other.src and self.dst == other.dst and self.seqnum == other.seqnum and self.timestamp == other.timestamp and self.ASN == other.ASN
         for index, link in enumerate(sublinks):
             is_in_current_path = link in current_path
             is_in_all_paths = link in self.all_paths
@@ -755,30 +1157,35 @@ def print_process_bar(content, percentage):
         print(f"\n{content} is done.")
 
 if __name__ == '__main__':
-    filepath = "F:\Course\year_4\Individual_Researching\contiki-ng\data\\raw\\2024-02-27_14-35-05.testlog"
+    import pickle
+
+    filepath = r"F:\Course\year_4\Individual_Researching\contiki-ng\data\raw\2024-03-10_21-23-45.testlog"
+    save_path = r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\log.pkl"
     log = LogParse(log_path=filepath)
     log.process()
+        
+    # with open(save_path, "wb") as file:
+    #     pickle.dump(log, file)
 
-    # for i in range(10):
+    # with open(save_path, "rb") as file:
+    #     log = pickle.load(file)
 
-    #     print(log.nodes[6].IPv6_links[i])   
+    feature = Features(log)
+    feature.calculate_features()
 
-    # print(len(log.nodes[6].IPv6_link_status[0]))
-    # print(len(log.nodes[6].IPv6_links))
+    with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\feature.pkl", "wb") as file:
+        pickle.dump(feature, file)
 
-    # print(len(log.nodes.keys()))
+    print(feature.node_features[:,:,9])
 
-    # print(log.nodes[6].node_status)
+    print(feature.edge_index_IPv6[7])
+    print(feature.edge_features_IPv6[7])
 
-    import torch
+    # import torch
+    # index = 7
+    # node_feature = torch.tensor(feature.node_features[:,:,index])
+    # edge_index = torch.tensor(feature.edge_index_IPv6[index])
+    # edge_feature = torch.tensor(feature.edge_features_IPv6[index])
 
-    nodes = log.nodes
-    node_num = len(nodes.keys()) # 8
-    node_features = [[] for _ in range(node_num)]
-    index = 5
-    for node_id in range(1,node_num+1):
-        node = nodes[node_id]
-        node_features[node_id-1] = node.get_node_status(index)
-    print("\n\n")
-    print(node_features)
-    print(torch.tensor(node_features, dtype=torch.float))
+    # print(node_feature)
+    

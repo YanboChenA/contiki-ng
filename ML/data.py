@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 10:05:02
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-04 22:24:01
+LastEditTime: 2024-03-11 10:51:34
 FilePath: \contiki-ng\ML\data.py
 Description: 
 '''
@@ -11,7 +11,8 @@ import torch
 from torch_geometric.data import InMemoryDataset, Data
 import os
 import numpy as np
-from parse import *
+from parse import LogParse, Features
+import json
 
 class LogDataset(InMemoryDataset):
     def __init__(self, root, transform=None, pre_transform=None):
@@ -38,6 +39,16 @@ class LogDataset(InMemoryDataset):
             processed_name = f"processed_{raw_file_name.replace('.testlog', '.pt')}"
             processed_names.append(processed_name)
         return processed_names
+    
+    @property
+    def label_file_names(self):
+        # return ["label_1.json", "label_2.json", ...]
+        label_names = []
+        label_path = os.path.join(self.root, "label")
+        for file in os.listdir(label_path):
+            if file.endswith(".json"):
+                label_names.append(file)
+
 
     def download(self):
         # Not needed
@@ -55,39 +66,53 @@ class LogDataset(InMemoryDataset):
             log_parser = LogParse(log_path=filepath)
             log_parser.process()
 
-            # From the log_parser get the nodes, including the node status, and the some    links
-            nodes = log_parser.nodes
+            # Read Features
+            features = Features(log_parser)
+            features.calculate_features()
+
+            # Read Labels
+            label_path = os.path.join(self.root, "label", raw_file_name.replace('.testlog', '.json'))
+            with open(label_path, 'r') as file:
+                labels = json.load(file)
+            event_labels = labels["label_list"]
+            env_label = labels["env_label"]
+            
+
+            # # From the log_parser get the nodes, including the node status, and the some    links
+            # nodes = log_parser.nodes
 
             # 1 hour = 120 periods (30s/period)
             for period_index in range(120):
                 # Node Features
-                node_num = len(log_parser.nodes.keys()) # 8
-                node_num = len(nodes.keys()) # 8
-                node_features = [[] for _ in range(node_num)]
+                node_features = features.node_features[:,:,period_index]
 
-                # Edge Index and Edge Features
-                edge_index = []
-                edge_features = []
+                # Edge Index and Edge Features for IPv6
+                edge_index_IPv6 = features.edge_index_IPv6[period_index]
+                edge_features_IPv6 = features.edge_features_IPv6[period_index]
 
-                # 
-                for node_id in range(1,node_num+1):
-                    node = nodes[node_id]
-                    node_status = node.get_node_status(period_index)
-                    node_features[node_id-1] = node_status
-                    for link in node.IPv6_links.values():
-                        edge_index.append([node_id-1, link.dst-1])
-                        edge_features.append(link.get_link_status())
+                # Edge Index and Edge Features for TSCH    
+                edge_index_TSCH = features.edge_index_tsch[period_index]  
+                edge_features_TSCH = features.edge_features_tsch[period_index]          
 
-                
-
-                # Convert the lists to PyTorch tensors
+                # Convert the data to PyTorch tensors
                 node_features = torch.tensor(node_features, dtype=torch.float)
-                edge_index = torch.tensor(edge_index, dtype=torch.long).t().contiguous()
-                
-                edge_features = torch.tensor(edge_features, dtype=torch.float)
-                
+                edge_index_IPv6 = torch.tensor(edge_index_IPv6, dtype=torch.long).t().contiguous()
+                edge_index_TSCH = torch.tensor(edge_index_TSCH, dtype=torch.long).t().contiguous()
+                edge_features_IPv6 = torch.tensor(edge_features_IPv6, dtype=torch.float)
+                edge_features_TSCH = torch.tensor(edge_features_TSCH, dtype=torch.float)
+
+                # Label
+                event_label = event_labels[period_index]
+
                 # Create Data object
-                data = Data(x=node_features, edge_index=edge_index)
+                data = Data(x=node_features,
+                            edge_index_IPv6=edge_index_IPv6,
+                            edge_index_TSCH=edge_index_TSCH,
+                            edge_attr_IPv6=edge_features_IPv6,
+                            edge_attr_TSCH=edge_features_TSCH,
+                            y_event = torch.tensor([event_label], dtype=torch.long),
+                            y_env = torch.tensor([env_label], dtype=torch.long))
+                
                 if self.pre_transform is not None:
                     data = self.pre_transform(data)
                 data_list.append(data)

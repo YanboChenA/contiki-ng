@@ -69,13 +69,13 @@ def generate_csc_file(node_num = 8, env_label = 0, save_file = None):
     Args:
         node_num (int): the number of nodes in the simulation
         env_label (int): the label of the environment 
-                        0 : For normal backgtound noise, default -85
-                        1 : For medium background noise, -80 
-                        2 : For High background noise, -75
+                        0 : For normal backgtound noise, default -87
+                        1 : For medium background noise, -85
+                        2 : For High background noise, -83
     """
     csv_generator = CSC_generator()
     csv_generator.reset()
-    csv_generator.set_bg_noise_mean(-90 + env_label * 5)
+    csv_generator.set_bg_noise_mean(-87 + env_label * 2)
     node_map = generate_node_map(node_num)
     for i,(x,y) in node_map.items():
         if i == 1:

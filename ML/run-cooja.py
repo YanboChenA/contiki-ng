@@ -7,6 +7,7 @@ from generate_csc import CSC_generator
 from generate_event import * 
 import random
 import json
+import numpy as np
 
 # get the path of this example
 SELF_PATH = os.path.dirname(os.path.abspath(__file__))
@@ -149,30 +150,34 @@ def generate_csc_file(node_num = 8, env_label = 0):
     csv_generator.save(cooja_input)
     return node_map
             
-def generate_node_map(num):
-    """Generate a map of nodes with random x and y coordinates, and the node should not far away the neighbor more than 20.
-
-    Args:
-        num (int): number of nodes
-
-    Returns:
-        dict: node_map: {node_id: (x, y)}
+def generate_node_map(n, x_lim = 100, y_lim = 100):
+    """Each nodes' 40m area should not have any other nodes, and there should be at least one node in the area of 60m
     """
-    # set random seed
-    # random.seed(1)
+    def distance(x1, y1, x2, y2):
+        return np.sqrt((x1-x2)**2 + (y1-y2)**2)
+    
+    def check_node(distance_to_others, close_limit = 40, far_limit = 60):
+        # No node should be too close to others
+        if min(distance_to_others) < close_limit:
+            return False
+        # At least one node should be in the area of 60m
+        if min(distance_to_others) > far_limit:
+            return False
+        return True
     node_map = {}
-    for i in range(1,num+1):
-        if i == 1:
-            # sink node
-            node_map[i] = (0, 0)
-            continue
+    for index in range(1,n+1):
+        if index == 1:
+            node_map[index] = (0, 0)
         else:
-
-            #  x and y coordinate: float in range (0, 100)
-            x_coordinate = random.uniform(-75, 75)
-            y_coordinate = random.uniform(-75, 75)
-
-            node_map[i] = (x_coordinate, y_coordinate)
+            while True:
+                x = random.uniform(-x_lim, x_lim)
+                y = random.uniform(-y_lim, y_lim)
+                distance_to_others = []
+                for node,(a,b) in node_map.items():
+                    distance_to_others.append(distance(x,y,a,b))
+                if check_node(distance_to_others):
+                    node_map[index] = (x,y)
+                    break
     return node_map
 
 def save_json(node_map, label_list, env_labal, save_time):
@@ -240,7 +245,8 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    for i in range(1):
+    for i in range(10):
         print("Current runtimes:", i)
         node_num,env_label = generate_random_node_num_and_env_label()
-        run_simulation(8, env_label)
+        run_simulation(10, 0)
+        

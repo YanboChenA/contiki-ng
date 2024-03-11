@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 10:05:02
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-11 10:51:34
+LastEditTime: 2024-03-11 11:34:46
 FilePath: \contiki-ng\ML\data.py
 Description: 
 '''
@@ -56,6 +56,16 @@ class LogDataset(InMemoryDataset):
 
     def process(self):
         for raw_file_name in self.raw_file_names:
+            # check if the processed file already exists
+            processed_file_name = f"processed_{raw_file_name.replace('.testlog', '.pt')}"
+            processed_file_path = os.path.join(self.processed_dir, processed_file_name)
+            if os.path.exists(processed_file_path):
+                print(f"File {processed_file_name} already exists, skipping...")
+                continue
+            else:
+                print(f"Processing file {raw_file_name}...")
+            
+
             # Initialize an empty list to store the data objects
             data_list = []
             
@@ -121,8 +131,9 @@ class LogDataset(InMemoryDataset):
             data, slices = self.collate(data_list)
 
             # Save the processed data to the processed_dir
-            processed_file_name = f"processed_{raw_file_name.replace('.testlog', '.pt')}"
-            torch.save((data, slices), os.path.join(self.processed_dir, processed_file_name))
+            # processed_file_name = f"processed_{raw_file_name.replace('.testlog', '.pt')}"
+            # torch.save((data, slices), os.path.join(self.processed_dir, processed_file_name))
+            torch.save((data, slices), processed_file_path)
 
 if __name__ == "__main__":
     root = "F:/Course/year_4/Individual_Researching/contiki-ng/data"

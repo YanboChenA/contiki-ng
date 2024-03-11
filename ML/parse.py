@@ -2,13 +2,16 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-11 10:12:39
+LastEditTime: 2024-03-11 11:37:51
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
 
 import re
 import numpy as np
+
+import warnings
+warnings.filterwarnings('ignore', category=RuntimeWarning, message='invalid value encountered in divide')
 
 tx_re_pattern = r".*\{asn (.*?) link\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+ch\s+(\d+)\}\s+(.*?)-(\d+)-(\d+)\s+tx\s+LL-(.*?)->LL-(.*?),\s+len\s+(\d+),\s+seq\s+(\d+),\s+st\s+(\d+)\s+(\d+)"
 rx_re_pattern = r".*\{asn (.*?) link\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)\s+ch\s+(\d+)\}\s+(.*?)-(\d+)-(\d+)\s+rx\s+LL-(.*?)->LL-(.*?),\s+len\s+(\d+),\s+seq\s+(\d+),\s+edr\s+(\d+)"

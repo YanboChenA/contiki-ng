@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-03-11 10:09:30
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-11 10:29:42
+LastEditTime: 2024-03-11 16:35:06
 FilePath: \contiki-ng\ML\visualizer.py
 Description: 
 '''
@@ -52,9 +52,13 @@ if __name__ == '__main__':
     with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\data\label\2024-03-10_21-23-45.json", 'r') as file:
         data = json.load(file)
 
-    node_map = data['node_map']
-    visualizer = Visualizer(node_map, features)
-    visualizer.show_node_map()
-    visualizer.show_graph_tsch()
+    print(features.node_features.shape)
+    print(len(features.edge_features_IPv6[1][0]))
+    print(features.edge_features_tsch[1])
+
+    # node_map = data['node_map']
+    # visualizer = Visualizer(node_map, features)
+    # visualizer.show_node_map()
+    # visualizer.show_graph_tsch()
 
     

@@ -2,6 +2,14 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
+LastEditTime: 2024-03-12 16:24:09
+FilePath: \contiki-ng\ML\parse.py
+Description: 
+'''
+'''
+Author: Yanbo Chen xt20786@bristol.ac.uk
+Date: 2024-02-22 13:59:08
+LastEditors: YanboChenA xt20786@bristol.ac.uk
 LastEditTime: 2024-03-11 11:37:51
 FilePath: \contiki-ng\ML\parse.py
 Description: 
@@ -132,8 +140,8 @@ class NodeStats:
         # return the node's status in the index as a list
         return list(self.node_status[index].values())
 
-class Features:
-    """Get the features from the log used for the training data, include the node features, and edge features
+class Analysis:
+    """Analysis the log file, and get the statistics of the log file,
     Node features include:
         Node information:
             CPU usage
@@ -490,7 +498,25 @@ class Features:
         self.edge_index_IPv6 = edge_index_IPv6
         self.edge_index_tsch = edge_index_tsch
   
-                                           
+    def calculate_loss_and_delay(self):
+        """Calculate the loss and delay for analysising the network's performance, from calculated features
+        Loss: ( total packets sent in tsch - total packets received in tsch ) / total packets sent in tsch
+        Delay: average delay for the IPv6 packets
+        """
+        loss = np.zeros(120)
+        delay = np.zeros(120)
+        for index in range(120):
+            # Calculate loss
+            # In node_features, the 18th feature is the num of send tsch links, the 19th feature is the num of receive tsch links
+            tsch_send_num = np.sum(self.node_features[:,18,index]*self.node_features[:,14,index])
+            tsch_recv_num = np.sum(self.node_features[:,19,index])
+
+            loss[index] = (tsch_send_num - tsch_recv_num) / tsch_send_num if tsch_send_num != 0 else 0
+            # Delay
+            delay[index] = np.mean(self.node_features[:,4,index])
+
+        self.loss = loss
+        self.delay = delay
        
 class LinkStats:
     """Record the Link's statistics, udp 
@@ -1164,31 +1190,26 @@ if __name__ == '__main__':
 
     filepath = r"F:\Course\year_4\Individual_Researching\contiki-ng\data\raw\2024-03-10_21-23-45.testlog"
     save_path = r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\log.pkl"
-    log = LogParse(log_path=filepath)
-    log.process()
+    # log = LogParse(log_path=filepath)
+    # log.process()
         
     # with open(save_path, "wb") as file:
     #     pickle.dump(log, file)
 
-    # with open(save_path, "rb") as file:
-    #     log = pickle.load(file)
+    with open(save_path, "rb") as file:
+        log = pickle.load(file)
 
-    feature = Features(log)
-    feature.calculate_features()
+    analyser = Analysis(log)
+    analyser.calculate_features()
 
-    with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\feature.pkl", "wb") as file:
-        pickle.dump(feature, file)
+    # with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\feature.pkl", "wb") as file:
+    #     pickle.dump(analyser, file)
 
-    print(feature.node_features[:,:,9])
+    # print(analyser.node_features[:,:,9])
 
-    print(feature.edge_index_IPv6[7])
-    print(feature.edge_features_IPv6[7])
+    # print(analyser.edge_index_IPv6[7])
+    # print(analyser.edge_features_IPv6[7])
 
-    # import torch
-    # index = 7
-    # node_feature = torch.tensor(feature.node_features[:,:,index])
-    # edge_index = torch.tensor(feature.edge_index_IPv6[index])
-    # edge_feature = torch.tensor(feature.edge_features_IPv6[index])
+    analyser.calculate_loss_and_delay()
 
-    # print(node_feature)
-    
+    print(analyser.loss, analyser.delay)

@@ -77,6 +77,10 @@ tests/18-coap-lwm2m/leshan-server-demo*.jar
 year4_IRP/*
 *.conda_trash
 .conda/
+*.pkl
+ML/__pycache__/*
+*.pyc
+*.pt
 
 # do not ignore files in /data/raw/
 !data/raw/*

@@ -140,7 +140,7 @@ def generate_csc_file(node_num = 8, env_label = 0):
     """
     csv_generator = CSC_generator()
     csv_generator.reset()
-    csv_generator.set_bg_noise_mean(-85 + env_label * 5)
+    csv_generator.set_bg_noise_mean(-87 + env_label * 2)
     node_map = generate_node_map(node_num)
     for i,(x,y) in node_map.items():
         if i == 1:
@@ -156,7 +156,7 @@ def generate_node_map(n, x_lim = 100, y_lim = 100):
     def distance(x1, y1, x2, y2):
         return np.sqrt((x1-x2)**2 + (y1-y2)**2)
     
-    def check_node(distance_to_others, close_limit = 40, far_limit = 60):
+    def check_node(distance_to_others, close_limit = 35, far_limit = 50):
         # No node should be too close to others
         if min(distance_to_others) < close_limit:
             return False
@@ -218,7 +218,7 @@ def run_simulation(node_num=8,env_label=0):
     execute_test(cooja_input,save_time)
     
 def generate_random_node_num_and_env_label():
-    node_num = random.randint(8,16)
+    node_num = random.randint(8,12)
     env_label = random.randint(0,2)
     return node_num, env_label
     
@@ -245,8 +245,8 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    for i in range(10):
-        print("Current runtimes:", i)
+    for i in range(15):
         node_num,env_label = generate_random_node_num_and_env_label()
-        run_simulation(10, 0)
+        print(f"Current runtimes: {i}, node_num: {node_num}, env_label: {env_label}")
+        run_simulation(node_num, env_label)
         

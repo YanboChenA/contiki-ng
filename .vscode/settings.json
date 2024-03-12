@@ -12,5 +12,6 @@
         "radio.h": "c",
         "packetbuf.h": "c"
     },
-    "python.REPL.enableREPLSmartSend": false
+    "python.REPL.enableREPLSmartSend": false,
+    "dotnet.defaultSolution": "disable"
 }

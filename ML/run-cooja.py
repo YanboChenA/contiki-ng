@@ -217,10 +217,10 @@ def run_simulation(node_num=8,env_label=0):
     save_json(node_map, label_list, env_label, save_time)
     execute_test(cooja_input,save_time)
     
-def generate_random_node_num_and_env_label():
-    node_num = random.randint(8,12)
-    env_label = random.randint(0,2)
-    return node_num, env_label
+def generate_random_node_num_and_env_label(node_num = None, env_label = None):
+    Node_num = random.randint(8,12) if node_num is None else node_num
+    Env_label = random.randint(0,2) if env_label is None else env_label
+    return Node_num, Env_label
     
 #######################################################
 # Run the application
@@ -245,7 +245,7 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    for i in range(15):
+    for i in range(5):
         node_num,env_label = generate_random_node_num_and_env_label()
         print(f"Current runtimes: {i}, node_num: {node_num}, env_label: {env_label}")
         run_simulation(node_num, env_label)

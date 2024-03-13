@@ -245,7 +245,7 @@ def main():
 
 if __name__ == '__main__':
     # main()
-    for i in range(5):
+    for i in range(20):
         node_num,env_label = generate_random_node_num_and_env_label()
         print(f"Current runtimes: {i}, node_num: {node_num}, env_label: {env_label}")
         run_simulation(node_num, env_label)

@@ -18,4 +18,4 @@ ifeq ($(MAKE_WITH_SECURITY),1)
 CFLAGS += -DWITH_SECURITY=1
 endif
 
-include $(CONTIKI)/Makefile.include
+include $(CONTIKI)/Makefile.include   

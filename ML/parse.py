@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-12 16:24:09
+LastEditTime: 2024-03-15 20:25:41
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''
@@ -140,8 +140,8 @@ class NodeStats:
         # return the node's status in the index as a list
         return list(self.node_status[index].values())
 
-class Analysis:
-    """Analysis the log file, and get the statistics of the log file,
+class LogAnalysis:
+    """LogAnalysis the log file, and get the statistics of the log file,
     Node features include:
         Node information:
             CPU usage
@@ -1199,17 +1199,25 @@ if __name__ == '__main__':
     with open(save_path, "rb") as file:
         log = pickle.load(file)
 
-    analyser = Analysis(log)
+    analyser = LogAnalysis(log)
     analyser.calculate_features()
+
 
     # with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\feature.pkl", "wb") as file:
     #     pickle.dump(analyser, file)
 
-    # print(analyser.node_features[:,:,9])
+    data = analyser.node_features[:,:,9]
+    import torch
+    data = torch.tensor(data)
+    print(torch.max(data, dim=0))
+
+    # 假设我只需要按照每列来获得最大值
+    # print(np.max(data,axis=0))
+    # print( np.max(np.max(analyser.node_features,axis=0),axis = 1))
 
     # print(analyser.edge_index_IPv6[7])
     # print(analyser.edge_features_IPv6[7])
 
-    analyser.calculate_loss_and_delay()
+    # analyser.calculate_loss_and_delay()
 
-    print(analyser.loss, analyser.delay)
+    # print(analyser.loss, analyser.delay)

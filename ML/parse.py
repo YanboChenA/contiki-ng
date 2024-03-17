@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-17 15:56:32
+LastEditTime: 2024-03-17 16:00:29
 FilePath: /contiki-ng/ML/parse.py
 Description: 
 '''
@@ -1190,8 +1190,9 @@ if __name__ == '__main__':
 
     # filepath = r"F:\Course\year_4\Individual_Researching\contiki-ng\data\raw\2024-03-10_21-23-45.testlog"
     # save_path = r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\log.pkl"
-    # log = LogParse(log_path=filepath)
-    # log.process()
+    log = LogParse(log_path="/home/yanbo/contiki-ng/data1/raw/2024-03-17_15-46-55.testlog")
+    log.process()
+
         
     # with open(save_path, "wb") as file:
     #     pickle.dump(log, file)
@@ -1199,16 +1200,16 @@ if __name__ == '__main__':
     # with open(save_path, "rb") as file:
     #     log = pickle.load(file)
 
-    analyser = Analysis(log)
+    analyser = LogAnalysis(log)
     analyser.calculate_features()
 
     # with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\feature.pkl", "wb") as file:
     #     pickle.dump(analyser, file)
 
     data = analyser.node_features[:,:,9]
-    import torch
-    data = torch.tensor(data)
-    print(torch.max(data, dim=0))
+    # import torch
+    # data = torch.tensor(data)
+    # print(torch.max(data, dim=0))
 
     # 假设我只需要按照每列来获得最大值
     # print(np.max(data,axis=0))
@@ -1217,6 +1218,6 @@ if __name__ == '__main__':
     # print(analyser.edge_index_IPv6[7])
     # print(analyser.edge_features_IPv6[7])
 
-    # analyser.calculate_loss_and_delay()
+    analyser.calculate_loss_and_delay()
 
     print(analyser.loss, analyser.delay)

@@ -84,7 +84,15 @@ ML/__pycache__/*
 
 # do not ignore files in /data/raw/
 !data/raw/*
+!data/label/*
+!data1/raw/*
+!data1/label/*
 
-# ignore all files in the data directory
-# data/sensor_data/*
-# data/temp_data/sensor_data.c
+data/raw data/raw/2024-03-16_20-51-07.testlog 
+data/raw/2024-03-16_21-29-47.testlog 
+data/raw/2024-03-16_22-00-54.testlog 
+data/raw/with_orchestra_root.testlog 
+data/raw/with_orchestra_root1.testlog 
+data/raw/with_orchestra_root2.testlog 
+data/raw/with_orchestra.testlog 
+data/raw/without_orchestra.testlog

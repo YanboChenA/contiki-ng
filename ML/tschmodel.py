@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 from torch_geometric.nn import GATConv, global_mean_pool
-import torchvision.transforms as transforms  # 导入torchvision.transforms模块
 
 class TSCH_NN(nn.Module):
     def __init__(self, node_feature_dim=20, out_dim=64, num_classes=3, dropout=0.5):
@@ -9,9 +8,9 @@ class TSCH_NN(nn.Module):
 
         # Model parameters
         N_Heads = 8
-        hidden_dim1 = 128
-        hidden_dim2 = 64  # Increase hidden layer units
-        hidden_dim3 = 32  # Increase hidden layer units
+        hidden_dim1 = 128  # Increase the number of hidden layer nodes
+        hidden_dim2 = 64
+        hidden_dim3 = 32  # Increase the number of hidden layer nodes
 
         # GAT layers for IPv6 links
         self.GAT_ipv6 = GATConv(in_channels=node_feature_dim,
@@ -47,29 +46,15 @@ class TSCH_NN(nn.Module):
         # Dropout layer
         self.dropout = nn.Dropout(dropout)
 
-        # Activation functions
-        self.activation1 = nn.ReLU()
-        self.activation2 = nn.ELU()
-        self.activation3 = nn.SiLU()  # Swish activation function
+        # Initialize LeakyReLU activation function
+        self.leakyrelu = nn.LeakyReLU(0.1)
 
         # L2 regularization
         self.l2_loss = nn.MSELoss()
 
-        # Loss function
-        self.loss_function = nn.CrossEntropyLoss()
-
-        # Data augmentation
-        self.data_augmentation = transforms.Compose([
-            transforms.RandomRotation(degrees=15),  # 使用torchvision.transforms中的RandomRotation
-            transforms.RandomResizedCrop(size=(224, 224), scale=(0.8, 1.0)),
-            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomVerticalFlip(),
-            transforms.GaussianBlur(kernel_size=3)
-        ])
-
     def forward(self, data):
         x = data.x
+        batch = data.batch
         edge_index_ipv6 = data.edge_index_IPv6
         edge_attr_ipv6 = data.edge_attr_IPv6
         edge_index_tsch = data.edge_index_TSCH
@@ -85,22 +70,29 @@ class TSCH_NN(nn.Module):
 
         # Feature fusion
         nodes_fused = torch.cat([nodes_ipv6, nodes_tsch], dim=-1)
+        nodes_fused = self.leakyrelu(nodes_fused)
 
         # Additional hidden layers
-        nodes_fused = self.activation1(self.hidden1(nodes_fused))
+        nodes_fused = self.leakyrelu(self.hidden1(nodes_fused))
         nodes_fused = self.dropout(nodes_fused)
-        nodes_fused = self.activation2(self.hidden2(nodes_fused))
+        nodes_fused = self.leakyrelu(self.hidden2(nodes_fused))
         nodes_fused = self.dropout(nodes_fused)
-        nodes_fused = self.activation3(self.hidden3(nodes_fused))
+        nodes_fused = self.leakyrelu(self.hidden3(nodes_fused))
 
         # Apply mean pooling to get graph-level features
-        graph_features = global_mean_pool(nodes_fused, data.batch)
+        graph_features = global_mean_pool(nodes_fused, batch)
 
         # Predict graph-level labels
         out_event = self.classifier_event(graph_features)
         out_env = self.classifier_env(graph_features)
 
-        # Calculate L2 loss
+        # Calculate L2 regularization loss
         l2_loss = self.l2_loss(graph_features, torch.zeros_like(graph_features))
 
+        # Return outputs and L2 regularization loss
         return out_event, out_env, l2_loss
+
+
+
+
+

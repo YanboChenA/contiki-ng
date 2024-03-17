@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 10:05:02
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-17 15:33:54
+LastEditTime: 2024-03-17 19:05:42
 FilePath: \contiki-ng\ML\data.py
 Description: 
 '''
@@ -45,11 +45,13 @@ class LogTransform(BaseTransform):
         return data
 
 class LogDataset(InMemoryDataset):
-    def __init__(self, root, transform=None, pre_transform=None):
+    def __init__(self, root, transform=None, pre_transform=None, mode = "env"):
         self._root = root
+        self.mode = mode
         super(LogDataset, self).__init__(root, transform, pre_transform)
         # self.data, self.slices, data_list = torch.load(self.processed_paths[0])
         self.load_processed_data()
+        
 
     def load_processed_data(self):
         self.data_list = []
@@ -61,10 +63,13 @@ class LogDataset(InMemoryDataset):
             # for data in data_list:
             #     if data.y_event!= 0:
             #         new_data_list.append(data)
-            for _data in data_list:
-                _data.y_event = torch.tensor([0], dtype=torch.long) if _data.y_event == 0 else torch.tensor([1], dtype=torch.long)
-                if _data.y_env == 0:
-                    self.data_list.append(_data)
+################################################################################################           
+# ENV Train 
+            if self.mode == "env":
+                for _data in data_list:
+                    if _data.y_event == 0:
+                        self.data_list.append(_data)
+################################################################################################            
         self.data, self.slices = self.collate(self.data_list)
 
     @property
@@ -207,14 +212,6 @@ if __name__ == "__main__":
 
     # transform = LogTransform()
     dataset = LogDataset(root,pre_transform=LogTransform())
-    from torch_geometric.loader import DataLoader
-    loader = DataLoader(dataset, batch_size=1, shuffle=True)
-
-    for data in loader:
-        x = torch.mean(data.x, dim=0)
-        print(x,data.y_event)
-        
-
 
 
 

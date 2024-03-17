@@ -1,57 +1,106 @@
-'''
-Author: Yanbo Chen xt20786@bristol.ac.uk
-Date: 2024-03-11 14:37:16
-LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-11 21:06:28
-FilePath: \contiki-ng\ML\tschmodel.py
-Description: 
-'''
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch_geometric.nn import GATConv, global_mean_pool
+import torchvision.transforms as transforms  # 导入torchvision.transforms模块
 
-# class TSCH_NN(torch.nn.Module):
-#     def __init__(self, num_node_features = 20, num_edge_features_ipv6 = 19, num_edge_features_tsch = 7, num_classes =3):
 class TSCH_NN(nn.Module):
-    def __init__(self, node_feature_dim = 20, edge_feature_dim_ipv6 = 19, edge_feature_dim_tsch = 7, out_dim = 16, num_classes = 3):
+    def __init__(self, node_feature_dim=20, out_dim=64, num_classes=3, dropout=0.5):
         super(TSCH_NN, self).__init__()
-        
-        # GAT层处理IPv6链接
-        self.gat_ipv6 = GATConv(in_channels=node_feature_dim, 
-                                out_channels=out_dim, 
-                                heads=1, 
-                                concat=True, 
-                                edge_dim=edge_feature_dim_ipv6)
-        
-        # GAT层处理TSCH链接
-        self.gat_tsch = GATConv(in_channels=node_feature_dim, 
-                                out_channels=out_dim, 
-                                heads=1, 
-                                concat=True, 
-                                edge_dim=edge_feature_dim_tsch)
-        
-        # 特征融合层
-        self.feature_fusion = nn.Linear(out_dim * 2, out_dim)
-        
-        # 预测图级别标签的层
-        self.classifier_event = nn.Linear(out_dim, num_classes)
-        self.classifier_env = nn.Linear(out_dim, num_classes)
-        
-    def forward(self, x, edge_index_ipv6, edge_attr_ipv6, edge_index_tsch, edge_attr_tsch, batch):
-        # 通过两个GAT层处理节点特征
-        nodes_ipv6 = self.gat_ipv6(x, edge_index_ipv6, edge_attr_ipv6)
-        nodes_tsch = self.gat_tsch(x, edge_index_tsch, edge_attr_tsch)
-        
-        # 特征融合
+
+        # Model parameters
+        N_Heads = 8
+        hidden_dim1 = 128
+        hidden_dim2 = 64  # Increase hidden layer units
+        hidden_dim3 = 32  # Increase hidden layer units
+
+        # GAT layers for IPv6 links
+        self.GAT_ipv6 = GATConv(in_channels=node_feature_dim,
+                                out_channels=out_dim,
+                                heads=N_Heads,
+                                dropout=dropout)
+
+        # GAT layers for TSCH links
+        self.GAT_tsch = GATConv(in_channels=node_feature_dim,
+                                out_channels=out_dim,
+                                heads=N_Heads,
+                                dropout=dropout)
+
+        # Additional GAT layer
+        self.GAT_extra = GATConv(in_channels=out_dim,
+                                 out_channels=out_dim,
+                                 heads=N_Heads,
+                                 dropout=dropout)
+
+        # Feature fusion layers
+        self.feature_fusion_ipv6 = nn.Linear(N_Heads * out_dim, hidden_dim1)
+        self.feature_fusion_tsch = nn.Linear(N_Heads * out_dim, hidden_dim1)
+
+        # More hidden layers
+        self.hidden1 = nn.Linear(hidden_dim1 * 2, hidden_dim2)
+        self.hidden2 = nn.Linear(hidden_dim2, hidden_dim3)
+        self.hidden3 = nn.Linear(hidden_dim3, hidden_dim3)
+
+        # Layers for predicting graph-level labels
+        self.classifier_event = nn.Linear(hidden_dim3, num_classes)
+        self.classifier_env = nn.Linear(hidden_dim3, num_classes)
+
+        # Dropout layer
+        self.dropout = nn.Dropout(dropout)
+
+        # Activation functions
+        self.activation1 = nn.ReLU()
+        self.activation2 = nn.ELU()
+        self.activation3 = nn.SiLU()  # Swish activation function
+
+        # L2 regularization
+        self.l2_loss = nn.MSELoss()
+
+        # Loss function
+        self.loss_function = nn.CrossEntropyLoss()
+
+        # Data augmentation
+        self.data_augmentation = transforms.Compose([
+            transforms.RandomRotation(degrees=15),  # 使用torchvision.transforms中的RandomRotation
+            transforms.RandomResizedCrop(size=(224, 224), scale=(0.8, 1.0)),
+            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+            transforms.GaussianBlur(kernel_size=3)
+        ])
+
+    def forward(self, data):
+        x = data.x
+        edge_index_ipv6 = data.edge_index_IPv6
+        edge_attr_ipv6 = data.edge_attr_IPv6
+        edge_index_tsch = data.edge_index_TSCH
+        edge_attr_tsch = data.edge_attr_TSCH
+
+        # Process node features through GAT layers
+        nodes_ipv6 = self.GAT_ipv6(x, edge_index_ipv6)
+        nodes_tsch = self.GAT_tsch(x, edge_index_tsch)
+
+        # Reduce dimensions of node features before fusion
+        nodes_ipv6 = self.feature_fusion_ipv6(nodes_ipv6)
+        nodes_tsch = self.feature_fusion_tsch(nodes_tsch)
+
+        # Feature fusion
         nodes_fused = torch.cat([nodes_ipv6, nodes_tsch], dim=-1)
-        nodes_fused = F.relu(self.feature_fusion(nodes_fused))
-        
-        # 应用平均池化层得到图级特征
-        graph_features = global_mean_pool(nodes_fused, batch)
-        
-        # 预测图级标签
+
+        # Additional hidden layers
+        nodes_fused = self.activation1(self.hidden1(nodes_fused))
+        nodes_fused = self.dropout(nodes_fused)
+        nodes_fused = self.activation2(self.hidden2(nodes_fused))
+        nodes_fused = self.dropout(nodes_fused)
+        nodes_fused = self.activation3(self.hidden3(nodes_fused))
+
+        # Apply mean pooling to get graph-level features
+        graph_features = global_mean_pool(nodes_fused, data.batch)
+
+        # Predict graph-level labels
         out_event = self.classifier_event(graph_features)
         out_env = self.classifier_env(graph_features)
-        
-        return out_event, out_env
+
+        # Calculate L2 loss
+        l2_loss = self.l2_loss(graph_features, torch.zeros_like(graph_features))
+
+        return out_event, out_env, l2_loss

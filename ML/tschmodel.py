@@ -1,163 +1,106 @@
-'''
-Author: Yanbo Chen xt20786@bristol.ac.uk
-Date: 2024-03-11 14:37:16
-LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-16 00:23:04
-FilePath: \contiki-ng\ML\tschmodel.py
-Description: 
-'''
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-from torch_geometric.nn import GATConv, global_mean_pool, global_max_pool
-import numpy as np
+from torch_geometric.nn import GATConv, global_mean_pool
+import torchvision.transforms as transforms  # 导入torchvision.transforms模块
 
 class TSCH_NN(nn.Module):
-    def __init__(self, node_feature_dim = 20, edge_feature_dim_ipv6 = 19, edge_feature_dim_tsch = 7, out_dim = 16, num_classes = 3):
+    def __init__(self, node_feature_dim=20, out_dim=64, num_classes=3, dropout=0.5):
         super(TSCH_NN, self).__init__()
 
-        N_Heads = 16
-        hidden_dim1 = 64  # 新增的第一个隐藏层维度
-        hidden_dim2 = 32  # 新增的第二个隐藏层维度
-        hidden_dim3 = 16  # 新增的第三个隐藏层维度
-        
-        # GAT层处理IPv6链接
-        self.GAT_ipv6 = GATConv(in_channels=node_feature_dim, 
-                                out_channels=out_dim, 
-                                heads=N_Heads, 
-                                dropout=0.8,
-                                concat=True)
-                                # edge_dim=edge_feature_dim_ipv6)
-        
-        # GAT层处理TSCH链接
-        self.GAT_tsch = GATConv(in_channels=node_feature_dim, 
-                                out_channels=out_dim, 
+        # Model parameters
+        N_Heads = 8
+        hidden_dim1 = 128
+        hidden_dim2 = 64  # Increase hidden layer units
+        hidden_dim3 = 32  # Increase hidden layer units
+
+        # GAT layers for IPv6 links
+        self.GAT_ipv6 = GATConv(in_channels=node_feature_dim,
+                                out_channels=out_dim,
                                 heads=N_Heads,
-                                dropout=0.8,
-                                concat=True)
-                                # edge_dim=edge_feature_dim_tsch)
-        
-        # 特征融合层
-        self.feature_fusion = nn.Linear(N_Heads * out_dim * 2, hidden_dim1)
+                                dropout=dropout)
 
-        # 新增的隐藏层
-        self.hidden1 = nn.Linear(hidden_dim1, hidden_dim2)
+        # GAT layers for TSCH links
+        self.GAT_tsch = GATConv(in_channels=node_feature_dim,
+                                out_channels=out_dim,
+                                heads=N_Heads,
+                                dropout=dropout)
+
+        # Additional GAT layer
+        self.GAT_extra = GATConv(in_channels=out_dim,
+                                 out_channels=out_dim,
+                                 heads=N_Heads,
+                                 dropout=dropout)
+
+        # Feature fusion layers
+        self.feature_fusion_ipv6 = nn.Linear(N_Heads * out_dim, hidden_dim1)
+        self.feature_fusion_tsch = nn.Linear(N_Heads * out_dim, hidden_dim1)
+
+        # More hidden layers
+        self.hidden1 = nn.Linear(hidden_dim1 * 2, hidden_dim2)
         self.hidden2 = nn.Linear(hidden_dim2, hidden_dim3)
-        self.hidden3 = nn.Linear(hidden_dim3, out_dim)
+        self.hidden3 = nn.Linear(hidden_dim3, hidden_dim3)
 
-        # 新增的全连接层
-        self.fc = nn.Linear(hidden_dim3, out_dim)        
-        
-        # 预测图级别标签的层
-        self.classifier_event = nn.Linear(out_dim, num_classes)
-        self.classifier_env = nn.Linear(out_dim, num_classes)
-        
-    def forward(self,data, batch):
+        # Layers for predicting graph-level labels
+        self.classifier_event = nn.Linear(hidden_dim3, num_classes)
+        self.classifier_env = nn.Linear(hidden_dim3, num_classes)
+
+        # Dropout layer
+        self.dropout = nn.Dropout(dropout)
+
+        # Activation functions
+        self.activation1 = nn.ReLU()
+        self.activation2 = nn.ELU()
+        self.activation3 = nn.SiLU()  # Swish activation function
+
+        # L2 regularization
+        self.l2_loss = nn.MSELoss()
+
+        # Loss function
+        self.loss_function = nn.CrossEntropyLoss()
+
+        # Data augmentation
+        self.data_augmentation = transforms.Compose([
+            transforms.RandomRotation(degrees=15),  # 使用torchvision.transforms中的RandomRotation
+            transforms.RandomResizedCrop(size=(224, 224), scale=(0.8, 1.0)),
+            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomVerticalFlip(),
+            transforms.GaussianBlur(kernel_size=3)
+        ])
+
+    def forward(self, data):
         x = data.x
         edge_index_ipv6 = data.edge_index_IPv6
         edge_attr_ipv6 = data.edge_attr_IPv6
         edge_index_tsch = data.edge_index_TSCH
         edge_attr_tsch = data.edge_attr_TSCH
-        
-        
-        # 通过两个GAT层处理节点特征
-        nodes_ipv6 = self.GAT_ipv6(x, edge_index_ipv6, edge_attr_ipv6)
-        nodes_tsch = self.GAT_tsch(x, edge_index_tsch, edge_attr_tsch)
-        
-        # 特征融合
-        nodes_fused = torch.cat([nodes_ipv6, nodes_tsch], dim=-1)
-        nodes_fused = F.relu(self.feature_fusion(nodes_fused))
 
-
-        # 通过额外的隐藏层
-        nodes_fused = F.relu(self.hidden1(nodes_fused))
-        nodes_fused = F.relu(self.hidden2(nodes_fused))
-        nodes_fused = F.relu(self.hidden3(nodes_fused))
-        
-        # 应用平均池化层得到图级特征
-        graph_features = global_mean_pool(nodes_fused, batch)
-        # graph_features = global_mean_pool(nodes_fused, batch)
-        
-        # 预测图级标签
-        out_event = self.classifier_event(graph_features)
-        out_env = self.classifier_env(graph_features)
-        
-        return out_event, out_env
-
-class TSCH_NN_Node(nn.Module):
-    def __init__(self, node_feature_dim=20, out_dim=16, num_classes=3):
-        super(TSCH_NN_Node, self).__init__()
-
-        N_Heads = 4
-        hidden_dim1 = 64  # 第一个隐藏层的维度
-        hidden_dim2 = 32  # 第二个隐藏层的维度
-        hidden_dim3 = 16  # 第三个隐藏层的维度
-        
-        # GAT层处理IPv6链接，注意移除了edge_dim参数
-        self.GAT_ipv6 = GATConv(in_channels=node_feature_dim, 
-                                out_channels=out_dim, 
-                                heads=N_Heads, 
-                                dropout=0.8,
-                                concat=True, 
-                                add_self_loops=True)
-        
-        # 特征融合层
-        self.feature_fusion = nn.Linear(N_Heads * out_dim, hidden_dim1)  # 更新输入维度
-
-        # 隐藏层
-        self.hidden1 = nn.Linear(hidden_dim1, hidden_dim2)
-        self.hidden2 = nn.Linear(hidden_dim2, hidden_dim3)
-        self.hidden3 = nn.Linear(hidden_dim3, out_dim)
-        
-        # 预测图级别标签的层/ use a soft max
-        self.classifier_event = nn.Linear(out_dim, num_classes)
-        self.classifier_env = nn.Linear(out_dim, num_classes)
-
-    def forward(self, data, batch):
-        x = data.x
-        edge_index_ipv6 = data.edge_index_IPv6
-
-        # 通过GAT层处理节点特征，移除对TSCH的引用
+        # Process node features through GAT layers
         nodes_ipv6 = self.GAT_ipv6(x, edge_index_ipv6)
-        
-        # 特征融合（在这个场景下实际上就是直接处理nodes_ipv6的输出）
-        nodes_fused = F.relu(self.feature_fusion(nodes_ipv6))
+        nodes_tsch = self.GAT_tsch(x, edge_index_tsch)
 
-        # 通过额外的隐藏层
-        nodes_fused = F.relu(self.hidden1(nodes_fused))
-        nodes_fused = F.relu(self.hidden2(nodes_fused))
-        nodes_fused = F.relu(self.hidden3(nodes_fused))
-        
-        # 应用平均池化层得到图级特征
-        graph_features = global_mean_pool(nodes_fused, batch)
-        
-        # 预测图级标签
+        # Reduce dimensions of node features before fusion
+        nodes_ipv6 = self.feature_fusion_ipv6(nodes_ipv6)
+        nodes_tsch = self.feature_fusion_tsch(nodes_tsch)
+
+        # Feature fusion
+        nodes_fused = torch.cat([nodes_ipv6, nodes_tsch], dim=-1)
+
+        # Additional hidden layers
+        nodes_fused = self.activation1(self.hidden1(nodes_fused))
+        nodes_fused = self.dropout(nodes_fused)
+        nodes_fused = self.activation2(self.hidden2(nodes_fused))
+        nodes_fused = self.dropout(nodes_fused)
+        nodes_fused = self.activation3(self.hidden3(nodes_fused))
+
+        # Apply mean pooling to get graph-level features
+        graph_features = global_mean_pool(nodes_fused, data.batch)
+
+        # Predict graph-level labels
         out_event = self.classifier_event(graph_features)
         out_env = self.classifier_env(graph_features)
-        
-        return out_event, out_env
-    
-class TSCH_NN_NG(nn.Module):
-    def __init__(self, input_dim =18, output_dim=8, class_num=3):
-        super(TSCH_NN_NG, self).__init__()
 
-        self.fc1 = nn.Linear(input_dim, 32)
+        # Calculate L2 loss
+        l2_loss = self.l2_loss(graph_features, torch.zeros_like(graph_features))
 
-        self.fc2 = nn.Linear(32, 16)
-        self.fc3 = nn.Linear(16, output_dim)
-
-        self.foutput_layer_1 = nn.Linear(output_dim, class_num)
-        # self.foutput_layer_2 = nn.Linear(output_dim, class_num)
-
-    def forward(self, x):
-
-
-        x = F.relu(self.fc1(x))
-        x = F.relu(self.fc2(x))
-        x = F.relu(self.fc3(x))
-
-        output_event = self.foutput_layer_1(x)
-        # output_env = self.foutput_layer_2(x)
-
-        return output_event
-
+        return out_event, out_env, l2_loss

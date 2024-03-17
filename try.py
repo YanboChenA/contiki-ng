@@ -1,3 +1,11 @@
+'''
+Author: Yanbo Chen xt20786@bristol.ac.uk
+Date: 2024-03-13 17:13:32
+LastEditors: YanboChenA xt20786@bristol.ac.uk
+LastEditTime: 2024-03-16 19:41:12
+FilePath: \contiki-ng\try.py
+Description: 
+'''
 import cv2
 import numpy as np
 
@@ -25,11 +33,15 @@ def apply_perspective_transform_and_fill(image_path):
 
     x_offset = 0.45
     y_offset = 0.2
-    New_TL = [0, 0]
+    # New_TL = [0, 0]
+    New_TL = [0, h * 0.25]
     New_BL = [0, h]
     
-    New_TR = [w * x_offset, y_offset * h]
-    New_BR = [w * x_offset, (1 - y_offset) * h]
+    # New_TR = [w * x_offset, y_offset * h]
+    # New_BR = [w * x_offset, (1 - y_offset) * h]
+
+    New_TR = [w * 0.8, 0]
+    New_BR = [w * 0.8, h * 0.75]
 
     dst_points = np.float32([New_TL, New_TR, New_BL, New_BR])
 
@@ -37,14 +49,13 @@ def apply_perspective_transform_and_fill(image_path):
     matrix = cv2.getPerspectiveTransform(src_points, dst_points)
     result = cv2.warpPerspective(image, matrix, (w, h), borderMode=cv2.BORDER_CONSTANT, borderValue=(0,0,0,0))
 
-    # Reshape the figure to fit the result
-    new_h = h
-    new_w = int(w * x_offset)
-    # result = result[:, :new_w]
+    # result delete the right part of the image 
+    result = result[:, :int(w * 0.8)]
 
-    new_fig = np.zeros((new_h, new_w, 4), dtype=np.uint8)
-    new_fig = result[:, :new_w]
-    result = cv2.resize(result, (int(w/2), int(h/2)))
-    cv2.imwrite("result.png", new_fig)
+    cv2.imwrite("result.png", result)
 
-apply_perspective_transform_and_fill("Figure_1.png") # 将图像向右旋转90度
+    cv2.imshow("result", result)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+
+apply_perspective_transform_and_fill("Figure_3.png") # 将图像向右旋转90度 

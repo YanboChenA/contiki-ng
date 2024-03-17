@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-15 20:25:41
+LastEditTime: 2024-03-16 17:04:36
 FilePath: \contiki-ng\ML\parse.py
 Description: 
 '''

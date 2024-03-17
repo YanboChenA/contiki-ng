@@ -2,7 +2,7 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 10:05:02
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-15 21:01:54
+LastEditTime: 2024-03-17 15:33:54
 FilePath: \contiki-ng\ML\data.py
 Description: 
 '''
@@ -32,7 +32,7 @@ class LogTransform(BaseTransform):
     def custom_node_feature_lim(self, data):
         # two list, one is the upper limit, the other is the lower limit
         # recalculate the node features, 使得节点特征被归一化，使得每个特征的值在0-1之间
-        node_features = data.x
+        node_features = data.x                                                                                                                                         
         upper_limit = [1,       1,      1,      1,
                        1e3,     1e7,    1e2,    1e2,
                        1e1,     1e1,    1e3,    1e3,
@@ -62,7 +62,8 @@ class LogDataset(InMemoryDataset):
             #     if data.y_event!= 0:
             #         new_data_list.append(data)
             for _data in data_list:
-                if _data.y_env !=0:
+                _data.y_event = torch.tensor([0], dtype=torch.long) if _data.y_event == 0 else torch.tensor([1], dtype=torch.long)
+                if _data.y_env == 0:
                     self.data_list.append(_data)
         self.data, self.slices = self.collate(self.data_list)
 
@@ -206,6 +207,14 @@ if __name__ == "__main__":
 
     # transform = LogTransform()
     dataset = LogDataset(root,pre_transform=LogTransform())
+    from torch_geometric.loader import DataLoader
+    loader = DataLoader(dataset, batch_size=1, shuffle=True)
+
+    for data in loader:
+        x = torch.mean(data.x, dim=0)
+        print(x,data.y_event)
+        
+
 
 
 

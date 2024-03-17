@@ -12,8 +12,8 @@
 #include "net/packetbuf.h"
 #include "sys/energest.h"
 
-// #include "net/routing/rpl-lite/rpl.h"
-// #include "net/rpl/rpl-private.h"
+#include "net/mac/tsch/tsch-schedule.h"
+#include "orchestra.h"
 
 #include "events.h" 
 
@@ -26,6 +26,26 @@
 #define PACKET_SIZE 100 // Default data size
 #define SEND_INTERVAL (10 * CLOCK_SECOND) // Default send interval
 #define LOG_INTERVAL (30 * CLOCK_SECOND) // Default log interval
+
+// static void adjust_uc_links() {
+//     network_condition_t condition = get_network_condition();
+//     const linkaddr_t *node_address = &linkaddr_node_addr; // 使用当前节点地址作为示例
+//     uint16_t timeslot = get_node_timeslot(node_address);
+//     uint8_t link_options = LINK_OPTION_RX | LINK_OPTION_TX | UNICAST_SLOT_SHARED_FLAG;
+//     uint16_t channel_offset = get_node_channel_offset(node_address);
+
+//     if(condition == NETWORK_CONDITION_HIGH) {
+//         // 增加uc-link
+//         if(!tsch_is_link_in_schedule(timeslot, channel_offset)) {
+//             tsch_schedule_add_link(sf_unicast, link_options, LINK_TYPE_NORMAL, node_address,
+//                                    timeslot, channel_offset, 1);
+//         }
+//     } else if(condition == NETWORK_CONDITION_LOW) {
+//         // 减少uc-link
+//         tsch_schedule_remove_link_by_timeslot(sf_unicast, timeslot);
+//     }
+//     // 对于NETWORK_CONDITION_MEDIUM，可以选择维持当前状态或实施其他逻辑
+// }
 
 
 static struct simple_udp_connection udp_conn;
@@ -197,6 +217,9 @@ PROCESS_THREAD(sensor_node_process, ev, data) {
         //     etimer_set(&log_timer, LOG_INTERVAL);
         //     log_index++;
         // }
+
+        // linkaddr_t* parent_addr = tsch_queue_get_time_source();
+        // add_uc_link(parent_addr);
     }
     PROCESS_END();
 }

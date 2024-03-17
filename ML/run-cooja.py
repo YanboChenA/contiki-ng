@@ -24,12 +24,14 @@ CSC_PATH = os.path.normpath(os.path.join(CONTIKI_PATH, "IRP", "Node_with_config"
 COOJA_PATH = os.path.normpath(os.path.join(CONTIKI_PATH, "tools", "cooja"))
 # print("COOJA_PATH:", COOJA_PATH)
 
+data_path = 'data1'
+
 # contiki-ng/data/raw as the log save path
-RAW_PATH = os.path.join(CONTIKI_PATH, "data", "raw")
+RAW_PATH = os.path.join(CONTIKI_PATH, data_path, "raw")
 # print("RAW_PATH:", RAW_PATH)
 
 # contiki-ng/data/label as the json config path
-LABEL_PATH = os.path.join(CONTIKI_PATH, "data", "label")
+LABEL_PATH = os.path.join(CONTIKI_PATH, data_path, "label")
 
 # cooja_input = 'cooja.csc'
 cooja_input = os.path.join(CSC_PATH, 'cooja.csc')
@@ -246,7 +248,7 @@ def main():
 if __name__ == '__main__':
     # main()
     for i in range(20):
-        node_num,env_label = generate_random_node_num_and_env_label()
+        node_num,env_label = generate_random_node_num_and_env_label(node_num = 8,env_label = 0)
         print(f"Current runtimes: {i}, node_num: {node_num}, env_label: {env_label}")
         run_simulation(node_num, env_label)
         

@@ -1,3 +1,11 @@
+'''
+Author: Yanbo Chen xt20786@bristol.ac.uk
+Date: 2024-03-10 18:49:06
+LastEditors: YanboChenA xt20786@bristol.ac.uk
+LastEditTime: 2024-03-17 15:44:34
+FilePath: /contiki-ng/ML/generate_event.py
+Description: 
+'''
 import os
 import random
 
@@ -11,10 +19,10 @@ def generate_events(labels):
     current_time = 0  # Start time for the first label event
     label_interbal = 30  # Seconds
     
-    default_interval = (8,12)
+    default_interval = (15,18)
     default_packet_size = (50,60)
     
-    medium_interval = (5,8)
+    medium_interval = (8,12)
     medium_packet_size = (60,70)
     
     high_interval = (2,5)
@@ -94,10 +102,12 @@ def generate_events_h(event_list, output_file):
   
 
 if __name__ == "__main__":
-    folder = "/home/yanbo/contiki-ng/IRP/Node_with_config/configs"
-    # json_file = os.path.join(folder, "config.json")
-    output_file = os.path.join(folder, "events.h")
-    node_num = 8
-    labels = generate_labels()
-    event_list = generate_random_load_events(node_num, labels)
+    save_folder = f"/home/yanbo/contiki-ng/IRP/event_files"
+    import os
+
+    labels = [2 for _ in range(120)]
+    event_list = generate_events(labels)
+    output_file = os.path.join(save_folder, "event_HL.h")
     generate_events_h(event_list, output_file)
+
+

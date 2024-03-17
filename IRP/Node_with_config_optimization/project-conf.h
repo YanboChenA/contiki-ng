@@ -10,7 +10,7 @@
 #define SICSLOWPAN_CONF_FRAG 1
 #define SICSLOWPAN_CONF_FRAGMENT_BUFFERS 8
 #define SICSLOWPAN_CONF_MAX_ADDR_CONTEXTS 2
-#define UIP_CONF_BUFFER_SIZE 160
+#define UIP_CONF_BUFFER_SIZE 1000
 
 /*******************************************************/
 /******************* Configure TSCH ********************/
@@ -50,7 +50,9 @@
 #endif
 #define TSCH_LOG_CONF_PER_SLOT                     1
 
-#define ENERGEST_CONF_ON                           1
+#define ENERGEST_CONF_ON                           1         
+
+
+
 
 #endif /* PROJECT_CONF_H_ */
-

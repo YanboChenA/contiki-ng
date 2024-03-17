@@ -2,8 +2,8 @@
 Author: Yanbo Chen xt20786@bristol.ac.uk
 Date: 2024-02-22 13:59:08
 LastEditors: YanboChenA xt20786@bristol.ac.uk
-LastEditTime: 2024-03-12 16:24:09
-FilePath: \contiki-ng\ML\parse.py
+LastEditTime: 2024-03-16 21:03:36
+FilePath: /contiki-ng/ML/parse.py
 Description: 
 '''
 '''
@@ -777,13 +777,13 @@ class LogParse:
                 self.find_link_path(IPv6_src, IPv6_dst, sublinks)
                 self.nodes[node_index].IPv6_links[seqnum].sub_links = self.all_paths
         
-    def find_link_path(self, src, dst, sublinks, current_path=[]):
+    def find_link_path(self, src, dst, sublinks, current_path=[], max_hop = 3):
         # If the current node is equal to the destination node, we have found a path
         if src == dst:
             for link in current_path:
                 self.all_paths.append(link)
             return
-        if len(current_path) >= len(sublinks) or len(sublinks) == 0:
+        if len(current_path) > max_hop or len(sublinks) == 0:
             return
         
         # Check the sublinks from the current node
@@ -812,7 +812,7 @@ class LogParse:
     def analyse_log(self):
         """Process the log file, and save the information to the self.nodes and self.tsch_links
         """
-        print("Processing the log ")
+        print("\nProcessing the log ")
         for line_index, line in enumerate(self.lines):
             print_process_bar("Processing", line_index / len(self.lines))
             line = line.strip()
@@ -906,7 +906,7 @@ class LogParse:
                 continue
 
             # 8467000 4 [INFO: TSCH      ] send packet to 0001.0001.0001.0001 with seqno 67, queue 1/64 1/64, len 21 100
-            if "send packet to" in line and "queue" in line:
+            if "send packet to" in line and "queue" in line and "can't" not in line:
                 dst_link_layer_addr = fields[-10]
                 dst_node = self.MAC_2_Node(dst_link_layer_addr)
                 seqnum = 0 if int(fields[-7][:-1]) == 65535 else int(fields[-7][:-1])
@@ -1188,19 +1188,19 @@ def print_process_bar(content, percentage):
 if __name__ == '__main__':
     import pickle
 
-    filepath = r"F:\Course\year_4\Individual_Researching\contiki-ng\data\raw\2024-03-10_21-23-45.testlog"
-    save_path = r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\log.pkl"
+    # filepath = r"F:\Course\year_4\Individual_Researching\contiki-ng\data\raw\2024-03-10_21-23-45.testlog"
+    # save_path = r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\log.pkl"
     # log = LogParse(log_path=filepath)
     # log.process()
         
     # with open(save_path, "wb") as file:
     #     pickle.dump(log, file)
 
-    with open(save_path, "rb") as file:
-        log = pickle.load(file)
+    # with open(save_path, "rb") as file:
+    #     log = pickle.load(file)
 
-    analyser = Analysis(log)
-    analyser.calculate_features()
+    # analyser = Analysis(log)
+    # analyser.calculate_features()
 
     # with open(r"F:\Course\year_4\Individual_Researching\contiki-ng\ML\feature.pkl", "wb") as file:
     #     pickle.dump(analyser, file)
@@ -1210,6 +1210,6 @@ if __name__ == '__main__':
     # print(analyser.edge_index_IPv6[7])
     # print(analyser.edge_features_IPv6[7])
 
-    analyser.calculate_loss_and_delay()
+    # analyser.calculate_loss_and_delay()
 
-    print(analyser.loss, analyser.delay)
+    # print(analyser.loss, analyser.delay)

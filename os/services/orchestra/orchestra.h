@@ -1,4 +1,12 @@
 /*
+ * @Author: Yanbo Chen xt20786@bristol.ac.uk
+ * @Date: 2024-03-10 18:49:07
+ * @LastEditors: YanboChenA xt20786@bristol.ac.uk
+ * @LastEditTime: 2024-03-16 20:41:17
+ * @FilePath: /contiki-ng/os/services/orchestra/orchestra.h
+ * @Description: 
+ */
+/*
  * Copyright (c) 2015, Swedish Institute of Computer Science.
  * All rights reserved.
  *
@@ -60,6 +68,7 @@ extern struct orchestra_rule unicast_per_neighbor_rpl_ns;
 extern struct orchestra_rule unicast_per_neighbor_link_based;
 extern struct orchestra_rule special_for_root;
 extern struct orchestra_rule default_common;
+extern struct orchestra_rule unicast_per_neighbor_HL;
 
 extern linkaddr_t orchestra_parent_linkaddr;
 extern int orchestra_parent_knows_us;
